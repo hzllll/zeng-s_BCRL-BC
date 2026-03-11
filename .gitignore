@@ -1,0 +1,70 @@
+# ==========================
+# 1. Python & 系统通用忽略
+# ==========================
+# 忽略所有目录下的 __pycache__ (比原本的更强)
+**/__pycache__/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.env
+.ipynb_checkpoints/
+.DS_Store
+
+# ==========================
+# 2. IDE/编辑器配置 (结合了你的旧配置)
+# ==========================
+# PyCharm / IntelliJ
+.idea/
+**/.idea/
+*.iml
+/shelf/
+/workspace.xml
+
+# VS Code
+.vscode/
+*.swp
+
+# ==========================
+# 3. 深度学习模型与权重
+# ==========================
+# 忽略各种格式的模型文件
+*.pth
+*.pt
+*.ckpt
+*.pkl
+*.h5
+
+# 忽略检查点文件夹
+checkpoints/    # 通用命名
+checkpoints1/   # ★当前项目特定命名 (必须加这个)
+Transformer_checkpoints/
+models/
+
+# ==========================
+# 4. 数据集与大文件
+# ==========================
+# 忽略大型数据文件
+*.npy
+*.npz
+*.csv
+
+# 忽略数据文件夹
+data/           # 通用命名
+data0206/       # ★当前项目特定命名 (必须加这个)
+dataset/
+datasets/
+
+# ==========================
+# 5. 仿真输出与日志
+# ==========================
+planner/outputs/
+results/
+logs/
+wandb/          # Weights & Biases 日志
+
+# (可选) 如果 inputs 文件夹特别大，也可以取消下面这行的注释
+# planner/inputs/
