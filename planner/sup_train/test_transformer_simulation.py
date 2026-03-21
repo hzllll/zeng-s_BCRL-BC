@@ -9,7 +9,16 @@ import matplotlib.pyplot as plt
 import time
 
 # 添加上级目录以导入 onsite 包
-sys.path.append('..')
+# sys.path.append('../..')
+
+# 获取当前脚本的绝对路径
+current_dir = os.path.dirname(os.path.abspath(__file__))
+# 获取项目根目录 (bc/) 的路径：当前目录 -> 上一级(planner) -> 上一级(bc)
+project_root = os.path.abspath(os.path.join(current_dir, "../.."))
+sys.path.append(project_root)
+# 新增代码：确保能找到同目录下的 test_conf.py
+# sys.path.append(current_dir) 
+
 from onsite import scenarioOrganizer, env
 
 # ================= 配置区域 =================
@@ -223,49 +232,154 @@ def process_input_directory(input_dir, output_dir, model):
     while True:
         scenario_to_test = so.next()
         if scenario_to_test is None:
-            break  # 如果场景管理模块给出None，意味着所有场景已测试完毕。
-                
+            break
+
         scenario_to_test['test_settings']['visualize'] = False
         observation, traj = envs.make(scenario=scenario_to_test)
         road_info = envs.controller.observation.road_info
         
-        # ... 初始化 goal, map_info 等 (参考原代码) ...
         goal = [np.mean(observation['test_setting']['goal']['x']), np.mean(observation['test_setting']['goal']['y'])]
         init_pos = [observation['vehicle_info']['ego']['x'], observation['vehicle_info']['ego']['y']]
         
-        # 简化版车道判断逻辑
-        map_info = get_lane_info1(road_info) # 假设都是从左往右，实际需保留原代码的判断逻辑
+        lane_num = len(road_info.discretelanes)
+        if lane_num != 6:
+            so.add_result(scenario_to_test, observation['test_setting']['end'])
+            continue
         
+        if goal[0] > init_pos[0]:
+            map_info = get_lane_info1(road_info)
+        else:
+            map_info = get_lane_info2(road_info)
+
         try:
+            step_count = 0
+            max_steps = 5000
             while observation['test_setting']['end'] == -1:
-                # 1. 获取状态特征
-                next_obs = observation_to_state1_simRL_proper(observation, goal, map_info)
+                step_count += 1
+                if step_count > max_steps:
+                    print(f"超时保护：场景已执行 {max_steps} 步，强制跳过")
+                    break
+
+                if goal[0] > init_pos[0]:
+                    next_obs = observation_to_state1_simRL_proper(observation, goal, map_info)
+                else:
+                    next_obs = observation_to_state2_simRL_proper(observation, goal, map_info)
+
                 next_obs_tensor = torch.tensor(next_obs, dtype=torch.float32).to(DEVICE)
-                
-                # 2. 模型推理
+
                 with torch.no_grad():
-                    action_seq = model(next_obs_tensor) # 输出 (1, 5, 2)
-                
-                # 3. 执行动作 (开环执行5步，或者只执行第1步)
-                # 这里我们采取“滚动优化”策略：只执行预测序列的第1步，然后重新规划
-                # 或者按照原代码逻辑，一次预测执行5步
-                
-                # 方案A：只执行第1步 (更稳健，推荐)
-                # action_step = action_seq[0, 0, :].cpu().numpy()
-                # action_step[0] *= 10   # 反归一化 加速度
-                # action_step[1] *= 0.15 # 反归一化 转角
-                # observation = envs.step(action_step)
-                
-                # 方案B：执行所有5步 (原代码逻辑)
+                    action_seq = model(next_obs_tensor)
+
                 for i in range(5):
-                    if observation['test_setting']['end'] != -1: break
+                    if observation['test_setting']['end'] != -1:
+                        break
                     action_step = action_seq[0, i, :].cpu().numpy()
-                    action_step[0] *= 6    # 注意：你训练代码里是除以6，这里要乘6！
-                    action_step[1] *= 0.15 # 训练代码里是除以0.15
+                    action_step[0] *= 6
+                    action_step[1] *= 0.15
                     observation = envs.step(action_step)
+
+        except Exception as e:
+            print(f"场景处理出错: {e}")
 
         finally:
             so.add_result(scenario_to_test, observation['test_setting']['end'])
+
+
+def observation_to_state2_simRL_proper(observation, goal, map_info):
+    car_num = 8
+    goal_neg = [-goal[0], -goal[1]]
+    map_info_neg = {}
+    for j in range(3):
+        map_info_neg[j] = {
+            'left_bound': -map_info[j]['left_bound'],
+            'center': -map_info[j]['center'],
+            'right_bound': -map_info[j]['right_bound']
+        }
+
+    frame = pd.DataFrame()
+    states = []
+    for key, value in observation['vehicle_info'].items():
+        sub_frame = pd.DataFrame(value, columns=['x', 'y', 'v', 'a', 'yaw', 'length'], index=[key])
+        frame = pd.concat([frame, sub_frame])
+    state = frame.to_numpy()
+    state[:, 0] = -state[:, 0]
+    state[:, 1] = -state[:, 1]
+    # 0802 修正yaw: -state[:, 4] -> state[:, 4]
+    state[:, 4] = state[:, 4] - np.pi
+
+    # 加入主车的状态v yaw
+    states.extend([state[0, 2], ((state[0, 4] + np.pi) % (2 * np.pi) - np.pi)])
+    # 目标点的坐标
+    states.extend([goal_neg[0] - state[0, 0], goal_neg[1] - state[0, 1]])
+    # # 加入偏移量
+    # offset = 0
+    # if state[0, 1] >= map_info[0]['right_bound']:
+    #     offset = map_info[0]['center'] - state[0, 1]
+    # elif map_info[1]['right_bound'] < state[0, 1] < map_info[1]['left_bound']:
+    #     offset = map_info[1]['center'] - state[0, 1]
+    # elif state[0, 1] <= map_info[2]['left_bound']:
+    #     offset = map_info[2]['center'] - state[0, 1]
+    # states.append(offset)
+    # 加入上下车道边界线
+    states.append(map_info_neg[0]['left_bound'] - state[0, 1])
+    states.append(map_info_neg[2]['right_bound'] - state[0, 1])
+
+    # 他车的状态，最多六辆车，不足的用(200,0,0,0)补充，且按距离从近到远的顺序排列
+    distances = []
+    # 依次计算每辆车的相对距离
+    for j in range(1, len(state)):
+        if abs(state[j, 1] - state[0, 1]) > 6:
+            continue
+        if state[j, 0] - state[0, 0] - 0.5 * (state[j, 5] + state[0, 5]) > 0:
+            distance = np.sqrt((state[j, 0] - state[0, 0] - 1 / 2 * (state[j, 5] + state[0, 5])) ** 2 + (state[j, 1] - state[0, 1]) ** 2)
+        elif state[j, 0] - state[0, 0] + 0.5 * (state[j, 5] + state[0, 5]) < 0:
+            distance = np.sqrt((state[j, 0] - state[0, 0] + 1 / 2 * (state[j, 5] + state[0, 5])) ** 2 + (state[j, 1] - state[0, 1]) ** 2)
+        else:
+            distance = np.sqrt((state[j, 0] - state[0, 0]) ** 2 + (state[j, 1] - state[0, 1]) ** 2)
+        if distance < 200:
+            distances.append((j, distance))
+
+    # 按照距离从近到远排序，最多考虑6辆车
+    distances.sort(key=lambda x: x[1])
+    distances = distances[:car_num]
+    for j, _ in distances:
+        if state[j, 0] - state[0, 0] - 0.5 * (state[j, 5] + state[0, 5]) > 0:
+            states.append(state[j, 0] - state[0, 0] - 1 / 2 * (state[j, 5] + state[0, 5]))
+        elif state[j, 0] - state[0, 0] + 0.5 * (state[j, 5] + state[0, 5]) < 0:
+            states.append(state[j, 0] - state[0, 0] + 1 / 2 * (state[j, 5] + state[0, 5]))
+        else:
+            states.append(0)
+
+        states.append(state[j, 1] - state[0, 1])
+        states.append(state[j, 2] - state[0, 2])
+        states.append((state[j, 4] + np.pi) % (2 * np.pi) - np.pi)
+        # 加入当前车辆所属车道的两条车道线
+        if map_info_neg[0]['right_bound'] <= state[j, 1]:
+            states.append(map_info_neg[0]['left_bound'] - state[0, 1])
+            states.append(map_info_neg[0]['right_bound'] - state[0, 1])
+        elif map_info_neg[1]['right_bound'] < state[j, 1] < map_info_neg[1]['left_bound']:
+            states.append(map_info_neg[1]['left_bound'] - state[0, 1])
+            states.append(map_info_neg[1]['right_bound'] - state[0, 1])
+        elif state[j, 1] <= map_info_neg[2]['left_bound']:
+            states.append(map_info_neg[2]['left_bound'] - state[0, 1])
+            states.append(map_info_neg[2]['right_bound'] - state[0, 1])
+    for _ in range(car_num - len(distances)):
+        states.extend([200, 0, 0, 0])
+        # 加入主车所属车道的两条车道线
+        if map_info_neg[0]['right_bound'] <= state[0, 1]:
+            states.append(map_info_neg[0]['left_bound'] - state[0, 1])
+            states.append(map_info_neg[0]['right_bound'] - state[0, 1])
+        elif map_info_neg[1]['right_bound'] < state[0, 1] < map_info_neg[1]['left_bound']:
+            states.append(map_info_neg[1]['left_bound'] - state[0, 1])
+            states.append(map_info_neg[1]['right_bound'] - state[0, 1])
+        elif state[0, 1] <= map_info_neg[2]['left_bound']:
+            states.append(map_info_neg[2]['left_bound'] - state[0, 1])
+            states.append(map_info_neg[2]['right_bound'] - state[0, 1])
+
+    # states = torch.tensor(states, dtype=torch.float32).to(device)
+
+    return states
+
 
 if __name__ == "__main__":
     # 初始化模型
@@ -289,8 +403,8 @@ if __name__ == "__main__":
     # input_dirs = [f"/root/autodl-tmp/BCRL/bc/planner/inputs/inputs_test_multi/inputs{i}" for i in range(5)]
     # output_dir = "/root/autodl-tmp/BCRL/bc/planner/outputs/Transformer_test_result"
     
-    input_dirs = [f"/root/autodl-tmp/BCRL/bc/planner/inputs/inputs_B"]
-    output_dir = "/root/autodl-tmp/BCRL/bc/planner/outputs/Transformer_test_result_B"
+    input_dirs = [f"/root/autodl-tmp/BCRL/bc/planner/inputs/inputs_C"]
+    output_dir = "/root/autodl-tmp/BCRL/bc/planner/outputs/Transformer_test_result_C"
     # 并行执行
     with concurrent.futures.ProcessPoolExecutor(max_workers=5) as executor:
         futures = [executor.submit(process_input_directory, input_dir, output_dir, model) for input_dir in input_dirs]

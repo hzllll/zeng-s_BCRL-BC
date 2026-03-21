@@ -1,0 +1,452 @@
+使用设备: cuda
+成功加载文件: /root/autodl-tmp/BCRL/bc/dataset/GRU_choose_closest8_properRL_0.npy | 数据形状: (2807565, 64)
+成功加载文件: /root/autodl-tmp/BCRL/bc/dataset/GRU_choose_closest8_properRL_1.npy | 数据形状: (2718791, 64)
+成功加载文件: /root/autodl-tmp/BCRL/bc/dataset/GRU_choose_closest8_properRL_out.npy | 数据形状: (4411230, 64)
+
+数据合并完成 | 总数据量: 9937586 | 特征维度: 64
+数据预处理完成 | 特征形状: (9937586, 54) | 标签形状: (9937586, 10)
+未检测到已有模型文件，使用随机初始化模型参数。
+
+开始训练模型...
+Epoch [1/512] | 训练损失: 0.142717 | 验证损失: 0.099236 | 学习率: 0.000495
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [2/512] | 训练损失: 0.104956 | 验证损失: 0.087548 | 学习率: 0.000490
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [3/512] | 训练损失: 0.095411 | 验证损失: 0.079906 | 学习率: 0.000485
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [4/512] | 训练损失: 0.090520 | 验证损失: 0.078101 | 学习率: 0.000480
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [5/512] | 训练损失: 0.087439 | 验证损失: 0.074655 | 学习率: 0.000475
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [6/512] | 训练损失: 0.085146 | 验证损失: 0.073871 | 学习率: 0.000471
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [7/512] | 训练损失: 0.083472 | 验证损失: 0.072051 | 学习率: 0.000466
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [8/512] | 训练损失: 0.082203 | 验证损失: 0.069663 | 学习率: 0.000461
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [9/512] | 训练损失: 0.081056 | 验证损失: 0.069258 | 学习率: 0.000457
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [10/512] | 训练损失: 0.080187 | 验证损失: 0.069223 | 学习率: 0.000452
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [11/512] | 训练损失: 0.079364 | 验证损失: 0.067553 | 学习率: 0.000448
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [12/512] | 训练损失: 0.078670 | 验证损失: 0.067281 | 学习率: 0.000443
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [13/512] | 训练损失: 0.078040 | 验证损失: 0.067235 | 学习率: 0.000439
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [14/512] | 训练损失: 0.077382 | 验证损失: 0.066151 | 学习率: 0.000434
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [15/512] | 训练损失: 0.076943 | 验证损失: 0.065821 | 学习率: 0.000430
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [16/512] | 训练损失: 0.076419 | 验证损失: 0.065097 | 学习率: 0.000426
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [17/512] | 训练损失: 0.075952 | 验证损失: 0.066112 | 学习率: 0.000421
+Epoch [18/512] | 训练损失: 0.075582 | 验证损失: 0.063973 | 学习率: 0.000417
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [19/512] | 训练损失: 0.075173 | 验证损失: 0.063969 | 学习率: 0.000413
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [20/512] | 训练损失: 0.074789 | 验证损失: 0.063868 | 学习率: 0.000409
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [21/512] | 训练损失: 0.074439 | 验证损失: 0.064340 | 学习率: 0.000405
+Epoch [22/512] | 训练损失: 0.074003 | 验证损失: 0.063261 | 学习率: 0.000401
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [23/512] | 训练损失: 0.073746 | 验证损失: 0.062533 | 学习率: 0.000397
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [24/512] | 训练损失: 0.073386 | 验证损失: 0.062907 | 学习率: 0.000393
+Epoch [25/512] | 训练损失: 0.073102 | 验证损失: 0.062283 | 学习率: 0.000389
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [26/512] | 训练损失: 0.072896 | 验证损失: 0.061885 | 学习率: 0.000385
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [27/512] | 训练损失: 0.072596 | 验证损失: 0.061725 | 学习率: 0.000381
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [28/512] | 训练损失: 0.072328 | 验证损失: 0.062568 | 学习率: 0.000377
+Epoch [29/512] | 训练损失: 0.072104 | 验证损失: 0.062349 | 学习率: 0.000374
+Epoch [30/512] | 训练损失: 0.071793 | 验证损失: 0.061317 | 学习率: 0.000370
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [31/512] | 训练损失: 0.071652 | 验证损失: 0.061089 | 学习率: 0.000366
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [32/512] | 训练损失: 0.071446 | 验证损失: 0.061104 | 学习率: 0.000362
+Epoch [33/512] | 训练损失: 0.071205 | 验证损失: 0.060486 | 学习率: 0.000359
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [34/512] | 训练损失: 0.071070 | 验证损失: 0.060342 | 学习率: 0.000355
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [35/512] | 训练损失: 0.070764 | 验证损失: 0.060492 | 学习率: 0.000352
+Epoch [36/512] | 训练损失: 0.070611 | 验证损失: 0.060030 | 学习率: 0.000348
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [37/512] | 训练损失: 0.070401 | 验证损失: 0.059938 | 学习率: 0.000345
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [38/512] | 训练损失: 0.070250 | 验证损失: 0.059668 | 学习率: 0.000341
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [39/512] | 训练损失: 0.070016 | 验证损失: 0.059078 | 学习率: 0.000338
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [40/512] | 训练损失: 0.069888 | 验证损失: 0.059666 | 学习率: 0.000334
+Epoch [41/512] | 训练损失: 0.069728 | 验证损失: 0.060086 | 学习率: 0.000331
+Epoch [42/512] | 训练损失: 0.069597 | 验证损失: 0.059905 | 学习率: 0.000328
+Epoch [43/512] | 训练损失: 0.069397 | 验证损失: 0.059664 | 学习率: 0.000325
+Epoch [44/512] | 训练损失: 0.069182 | 验证损失: 0.059287 | 学习率: 0.000321
+Epoch [45/512] | 训练损失: 0.069118 | 验证损失: 0.058862 | 学习率: 0.000318
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [46/512] | 训练损失: 0.068989 | 验证损失: 0.058748 | 学习率: 0.000315
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [47/512] | 训练损失: 0.068773 | 验证损失: 0.058409 | 学习率: 0.000312
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [48/512] | 训练损失: 0.068644 | 验证损失: 0.059013 | 学习率: 0.000309
+Epoch [49/512] | 训练损失: 0.068477 | 验证损失: 0.057870 | 学习率: 0.000306
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [50/512] | 训练损失: 0.068350 | 验证损失: 0.058422 | 学习率: 0.000303
+Epoch [51/512] | 训练损失: 0.068227 | 验证损失: 0.058246 | 学习率: 0.000299
+Epoch [52/512] | 训练损失: 0.068054 | 验证损失: 0.058681 | 学习率: 0.000296
+Epoch [53/512] | 训练损失: 0.067877 | 验证损失: 0.057735 | 学习率: 0.000294
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [54/512] | 训练损失: 0.067745 | 验证损失: 0.057817 | 学习率: 0.000291
+Epoch [55/512] | 训练损失: 0.067651 | 验证损失: 0.057601 | 学习率: 0.000288
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [56/512] | 训练损失: 0.067539 | 验证损失: 0.057484 | 学习率: 0.000285
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [57/512] | 训练损失: 0.067431 | 验证损失: 0.057365 | 学习率: 0.000282
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [58/512] | 训练损失: 0.067294 | 验证损失: 0.057323 | 学习率: 0.000279
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [59/512] | 训练损失: 0.067184 | 验证损失: 0.057479 | 学习率: 0.000276
+Epoch [60/512] | 训练损失: 0.066995 | 验证损失: 0.056862 | 学习率: 0.000274
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [61/512] | 训练损失: 0.066898 | 验证损失: 0.057074 | 学习率: 0.000271
+Epoch [62/512] | 训练损失: 0.066795 | 验证损失: 0.056786 | 学习率: 0.000268
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [63/512] | 训练损失: 0.066686 | 验证损失: 0.057147 | 学习率: 0.000265
+Epoch [64/512] | 训练损失: 0.066595 | 验证损失: 0.056441 | 学习率: 0.000263
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [65/512] | 训练损失: 0.066546 | 验证损失: 0.056435 | 学习率: 0.000260
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [66/512] | 训练损失: 0.066331 | 验证损失: 0.056582 | 学习率: 0.000258
+Epoch [67/512] | 训练损失: 0.066232 | 验证损失: 0.056519 | 学习率: 0.000255
+Epoch [68/512] | 训练损失: 0.066138 | 验证损失: 0.056816 | 学习率: 0.000252
+Epoch [69/512] | 训练损失: 0.065979 | 验证损失: 0.056177 | 学习率: 0.000250
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [70/512] | 训练损失: 0.065909 | 验证损失: 0.056325 | 学习率: 0.000247
+Epoch [71/512] | 训练损失: 0.065795 | 验证损失: 0.056498 | 学习率: 0.000245
+Epoch [72/512] | 训练损失: 0.065711 | 验证损失: 0.055836 | 学习率: 0.000242
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [73/512] | 训练损失: 0.065581 | 验证损失: 0.056473 | 学习率: 0.000240
+Epoch [74/512] | 训练损失: 0.065475 | 验证损失: 0.055985 | 学习率: 0.000238
+Epoch [75/512] | 训练损失: 0.065403 | 验证损失: 0.056292 | 学习率: 0.000235
+Epoch [76/512] | 训练损失: 0.065316 | 验证损失: 0.055709 | 学习率: 0.000233
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [77/512] | 训练损失: 0.065170 | 验证损失: 0.055420 | 学习率: 0.000231
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [78/512] | 训练损失: 0.065089 | 验证损失: 0.055212 | 学习率: 0.000228
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [79/512] | 训练损失: 0.064990 | 验证损失: 0.055486 | 学习率: 0.000226
+Epoch [80/512] | 训练损失: 0.064909 | 验证损失: 0.055474 | 学习率: 0.000224
+Epoch [81/512] | 训练损失: 0.064776 | 验证损失: 0.055221 | 学习率: 0.000222
+Epoch [82/512] | 训练损失: 0.064764 | 验证损失: 0.055468 | 学习率: 0.000219
+Epoch [83/512] | 训练损失: 0.064598 | 验证损失: 0.055092 | 学习率: 0.000217
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [84/512] | 训练损失: 0.064597 | 验证损失: 0.055144 | 学习率: 0.000215
+Epoch [85/512] | 训练损失: 0.064499 | 验证损失: 0.055105 | 学习率: 0.000213
+Epoch [86/512] | 训练损失: 0.064381 | 验证损失: 0.055270 | 学习率: 0.000211
+Epoch [87/512] | 训练损失: 0.064338 | 验证损失: 0.054904 | 学习率: 0.000209
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [88/512] | 训练损失: 0.064208 | 验证损失: 0.054764 | 学习率: 0.000206
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [89/512] | 训练损失: 0.064146 | 验证损失: 0.054995 | 学习率: 0.000204
+Epoch [90/512] | 训练损失: 0.063997 | 验证损失: 0.054794 | 学习率: 0.000202
+Epoch [91/512] | 训练损失: 0.063936 | 验证损失: 0.054639 | 学习率: 0.000200
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [92/512] | 训练损失: 0.063925 | 验证损失: 0.054502 | 学习率: 0.000198
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [93/512] | 训练损失: 0.063864 | 验证损失: 0.054359 | 学习率: 0.000196
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [94/512] | 训练损失: 0.063764 | 验证损失: 0.054840 | 学习率: 0.000194
+Epoch [95/512] | 训练损失: 0.063635 | 验证损失: 0.054237 | 学习率: 0.000192
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [96/512] | 训练损失: 0.063579 | 验证损失: 0.054267 | 学习率: 0.000191
+Epoch [97/512] | 训练损失: 0.063518 | 验证损失: 0.053965 | 学习率: 0.000189
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [98/512] | 训练损失: 0.063448 | 验证损失: 0.054306 | 学习率: 0.000187
+Epoch [99/512] | 训练损失: 0.063330 | 验证损失: 0.053834 | 学习率: 0.000185
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [100/512] | 训练损失: 0.063315 | 验证损失: 0.054066 | 学习率: 0.000183
+Epoch [101/512] | 训练损失: 0.063203 | 验证损失: 0.055066 | 学习率: 0.000181
+Epoch [102/512] | 训练损失: 0.063145 | 验证损失: 0.055103 | 学习率: 0.000179
+Epoch [103/512] | 训练损失: 0.063094 | 验证损失: 0.053802 | 学习率: 0.000178
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [104/512] | 训练损失: 0.063039 | 验证损失: 0.053940 | 学习率: 0.000176
+Epoch [105/512] | 训练损失: 0.062943 | 验证损失: 0.054311 | 学习率: 0.000174
+Epoch [106/512] | 训练损失: 0.062867 | 验证损失: 0.054132 | 学习率: 0.000172
+Epoch [107/512] | 训练损失: 0.062812 | 验证损失: 0.053833 | 学习率: 0.000171
+Epoch [108/512] | 训练损失: 0.062706 | 验证损失: 0.053758 | 学习率: 0.000169
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [109/512] | 训练损失: 0.062688 | 验证损失: 0.053677 | 学习率: 0.000167
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [110/512] | 训练损失: 0.062630 | 验证损失: 0.053419 | 学习率: 0.000166
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [111/512] | 训练损失: 0.062548 | 验证损失: 0.053655 | 学习率: 0.000164
+Epoch [112/512] | 训练损失: 0.062459 | 验证损失: 0.054516 | 学习率: 0.000162
+Epoch [113/512] | 训练损失: 0.062445 | 验证损失: 0.053308 | 学习率: 0.000161
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [114/512] | 训练损失: 0.062324 | 验证损失: 0.053434 | 学习率: 0.000159
+Epoch [115/512] | 训练损失: 0.062328 | 验证损失: 0.053220 | 学习率: 0.000157
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [116/512] | 训练损失: 0.062232 | 验证损失: 0.053822 | 学习率: 0.000156
+Epoch [117/512] | 训练损失: 0.062148 | 验证损失: 0.053594 | 学习率: 0.000154
+Epoch [118/512] | 训练损失: 0.062119 | 验证损失: 0.053440 | 学习率: 0.000153
+Epoch [119/512] | 训练损失: 0.062087 | 验证损失: 0.052665 | 学习率: 0.000151
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [120/512] | 训练损失: 0.062018 | 验证损失: 0.053554 | 学习率: 0.000150
+Epoch [121/512] | 训练损失: 0.061906 | 验证损失: 0.053541 | 学习率: 0.000148
+Epoch [122/512] | 训练损失: 0.061911 | 验证损失: 0.052655 | 学习率: 0.000147
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [123/512] | 训练损失: 0.061870 | 验证损失: 0.053009 | 学习率: 0.000145
+Epoch [124/512] | 训练损失: 0.061771 | 验证损失: 0.052843 | 学习率: 0.000144
+Epoch [125/512] | 训练损失: 0.061698 | 验证损失: 0.052956 | 学习率: 0.000142
+Epoch [126/512] | 训练损失: 0.061641 | 验证损失: 0.052889 | 学习率: 0.000141
+Epoch [127/512] | 训练损失: 0.061626 | 验证损失: 0.052775 | 学习率: 0.000140
+Epoch [128/512] | 训练损失: 0.061548 | 验证损失: 0.052186 | 学习率: 0.000138
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [129/512] | 训练损失: 0.061514 | 验证损失: 0.052682 | 学习率: 0.000137
+Epoch [130/512] | 训练损失: 0.061470 | 验证损失: 0.052421 | 学习率: 0.000135
+Epoch [131/512] | 训练损失: 0.061388 | 验证损失: 0.052471 | 学习率: 0.000134
+Epoch [132/512] | 训练损失: 0.061347 | 验证损失: 0.052673 | 学习率: 0.000133
+Epoch [133/512] | 训练损失: 0.061327 | 验证损失: 0.052270 | 学习率: 0.000131
+Epoch [134/512] | 训练损失: 0.061272 | 验证损失: 0.052831 | 学习率: 0.000130
+Epoch [135/512] | 训练损失: 0.061202 | 验证损失: 0.052538 | 学习率: 0.000129
+Epoch [136/512] | 训练损失: 0.061231 | 验证损失: 0.052018 | 学习率: 0.000127
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [137/512] | 训练损失: 0.061143 | 验证损失: 0.052043 | 学习率: 0.000126
+Epoch [138/512] | 训练损失: 0.061159 | 验证损失: 0.052117 | 学习率: 0.000125
+Epoch [139/512] | 训练损失: 0.061004 | 验证损失: 0.052271 | 学习率: 0.000124
+Epoch [140/512] | 训练损失: 0.060937 | 验证损失: 0.052139 | 学习率: 0.000122
+Epoch [141/512] | 训练损失: 0.060920 | 验证损失: 0.052170 | 学习率: 0.000121
+Epoch [142/512] | 训练损失: 0.060908 | 验证损失: 0.052375 | 学习率: 0.000120
+Epoch [143/512] | 训练损失: 0.060871 | 验证损失: 0.052607 | 学习率: 0.000119
+Epoch [144/512] | 训练损失: 0.060778 | 验证损失: 0.052095 | 学习率: 0.000118
+Epoch [145/512] | 训练损失: 0.060780 | 验证损失: 0.052069 | 学习率: 0.000116
+Epoch [146/512] | 训练损失: 0.060693 | 验证损失: 0.052008 | 学习率: 0.000115
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [147/512] | 训练损失: 0.060666 | 验证损失: 0.052078 | 学习率: 0.000114
+Epoch [148/512] | 训练损失: 0.060623 | 验证损失: 0.052129 | 学习率: 0.000113
+Epoch [149/512] | 训练损失: 0.060598 | 验证损失: 0.051695 | 学习率: 0.000112
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [150/512] | 训练损失: 0.060504 | 验证损失: 0.051848 | 学习率: 0.000111
+Epoch [151/512] | 训练损失: 0.060525 | 验证损失: 0.051876 | 学习率: 0.000110
+Epoch [152/512] | 训练损失: 0.060478 | 验证损失: 0.051788 | 学习率: 0.000109
+Epoch [153/512] | 训练损失: 0.060430 | 验证损失: 0.052076 | 学习率: 0.000107
+Epoch [154/512] | 训练损失: 0.060360 | 验证损失: 0.051829 | 学习率: 0.000106
+Epoch [155/512] | 训练损失: 0.060304 | 验证损失: 0.051797 | 学习率: 0.000105
+Epoch [156/512] | 训练损失: 0.060289 | 验证损失: 0.051578 | 学习率: 0.000104
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [157/512] | 训练损失: 0.060264 | 验证损失: 0.051486 | 学习率: 0.000103
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [158/512] | 训练损失: 0.060186 | 验证损失: 0.051273 | 学习率: 0.000102
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [159/512] | 训练损失: 0.060208 | 验证损失: 0.051535 | 学习率: 0.000101
+Epoch [160/512] | 训练损失: 0.060158 | 验证损失: 0.051847 | 学习率: 0.000100
+Epoch [161/512] | 训练损失: 0.060143 | 验证损失: 0.051444 | 学习率: 0.000099
+Epoch [162/512] | 训练损失: 0.060074 | 验证损失: 0.051526 | 学习率: 0.000098
+Epoch [163/512] | 训练损失: 0.060041 | 验证损失: 0.051361 | 学习率: 0.000097
+Epoch [164/512] | 训练损失: 0.059994 | 验证损失: 0.051400 | 学习率: 0.000096
+Epoch [165/512] | 训练损失: 0.059971 | 验证损失: 0.051297 | 学习率: 0.000095
+Epoch [166/512] | 训练损失: 0.059906 | 验证损失: 0.051269 | 学习率: 0.000094
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [167/512] | 训练损失: 0.059892 | 验证损失: 0.051116 | 学习率: 0.000093
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [168/512] | 训练损失: 0.059924 | 验证损失: 0.051496 | 学习率: 0.000092
+Epoch [169/512] | 训练损失: 0.059836 | 验证损失: 0.051150 | 学习率: 0.000091
+Epoch [170/512] | 训练损失: 0.059775 | 验证损失: 0.051514 | 学习率: 0.000091
+Epoch [171/512] | 训练损失: 0.059812 | 验证损失: 0.051095 | 学习率: 0.000090
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [172/512] | 训练损失: 0.059781 | 验证损失: 0.051417 | 学习率: 0.000089
+Epoch [173/512] | 训练损失: 0.059720 | 验证损失: 0.051114 | 学习率: 0.000088
+Epoch [174/512] | 训练损失: 0.059666 | 验证损失: 0.051181 | 学习率: 0.000087
+Epoch [175/512] | 训练损失: 0.059628 | 验证损失: 0.050984 | 学习率: 0.000086
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [176/512] | 训练损失: 0.059594 | 验证损失: 0.050896 | 学习率: 0.000085
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [177/512] | 训练损失: 0.059581 | 验证损失: 0.050874 | 学习率: 0.000084
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [178/512] | 训练损失: 0.059533 | 验证损失: 0.050838 | 学习率: 0.000084
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [179/512] | 训练损失: 0.059472 | 验证损失: 0.050859 | 学习率: 0.000083
+Epoch [180/512] | 训练损失: 0.059460 | 验证损失: 0.050996 | 学习率: 0.000082
+Epoch [181/512] | 训练损失: 0.059479 | 验证损失: 0.050973 | 学习率: 0.000081
+Epoch [182/512] | 训练损失: 0.059453 | 验证损失: 0.050700 | 学习率: 0.000080
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [183/512] | 训练损失: 0.059407 | 验证损失: 0.051002 | 学习率: 0.000079
+Epoch [184/512] | 训练损失: 0.059382 | 验证损失: 0.050747 | 学习率: 0.000079
+Epoch [185/512] | 训练损失: 0.059319 | 验证损失: 0.050778 | 学习率: 0.000078
+Epoch [186/512] | 训练损失: 0.059294 | 验证损失: 0.050840 | 学习率: 0.000077
+Epoch [187/512] | 训练损失: 0.059253 | 验证损失: 0.050665 | 学习率: 0.000076
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [188/512] | 训练损失: 0.059214 | 验证损失: 0.050848 | 学习率: 0.000076
+Epoch [189/512] | 训练损失: 0.059212 | 验证损失: 0.050788 | 学习率: 0.000075
+Epoch [190/512] | 训练损失: 0.059198 | 验证损失: 0.050860 | 学习率: 0.000074
+Epoch [191/512] | 训练损失: 0.059151 | 验证损失: 0.050700 | 学习率: 0.000073
+Epoch [192/512] | 训练损失: 0.059142 | 验证损失: 0.050913 | 学习率: 0.000073
+Epoch [193/512] | 训练损失: 0.059125 | 验证损失: 0.050706 | 学习率: 0.000072
+Epoch [194/512] | 训练损失: 0.059080 | 验证损失: 0.050624 | 学习率: 0.000071
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [195/512] | 训练损失: 0.059077 | 验证损失: 0.050770 | 学习率: 0.000070
+Epoch [196/512] | 训练损失: 0.059028 | 验证损失: 0.050412 | 学习率: 0.000070
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [197/512] | 训练损失: 0.059025 | 验证损失: 0.050655 | 学习率: 0.000069
+Epoch [198/512] | 训练损失: 0.059003 | 验证损失: 0.050543 | 学习率: 0.000068
+Epoch [199/512] | 训练损失: 0.058927 | 验证损失: 0.050769 | 学习率: 0.000068
+Epoch [200/512] | 训练损失: 0.058964 | 验证损失: 0.050495 | 学习率: 0.000067
+Epoch [201/512] | 训练损失: 0.058949 | 验证损失: 0.050684 | 学习率: 0.000066
+Epoch [202/512] | 训练损失: 0.058908 | 验证损失: 0.050436 | 学习率: 0.000066
+Epoch [203/512] | 训练损失: 0.058876 | 验证损失: 0.050428 | 学习率: 0.000065
+Epoch [204/512] | 训练损失: 0.058864 | 验证损失: 0.050506 | 学习率: 0.000064
+Epoch [205/512] | 训练损失: 0.058801 | 验证损失: 0.050410 | 学习率: 0.000064
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [206/512] | 训练损失: 0.058816 | 验证损失: 0.050368 | 学习率: 0.000063
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [207/512] | 训练损失: 0.058755 | 验证损失: 0.050252 | 学习率: 0.000062
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [208/512] | 训练损失: 0.058785 | 验证损失: 0.050290 | 学习率: 0.000062
+Epoch [209/512] | 训练损失: 0.058706 | 验证损失: 0.050463 | 学习率: 0.000061
+Epoch [210/512] | 训练损失: 0.058706 | 验证损失: 0.050050 | 学习率: 0.000061
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [211/512] | 训练损失: 0.058689 | 验证损失: 0.050251 | 学习率: 0.000060
+Epoch [212/512] | 训练损失: 0.058633 | 验证损失: 0.050210 | 学习率: 0.000059
+Epoch [213/512] | 训练损失: 0.058666 | 验证损失: 0.050213 | 学习率: 0.000059
+Epoch [214/512] | 训练损失: 0.058603 | 验证损失: 0.050151 | 学习率: 0.000058
+Epoch [215/512] | 训练损失: 0.058597 | 验证损失: 0.050160 | 学习率: 0.000058
+Epoch [216/512] | 训练损失: 0.058547 | 验证损失: 0.050086 | 学习率: 0.000057
+Epoch [217/512] | 训练损失: 0.058541 | 验证损失: 0.050207 | 学习率: 0.000056
+Epoch [218/512] | 训练损失: 0.058535 | 验证损失: 0.050048 | 学习率: 0.000056
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [219/512] | 训练损失: 0.058524 | 验证损失: 0.050279 | 学习率: 0.000055
+Epoch [220/512] | 训练损失: 0.058487 | 验证损失: 0.050484 | 学习率: 0.000055
+Epoch [221/512] | 训练损失: 0.058495 | 验证损失: 0.050110 | 学习率: 0.000054
+Epoch [222/512] | 训练损失: 0.058435 | 验证损失: 0.050163 | 学习率: 0.000054
+Epoch [223/512] | 训练损失: 0.058402 | 验证损失: 0.049958 | 学习率: 0.000053
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [224/512] | 训练损失: 0.058446 | 验证损失: 0.050105 | 学习率: 0.000053
+Epoch [225/512] | 训练损失: 0.058376 | 验证损失: 0.049999 | 学习率: 0.000052
+Epoch [226/512] | 训练损失: 0.058411 | 验证损失: 0.049989 | 学习率: 0.000052
+Epoch [227/512] | 训练损失: 0.058327 | 验证损失: 0.050105 | 学习率: 0.000051
+Epoch [228/512] | 训练损失: 0.058362 | 验证损失: 0.050213 | 学习率: 0.000051
+Epoch [229/512] | 训练损失: 0.058272 | 验证损失: 0.050042 | 学习率: 0.000050
+Epoch [230/512] | 训练损失: 0.058322 | 验证损失: 0.050064 | 学习率: 0.000050
+Epoch [231/512] | 训练损失: 0.058252 | 验证损失: 0.049933 | 学习率: 0.000049
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [232/512] | 训练损失: 0.058270 | 验证损失: 0.050132 | 学习率: 0.000049
+Epoch [233/512] | 训练损失: 0.058243 | 验证损失: 0.049968 | 学习率: 0.000048
+Epoch [234/512] | 训练损失: 0.058199 | 验证损失: 0.049937 | 学习率: 0.000048
+Epoch [235/512] | 训练损失: 0.058162 | 验证损失: 0.050003 | 学习率: 0.000047
+Epoch [236/512] | 训练损失: 0.058189 | 验证损失: 0.049986 | 学习率: 0.000047
+Epoch [237/512] | 训练损失: 0.058178 | 验证损失: 0.050055 | 学习率: 0.000046
+Epoch [238/512] | 训练损失: 0.058159 | 验证损失: 0.049855 | 学习率: 0.000046
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [239/512] | 训练损失: 0.058136 | 验证损失: 0.049995 | 学习率: 0.000045
+Epoch [240/512] | 训练损失: 0.058130 | 验证损失: 0.049918 | 学习率: 0.000045
+Epoch [241/512] | 训练损失: 0.058156 | 验证损失: 0.049796 | 学习率: 0.000044
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [242/512] | 训练损失: 0.058079 | 验证损失: 0.050024 | 学习率: 0.000044
+Epoch [243/512] | 训练损失: 0.058050 | 验证损失: 0.049825 | 学习率: 0.000043
+Epoch [244/512] | 训练损失: 0.058121 | 验证损失: 0.049976 | 学习率: 0.000043
+Epoch [245/512] | 训练损失: 0.058059 | 验证损失: 0.049911 | 学习率: 0.000043
+Epoch [246/512] | 训练损失: 0.058031 | 验证损失: 0.049851 | 学习率: 0.000042
+Epoch [247/512] | 训练损失: 0.058018 | 验证损失: 0.049608 | 学习率: 0.000042
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [248/512] | 训练损失: 0.058025 | 验证损失: 0.049762 | 学习率: 0.000041
+Epoch [249/512] | 训练损失: 0.057985 | 验证损失: 0.049865 | 学习率: 0.000041
+Epoch [250/512] | 训练损失: 0.057957 | 验证损失: 0.049665 | 学习率: 0.000041
+Epoch [251/512] | 训练损失: 0.057944 | 验证损失: 0.049494 | 学习率: 0.000040
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [252/512] | 训练损失: 0.057941 | 验证损失: 0.049854 | 学习率: 0.000040
+Epoch [253/512] | 训练损失: 0.057943 | 验证损失: 0.049778 | 学习率: 0.000039
+Epoch [254/512] | 训练损失: 0.057937 | 验证损失: 0.049574 | 学习率: 0.000039
+Epoch [255/512] | 训练损失: 0.057931 | 验证损失: 0.049738 | 学习率: 0.000039
+Epoch [256/512] | 训练损失: 0.057881 | 验证损失: 0.049621 | 学习率: 0.000038
+Epoch [257/512] | 训练损失: 0.057881 | 验证损失: 0.049705 | 学习率: 0.000038
+Epoch [258/512] | 训练损失: 0.057803 | 验证损失: 0.049710 | 学习率: 0.000037
+Epoch [259/512] | 训练损失: 0.057881 | 验证损失: 0.049783 | 学习率: 0.000037
+Epoch [260/512] | 训练损失: 0.057864 | 验证损失: 0.049679 | 学习率: 0.000037
+Epoch [261/512] | 训练损失: 0.057804 | 验证损失: 0.049774 | 学习率: 0.000036
+Epoch [262/512] | 训练损失: 0.057781 | 验证损失: 0.049657 | 学习率: 0.000036
+Epoch [263/512] | 训练损失: 0.057773 | 验证损失: 0.049682 | 学习率: 0.000036
+Epoch [264/512] | 训练损失: 0.057752 | 验证损失: 0.049786 | 学习率: 0.000035
+Epoch [265/512] | 训练损失: 0.057772 | 验证损失: 0.049484 | 学习率: 0.000035
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [266/512] | 训练损失: 0.057735 | 验证损失: 0.049616 | 学习率: 0.000035
+Epoch [267/512] | 训练损失: 0.057716 | 验证损失: 0.049621 | 学习率: 0.000034
+Epoch [268/512] | 训练损失: 0.057749 | 验证损失: 0.049623 | 学习率: 0.000034
+Epoch [269/512] | 训练损失: 0.057702 | 验证损失: 0.049587 | 学习率: 0.000033
+Epoch [270/512] | 训练损失: 0.057702 | 验证损失: 0.049551 | 学习率: 0.000033
+Epoch [271/512] | 训练损失: 0.057724 | 验证损失: 0.049423 | 学习率: 0.000033
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [272/512] | 训练损失: 0.057645 | 验证损失: 0.049473 | 学习率: 0.000032
+Epoch [273/512] | 训练损失: 0.057716 | 验证损失: 0.049576 | 学习率: 0.000032
+Epoch [274/512] | 训练损失: 0.057629 | 验证损失: 0.049453 | 学习率: 0.000032
+Epoch [275/512] | 训练损失: 0.057627 | 验证损失: 0.049470 | 学习率: 0.000032
+Epoch [276/512] | 训练损失: 0.057629 | 验证损失: 0.049600 | 学习率: 0.000031
+Epoch [277/512] | 训练损失: 0.057611 | 验证损失: 0.049642 | 学习率: 0.000031
+Epoch [278/512] | 训练损失: 0.057600 | 验证损失: 0.049489 | 学习率: 0.000031
+Epoch [279/512] | 训练损失: 0.057632 | 验证损失: 0.049328 | 学习率: 0.000030
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [280/512] | 训练损失: 0.057616 | 验证损失: 0.049308 | 学习率: 0.000030
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [281/512] | 训练损失: 0.057563 | 验证损失: 0.049453 | 学习率: 0.000030
+Epoch [282/512] | 训练损失: 0.057522 | 验证损失: 0.049518 | 学习率: 0.000029
+Epoch [283/512] | 训练损失: 0.057515 | 验证损失: 0.049562 | 学习率: 0.000029
+Epoch [284/512] | 训练损失: 0.057568 | 验证损失: 0.049476 | 学习率: 0.000029
+Epoch [285/512] | 训练损失: 0.057518 | 验证损失: 0.049272 | 学习率: 0.000029
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [286/512] | 训练损失: 0.057515 | 验证损失: 0.049372 | 学习率: 0.000028
+Epoch [287/512] | 训练损失: 0.057531 | 验证损失: 0.049468 | 学习率: 0.000028
+Epoch [288/512] | 训练损失: 0.057467 | 验证损失: 0.049404 | 学习率: 0.000028
+Epoch [289/512] | 训练损失: 0.057475 | 验证损失: 0.049444 | 学习率: 0.000027
+Epoch [290/512] | 训练损失: 0.057485 | 验证损失: 0.049547 | 学习率: 0.000027
+Epoch [291/512] | 训练损失: 0.057460 | 验证损失: 0.049477 | 学习率: 0.000027
+Epoch [292/512] | 训练损失: 0.057477 | 验证损失: 0.049255 | 学习率: 0.000027
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [293/512] | 训练损失: 0.057467 | 验证损失: 0.049267 | 学习率: 0.000026
+Epoch [294/512] | 训练损失: 0.057420 | 验证损失: 0.049259 | 学习率: 0.000026
+Epoch [295/512] | 训练损失: 0.057405 | 验证损失: 0.049405 | 学习率: 0.000026
+Epoch [296/512] | 训练损失: 0.057402 | 验证损失: 0.049216 | 学习率: 0.000026
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [297/512] | 训练损失: 0.057404 | 验证损失: 0.049387 | 学习率: 0.000025
+Epoch [298/512] | 训练损失: 0.057441 | 验证损失: 0.049581 | 学习率: 0.000025
+Epoch [299/512] | 训练损失: 0.057434 | 验证损失: 0.049306 | 学习率: 0.000025
+Epoch [300/512] | 训练损失: 0.057356 | 验证损失: 0.049279 | 学习率: 0.000025
+Epoch [301/512] | 训练损失: 0.057349 | 验证损失: 0.049296 | 学习率: 0.000024
+Epoch [302/512] | 训练损失: 0.057382 | 验证损失: 0.049325 | 学习率: 0.000024
+Epoch [303/512] | 训练损失: 0.057337 | 验证损失: 0.049233 | 学习率: 0.000024
+Epoch [304/512] | 训练损失: 0.057319 | 验证损失: 0.049347 | 学习率: 0.000024
+Epoch [305/512] | 训练损失: 0.057345 | 验证损失: 0.049203 | 学习率: 0.000023
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [306/512] | 训练损失: 0.057344 | 验证损失: 0.049178 | 学习率: 0.000023
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [307/512] | 训练损失: 0.057335 | 验证损失: 0.049244 | 学习率: 0.000023
+Epoch [308/512] | 训练损失: 0.057309 | 验证损失: 0.049332 | 学习率: 0.000023
+Epoch [309/512] | 训练损失: 0.057299 | 验证损失: 0.049206 | 学习率: 0.000022
+Epoch [310/512] | 训练损失: 0.057294 | 验证损失: 0.049331 | 学习率: 0.000022
+Epoch [311/512] | 训练损失: 0.057247 | 验证损失: 0.049100 | 学习率: 0.000022
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [312/512] | 训练损失: 0.057276 | 验证损失: 0.049215 | 学习率: 0.000022
+Epoch [313/512] | 训练损失: 0.057288 | 验证损失: 0.049141 | 学习率: 0.000022
+Epoch [314/512] | 训练损失: 0.057266 | 验证损失: 0.049114 | 学习率: 0.000021
+Epoch [315/512] | 训练损失: 0.057275 | 验证损失: 0.049208 | 学习率: 0.000021
+Epoch [316/512] | 训练损失: 0.057235 | 验证损失: 0.049220 | 学习率: 0.000021
+Epoch [317/512] | 训练损失: 0.057254 | 验证损失: 0.049181 | 学习率: 0.000021
+Epoch [318/512] | 训练损失: 0.057232 | 验证损失: 0.049219 | 学习率: 0.000020
+Epoch [319/512] | 训练损失: 0.057249 | 验证损失: 0.049282 | 学习率: 0.000020
+Epoch [320/512] | 训练损失: 0.057188 | 验证损失: 0.049127 | 学习率: 0.000020
+Epoch [321/512] | 训练损失: 0.057177 | 验证损失: 0.049236 | 学习率: 0.000020
+Epoch [322/512] | 训练损失: 0.057204 | 验证损失: 0.049234 | 学习率: 0.000020
+Epoch [323/512] | 训练损失: 0.057166 | 验证损失: 0.049117 | 学习率: 0.000019
+Epoch [324/512] | 训练损失: 0.057168 | 验证损失: 0.049376 | 学习率: 0.000019
+Epoch [325/512] | 训练损失: 0.057176 | 验证损失: 0.049169 | 学习率: 0.000019
+Epoch [326/512] | 训练损失: 0.057194 | 验证损失: 0.049292 | 学习率: 0.000019
+Epoch [327/512] | 训练损失: 0.057188 | 验证损失: 0.049183 | 学习率: 0.000019
+Epoch [328/512] | 训练损失: 0.057164 | 验证损失: 0.049303 | 学习率: 0.000019
+Epoch [329/512] | 训练损失: 0.057131 | 验证损失: 0.049052 | 学习率: 0.000018
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [330/512] | 训练损失: 0.057124 | 验证损失: 0.049110 | 学习率: 0.000018
+Epoch [331/512] | 训练损失: 0.057202 | 验证损失: 0.049126 | 学习率: 0.000018
+Epoch [332/512] | 训练损失: 0.057134 | 验证损失: 0.049062 | 学习率: 0.000018
+Epoch [333/512] | 训练损失: 0.057076 | 验证损失: 0.048975 | 学习率: 0.000018
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth
+Epoch [334/512] | 训练损失: 0.057153 | 验证损失: 0.049261 | 学习率: 0.000017

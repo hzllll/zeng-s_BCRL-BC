@@ -8,10 +8,19 @@ sys.path.append('..')
 from onsite import scenarioOrganizer, env
 import pandas as pd
 import concurrent.futures
-from Lattice_Planner import backcar
+# from Lattice_Planner import backcar
 import joblib
 import matplotlib.pyplot as plt
 import time
+
+# 优化路径导入，确保能找到 onsite
+current_dir = os.path.dirname(os.path.abspath(__file__))
+project_root = os.path.abspath(os.path.join(current_dir, "../.."))
+sys.path.append(project_root)
+from onsite import scenarioOrganizer, env
+
+# 全局设备配置
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 # 随机种子
 seed = 1
@@ -79,16 +88,17 @@ class NetWithEncoderDecoderGRU_properRL(nn.Module):
         return out
 
 
-# —————— 7维：wcy；lwmi；hzl_test(hzl测试wcy代码在zrl的验证代码下结果)——————
+# —————— 7维：wcy；lwmi；hzl_test(hzl测试wcy代码在zrl的验证代码下结果):可改6维，把7改为6即可——————
 class GRUTrajectoryPredictor(nn.Module):
     def __init__(self, embed_dim, hidden_dim, output_dim, seq_length, car_num):
         super(GRUTrajectoryPredictor, self).__init__()
         self.car_num = car_num
         self.seq_length = seq_length
+        self.output_dim = output_dim  # 【新增】将 output_dim 存为类的属性
 
         # 嵌入层：将高维特征映射到低维嵌入空间
-        self.embedding_main_target = nn.Linear(7, embed_dim)  # 主车+目标点特征（7维）
-        self.embedding_vehicle = nn.Linear(7, embed_dim)  # 单个障碍车特征（7维）
+        self.embedding_main_target = nn.Linear(6, embed_dim)  # 主车+目标点特征（6维/7维）
+        self.embedding_vehicle = nn.Linear(6, embed_dim)  # 单个障碍车特征（6维/7维）
 
         self.dropout_embed = nn.Dropout(0.2)  # 嵌入层后dropout
         self.dropout_encoder = nn.Dropout(0.15) # GRU编码器后dropout
@@ -111,12 +121,16 @@ class GRUTrajectoryPredictor(nn.Module):
            - 前6维：主车+目标点特征
            - 后car_num*6维：障碍车特征（每个障碍车6维）
         """
+        # 【新增】处理单样本推理时的维度扩充
+        if x.dim() == 1:
+            x = x.unsqueeze(0)
+
         # 1. 拆分输入特征
-        main_target_feat = x[:, 0:7]  # 主车+目标点特征 (batch_size, 7)
-        vehicle_feats = x[:, 7:7 + self.car_num*7].reshape(-1, self.car_num, 7)  # 障碍车特征 (batch_size, car_num, 7)
+        main_target_feat = x[:, 0:6]  # 主车+目标点特征 (batch_size, 6/7)
+        vehicle_feats = x[:, 6:6 + self.car_num*6].reshape(-1, self.car_num, 6)  # 障碍车特征 (batch_size, car_num, 6/7)
 
         # 2. 障碍车特征随机打乱（增强模型鲁棒性，避免依赖固定顺序）
-        random_indices = torch.randperm(self.car_num).to(device)
+        random_indices = torch.randperm(self.car_num).to(x.device)
         vehicle_feats = vehicle_feats[:, random_indices, :]
 
         # 3. 特征嵌入（将低维特征映射到高维嵌入空间）
@@ -137,7 +151,7 @@ class GRUTrajectoryPredictor(nn.Module):
 
         # 6. GRU解码器生成预测序列
         decoder_input = encoder_output[:, -1, :].unsqueeze(1)  # 解码器初始输入：编码器最后一个输出 (batch_size, 1, hidden_dim)
-        pred_seq = torch.zeros(x.size(0), self.seq_length, OUTPUT_DIM).to(device)  # 初始化预测序列
+        pred_seq = torch.zeros(x.size(0), self.seq_length, self.output_dim).to(x.device)  # 初始化预测序列
 
         for t in range(self.seq_length):
             decoder_output, hidden_state = self.decoder_gru(decoder_input, hidden_state)  # 解码器前向传播
@@ -196,10 +210,10 @@ class NetWithEncoderDecoderGRU_no_goal_sim(nn.Module):
         vehicles_emb = self.embedding_vehicle(vehicles)  # (batch_size, 6, embed_dim)
 
         # 将所有嵌入拼接成一个序列
-        sequence = torch.cat([vehicles_emb, main_target_emb], dim=1)  # (batch_size, 7, embed_dim)
+        sequence = torch.cat([vehicles_emb, main_target_emb], dim=1)  # (batch_size, 6/7, embed_dim)
 
         # 使用 GRU 编码器进行处理
-        encoder_output, hidden_state = self.encoder_gru(sequence)  # (batch_size, 7, hidden_dim)
+        encoder_output, hidden_state = self.encoder_gru(sequence)  # (batch_size, 6/7, hidden_dim)
 
         # 解码器的输入是编码器的最后一个输出
         decoder_input = encoder_output[:, -1, :].unsqueeze(1)
@@ -587,7 +601,14 @@ def process_input_directory(input_dir, output_dir, model):
             map_info = get_lane_info2(road_info)
         yaw0 = observation['vehicle_info']['ego']['yaw']
         try:
+            step_count = 0
+            max_steps = 5000 # 【新增】超时保护
             while observation['test_setting']['end'] == -1:
+                step_count += 1
+                if step_count > max_steps:
+                    print(f"超时保护：场景已执行 {max_steps} 步，强制跳过")
+                    break
+
                 if goal[0] > init_pos[0]:
                     next_obs = observation_to_state1_simRL_proper(observation, goal, map_info)
                 else:
@@ -595,10 +616,12 @@ def process_input_directory(input_dir, output_dir, model):
                     # next_obs = observation_to_state2_closest6(observation, frame_n, action, goal, map_info)
                     # next_obs = observation_to_state2_sim(observation, frame_n, action, goal, map_info)
 
-                next_obs = torch.tensor(next_obs, dtype=torch.float32)
+                next_obs = torch.tensor(next_obs, dtype=torch.float32).to(device)
 
+                # 【修改】使用 no_grad 避免显存泄漏
+                with torch.no_grad():
                 # tic = time.perf_counter()
-                action = model(next_obs)
+                    action = model(next_obs)
                 # toc = time.perf_counter()
                 # time_ = (toc - tic) * 1000
                 # # times.append(time_)
@@ -651,7 +674,9 @@ def process_input_directory(input_dir, output_dir, model):
                         break
                     action_timestep = action[:, i, :]
                     action_timestep = action_timestep.detach().cpu().numpy().reshape(-1)
-                    action_timestep[0] = action_timestep[0] * 10
+                    # 【修改】加速度反归一化系数改为 6
+                    action_timestep[0] = action_timestep[0] * 6  
+                    # action_timestep[0] = action_timestep[0] * 10
                     action_timestep[1] = action_timestep[1] * 0.15
                     # action_timestep[1] = action_timestep[1] * 0.6
                     observation = envs.step(action_timestep)
@@ -662,14 +687,31 @@ def process_input_directory(input_dir, output_dir, model):
 
 if __name__ == "__main__":
     # device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    model = NetWithEncoderDecoderGRU_properRL(32, 64, 2, 5)
+    model = GRUTrajectoryPredictor(
+        embed_dim=128, 
+        hidden_dim=256, 
+        output_dim=2, 
+        seq_length=5, 
+        car_num=8
+    ).to(device)
 
     # model.load_state_dict(torch.load('model_GRU_Multi1_choose_closest8_sim_01o.pth'))
-    model.load_state_dict(torch.load('model_GRU_RL_guass_23.pth'))
+    # model.load_state_dict(torch.load('/root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth'))
+    # 定义模型路径变量
+    model_path = '/root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth'
+
+    if os.path.exists(model_path):
+        model.load_state_dict(torch.load(model_path, map_location=device))
+        print(f"成功加载 GRU 模型: {model_path}")
+    else:
+        print("模型文件不存在，请检查路径！")
+        exit()
+    # 【新增】开启评估模式（关闭 Dropout）
+    model.eval()
 
     # input_dirs = [f"E:\\python_program\\Onsite\\planner\\inputs\\inputs_all_multi\\inputs{i}" for i in range(5)]
-    input_dirs = [f"E:\\python_program\\Onsite\\planner\\inputs\\inputs_test_multi\\inputs{i}" for i in range(5)]
-    output_dir = r"E:\python_program\Onsite\planner\outputs\model_GRU_RL_guass_23_test"
+    input_dirs = [f"/root/autodl-tmp/BCRL/bc/planner/inputs/inputs_B"]
+    output_dir = "/root/autodl-tmp/BCRL/bc/planner/outputs/GRU_test_resultB_0.01LRD_1024BSIZE_256HDdim_0.1rad_2lay_GRUdropout"
 
     # 使用进程池并行处理
     with concurrent.futures.ProcessPoolExecutor(max_workers=5) as executor:

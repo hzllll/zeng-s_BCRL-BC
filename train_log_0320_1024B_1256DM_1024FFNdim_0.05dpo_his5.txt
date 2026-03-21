@@ -1,0 +1,717 @@
+使用设备: cuda
+成功加载: /root/autodl-tmp/BCRL/bc/history5_123_history_traj_acc_steer/history5_closest8_3_10000_1_history_traj_acc_steer.npy | 形状: (1110667, 380)
+成功加载: /root/autodl-tmp/BCRL/bc/history5_123_history_traj_acc_steer/history5_closest8_3_10000_2_history_traj_acc_steer.npy | 形状: (1101861, 380)
+成功加载: /root/autodl-tmp/BCRL/bc/history5_123_history_traj_acc_steer/history5_closest8_3_10000_3_history_traj_acc_steer.npy | 形状: (1028692, 380)
+
+数据合并完成 | 总量: 3241220 | 维度: 380
+预处理完成 | 特征: (3241220, 370) | 标签: (3241220, 10)
+未检测到已有模型文件，使用随机初始化模型参数。
+
+开始训练模型...
+Epoch [1/512] | 训练损失: 0.507976 | 验证损失: 0.473809 | 学习率: 0.000024
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [2/512] | 训练损失: 0.466430 | 验证损失: 0.455175 | 学习率: 0.000036
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [3/512] | 训练损失: 0.450175 | 验证损失: 0.442637 | 学习率: 0.000048
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [4/512] | 训练损失: 0.439702 | 验证损失: 0.432446 | 学习率: 0.000060
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [5/512] | 训练损失: 0.432065 | 验证损失: 0.425096 | 学习率: 0.000072
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [6/512] | 训练损失: 0.424740 | 验证损失: 0.421113 | 学习率: 0.000084
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [7/512] | 训练损失: 0.418678 | 验证损失: 0.415748 | 学习率: 0.000096
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [8/512] | 训练损失: 0.412610 | 验证损失: 0.408761 | 学习率: 0.000108
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [9/512] | 训练损失: 0.406808 | 验证损失: 0.402206 | 学习率: 0.000120
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [10/512] | 训练损失: 0.401987 | 验证损失: 0.395057 | 学习率: 0.000132
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [11/512] | 训练损失: 0.396424 | 验证损失: 0.391521 | 学习率: 0.000144
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [12/512] | 训练损失: 0.391320 | 验证损失: 0.388032 | 学习率: 0.000156
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [13/512] | 训练损失: 0.386461 | 验证损失: 0.376630 | 学习率: 0.000168
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [14/512] | 训练损失: 0.381589 | 验证损失: 0.373315 | 学习率: 0.000180
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [15/512] | 训练损失: 0.376920 | 验证损失: 0.368495 | 学习率: 0.000192
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [16/512] | 训练损失: 0.372432 | 验证损失: 0.365119 | 学习率: 0.000204
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [17/512] | 训练损失: 0.367553 | 验证损失: 0.362040 | 学习率: 0.000216
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [18/512] | 训练损失: 0.363060 | 验证损失: 0.355482 | 学习率: 0.000228
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [19/512] | 训练损失: 0.357093 | 验证损失: 0.356287 | 学习率: 0.000240
+Epoch [20/512] | 训练损失: 0.352165 | 验证损失: 0.342223 | 学习率: 0.000252
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [21/512] | 训练损失: 0.348343 | 验证损失: 0.343874 | 学习率: 0.000264
+Epoch [22/512] | 训练损失: 0.344557 | 验证损失: 0.335844 | 学习率: 0.000276
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [23/512] | 训练损失: 0.341604 | 验证损失: 0.333281 | 学习率: 0.000288
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [24/512] | 训练损失: 0.338528 | 验证损失: 0.328468 | 学习率: 0.000300
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [25/512] | 训练损失: 0.333501 | 验证损失: 0.326835 | 学习率: 0.000300
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [26/512] | 训练损失: 0.328775 | 验证损失: 0.322470 | 学习率: 0.000300
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [27/512] | 训练损失: 0.325175 | 验证损失: 0.317812 | 学习率: 0.000300
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [28/512] | 训练损失: 0.319409 | 验证损失: 0.313210 | 学习率: 0.000300
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [29/512] | 训练损失: 0.315816 | 验证损失: 0.308581 | 学习率: 0.000300
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [30/512] | 训练损失: 0.312113 | 验证损失: 0.302141 | 学习率: 0.000300
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [31/512] | 训练损失: 0.307732 | 验证损失: 0.309534 | 学习率: 0.000300
+Epoch [32/512] | 训练损失: 0.304068 | 验证损失: 0.299087 | 学习率: 0.000300
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [33/512] | 训练损失: 0.300428 | 验证损失: 0.292641 | 学习率: 0.000300
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [34/512] | 训练损失: 0.295432 | 验证损失: 0.290809 | 学习率: 0.000300
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [35/512] | 训练损失: 0.291322 | 验证损失: 0.286401 | 学习率: 0.000300
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [36/512] | 训练损失: 0.287284 | 验证损失: 0.281008 | 学习率: 0.000300
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [37/512] | 训练损失: 0.283630 | 验证损失: 0.282699 | 学习率: 0.000300
+Epoch [38/512] | 训练损失: 0.280855 | 验证损失: 0.276206 | 学习率: 0.000299
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [39/512] | 训练损失: 0.276748 | 验证损失: 0.266539 | 学习率: 0.000299
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [40/512] | 训练损失: 0.273847 | 验证损失: 0.268502 | 学习率: 0.000299
+Epoch [41/512] | 训练损失: 0.270769 | 验证损失: 0.262317 | 学习率: 0.000299
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [42/512] | 训练损失: 0.267735 | 验证损失: 0.259233 | 学习率: 0.000299
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [43/512] | 训练损失: 0.264909 | 验证损失: 0.259191 | 学习率: 0.000299
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [44/512] | 训练损失: 0.262388 | 验证损失: 0.253014 | 学习率: 0.000299
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [45/512] | 训练损失: 0.259566 | 验证损失: 0.251912 | 学习率: 0.000299
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [46/512] | 训练损失: 0.256743 | 验证损失: 0.246154 | 学习率: 0.000299
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [47/512] | 训练损失: 0.253827 | 验证损失: 0.242715 | 学习率: 0.000298
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [48/512] | 训练损失: 0.251629 | 验证损失: 0.245135 | 学习率: 0.000298
+Epoch [49/512] | 训练损失: 0.249759 | 验证损失: 0.241402 | 学习率: 0.000298
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [50/512] | 训练损失: 0.246983 | 验证损失: 0.235255 | 学习率: 0.000298
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [51/512] | 训练损失: 0.244781 | 验证损失: 0.236038 | 学习率: 0.000298
+Epoch [52/512] | 训练损失: 0.242722 | 验证损失: 0.234892 | 学习率: 0.000298
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [53/512] | 训练损失: 0.241012 | 验证损失: 0.229616 | 学习率: 0.000298
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [54/512] | 训练损失: 0.239451 | 验证损失: 0.228499 | 学习率: 0.000297
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [55/512] | 训练损失: 0.237822 | 验证损失: 0.226475 | 学习率: 0.000297
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [56/512] | 训练损失: 0.235662 | 验证损失: 0.229318 | 学习率: 0.000297
+Epoch [57/512] | 训练损失: 0.233948 | 验证损失: 0.223706 | 学习率: 0.000297
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [58/512] | 训练损失: 0.232562 | 验证损失: 0.219877 | 学习率: 0.000297
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [59/512] | 训练损失: 0.230943 | 验证损失: 0.220975 | 学习率: 0.000296
+Epoch [60/512] | 训练损失: 0.229318 | 验证损失: 0.220919 | 学习率: 0.000296
+Epoch [61/512] | 训练损失: 0.228300 | 验证损失: 0.221486 | 学习率: 0.000296
+Epoch [62/512] | 训练损失: 0.226829 | 验证损失: 0.215903 | 学习率: 0.000296
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [63/512] | 训练损失: 0.225641 | 验证损失: 0.215764 | 学习率: 0.000296
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [64/512] | 训练损失: 0.223604 | 验证损失: 0.211331 | 学习率: 0.000295
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [65/512] | 训练损失: 0.222615 | 验证损失: 0.211984 | 学习率: 0.000295
+Epoch [66/512] | 训练损失: 0.221528 | 验证损失: 0.211622 | 学习率: 0.000295
+Epoch [67/512] | 训练损失: 0.220223 | 验证损失: 0.208464 | 学习率: 0.000295
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [68/512] | 训练损失: 0.219267 | 验证损失: 0.209471 | 学习率: 0.000294
+Epoch [69/512] | 训练损失: 0.217899 | 验证损失: 0.210363 | 学习率: 0.000294
+Epoch [70/512] | 训练损失: 0.216862 | 验证损失: 0.210536 | 学习率: 0.000294
+Epoch [71/512] | 训练损失: 0.215292 | 验证损失: 0.210859 | 学习率: 0.000293
+Epoch [72/512] | 训练损失: 0.214734 | 验证损失: 0.200790 | 学习率: 0.000293
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [73/512] | 训练损失: 0.213780 | 验证损失: 0.205015 | 学习率: 0.000293
+Epoch [74/512] | 训练损失: 0.211990 | 验证损失: 0.205827 | 学习率: 0.000293
+Epoch [75/512] | 训练损失: 0.211091 | 验证损失: 0.200904 | 学习率: 0.000292
+Epoch [76/512] | 训练损失: 0.210609 | 验证损失: 0.204223 | 学习率: 0.000292
+Epoch [77/512] | 训练损失: 0.208950 | 验证损失: 0.199881 | 学习率: 0.000292
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [78/512] | 训练损失: 0.208400 | 验证损失: 0.203273 | 学习率: 0.000291
+Epoch [79/512] | 训练损失: 0.207478 | 验证损失: 0.199079 | 学习率: 0.000291
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [80/512] | 训练损失: 0.206756 | 验证损失: 0.201688 | 学习率: 0.000291
+Epoch [81/512] | 训练损失: 0.205351 | 验证损失: 0.196606 | 学习率: 0.000290
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [82/512] | 训练损失: 0.204690 | 验证损失: 0.200314 | 学习率: 0.000290
+Epoch [83/512] | 训练损失: 0.203999 | 验证损失: 0.192931 | 学习率: 0.000290
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [84/512] | 训练损失: 0.203213 | 验证损失: 0.196795 | 学习率: 0.000289
+Epoch [85/512] | 训练损失: 0.201978 | 验证损失: 0.193897 | 学习率: 0.000289
+Epoch [86/512] | 训练损失: 0.201302 | 验证损失: 0.193454 | 学习率: 0.000289
+Epoch [87/512] | 训练损失: 0.200180 | 验证损失: 0.192920 | 学习率: 0.000288
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [88/512] | 训练损失: 0.199908 | 验证损失: 0.191334 | 学习率: 0.000288
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [89/512] | 训练损失: 0.199545 | 验证损失: 0.189508 | 学习率: 0.000287
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [90/512] | 训练损失: 0.198431 | 验证损失: 0.188353 | 学习率: 0.000287
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [91/512] | 训练损失: 0.197911 | 验证损失: 0.196751 | 学习率: 0.000287
+Epoch [92/512] | 训练损失: 0.196488 | 验证损失: 0.187033 | 学习率: 0.000286
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [93/512] | 训练损失: 0.196182 | 验证损失: 0.189379 | 学习率: 0.000286
+Epoch [94/512] | 训练损失: 0.195204 | 验证损失: 0.186467 | 学习率: 0.000285
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [95/512] | 训练损失: 0.194834 | 验证损失: 0.186434 | 学习率: 0.000285
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [96/512] | 训练损失: 0.194064 | 验证损失: 0.186539 | 学习率: 0.000285
+Epoch [97/512] | 训练损失: 0.193786 | 验证损失: 0.185718 | 学习率: 0.000284
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [98/512] | 训练损失: 0.192423 | 验证损失: 0.181748 | 学习率: 0.000284
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [99/512] | 训练损失: 0.192567 | 验证损失: 0.183582 | 学习率: 0.000283
+Epoch [100/512] | 训练损失: 0.191601 | 验证损失: 0.184334 | 学习率: 0.000283
+Epoch [101/512] | 训练损失: 0.190893 | 验证损失: 0.177271 | 学习率: 0.000282
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [102/512] | 训练损失: 0.190172 | 验证损失: 0.185879 | 学习率: 0.000282
+Epoch [103/512] | 训练损失: 0.190163 | 验证损失: 0.180181 | 学习率: 0.000281
+Epoch [104/512] | 训练损失: 0.189654 | 验证损失: 0.181663 | 学习率: 0.000281
+Epoch [105/512] | 训练损失: 0.188257 | 验证损失: 0.182243 | 学习率: 0.000280
+Epoch [106/512] | 训练损失: 0.188306 | 验证损失: 0.178960 | 学习率: 0.000280
+Epoch [107/512] | 训练损失: 0.187054 | 验证损失: 0.178105 | 学习率: 0.000279
+Epoch [108/512] | 训练损失: 0.186823 | 验证损失: 0.178669 | 学习率: 0.000279
+Epoch [109/512] | 训练损失: 0.186762 | 验证损失: 0.179925 | 学习率: 0.000279
+Epoch [110/512] | 训练损失: 0.185584 | 验证损失: 0.176032 | 学习率: 0.000278
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [111/512] | 训练损失: 0.185227 | 验证损失: 0.176597 | 学习率: 0.000278
+Epoch [112/512] | 训练损失: 0.184085 | 验证损失: 0.177000 | 学习率: 0.000277
+Epoch [113/512] | 训练损失: 0.184109 | 验证损失: 0.177443 | 学习率: 0.000276
+Epoch [114/512] | 训练损失: 0.183908 | 验证损失: 0.175356 | 学习率: 0.000276
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [115/512] | 训练损失: 0.182948 | 验证损失: 0.172991 | 学习率: 0.000275
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [116/512] | 训练损失: 0.182836 | 验证损失: 0.177837 | 学习率: 0.000275
+Epoch [117/512] | 训练损失: 0.182077 | 验证损失: 0.170698 | 学习率: 0.000274
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [118/512] | 训练损失: 0.181431 | 验证损失: 0.170846 | 学习率: 0.000274
+Epoch [119/512] | 训练损失: 0.180848 | 验证损失: 0.172307 | 学习率: 0.000273
+Epoch [120/512] | 训练损失: 0.180713 | 验证损失: 0.173216 | 学习率: 0.000273
+Epoch [121/512] | 训练损失: 0.180023 | 验证损失: 0.171093 | 学习率: 0.000272
+Epoch [122/512] | 训练损失: 0.179700 | 验证损失: 0.172417 | 学习率: 0.000272
+Epoch [123/512] | 训练损失: 0.179230 | 验证损失: 0.170657 | 学习率: 0.000271
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [124/512] | 训练损失: 0.178421 | 验证损失: 0.172935 | 学习率: 0.000270
+Epoch [125/512] | 训练损失: 0.178356 | 验证损失: 0.171872 | 学习率: 0.000270
+Epoch [126/512] | 训练损失: 0.178063 | 验证损失: 0.166378 | 学习率: 0.000269
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [127/512] | 训练损失: 0.177050 | 验证损失: 0.169172 | 学习率: 0.000269
+Epoch [128/512] | 训练损失: 0.176822 | 验证损失: 0.166085 | 学习率: 0.000268
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [129/512] | 训练损失: 0.176472 | 验证损失: 0.166126 | 学习率: 0.000267
+Epoch [130/512] | 训练损失: 0.175800 | 验证损失: 0.169062 | 学习率: 0.000267
+Epoch [131/512] | 训练损失: 0.175487 | 验证损失: 0.169010 | 学习率: 0.000266
+Epoch [132/512] | 训练损失: 0.175217 | 验证损失: 0.162821 | 学习率: 0.000266
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [133/512] | 训练损失: 0.174313 | 验证损失: 0.162565 | 学习率: 0.000265
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [134/512] | 训练损失: 0.174302 | 验证损失: 0.166056 | 学习率: 0.000264
+Epoch [135/512] | 训练损失: 0.173794 | 验证损失: 0.162966 | 学习率: 0.000264
+Epoch [136/512] | 训练损失: 0.173307 | 验证损失: 0.161858 | 学习率: 0.000263
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [137/512] | 训练损失: 0.172472 | 验证损失: 0.162879 | 学习率: 0.000263
+Epoch [138/512] | 训练损失: 0.172746 | 验证损失: 0.166373 | 学习率: 0.000262
+Epoch [139/512] | 训练损失: 0.172009 | 验证损失: 0.162019 | 学习率: 0.000261
+Epoch [140/512] | 训练损失: 0.171085 | 验证损失: 0.165230 | 学习率: 0.000261
+Epoch [141/512] | 训练损失: 0.170613 | 验证损失: 0.159465 | 学习率: 0.000260
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [142/512] | 训练损失: 0.170361 | 验证损失: 0.158177 | 学习率: 0.000259
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [143/512] | 训练损失: 0.170414 | 验证损失: 0.166304 | 学习率: 0.000259
+Epoch [144/512] | 训练损失: 0.169924 | 验证损失: 0.159660 | 学习率: 0.000258
+Epoch [145/512] | 训练损失: 0.169352 | 验证损失: 0.159936 | 学习率: 0.000257
+Epoch [146/512] | 训练损失: 0.168711 | 验证损失: 0.159593 | 学习率: 0.000257
+Epoch [147/512] | 训练损失: 0.168402 | 验证损失: 0.158562 | 学习率: 0.000256
+Epoch [148/512] | 训练损失: 0.168591 | 验证损失: 0.159258 | 学习率: 0.000255
+Epoch [149/512] | 训练损失: 0.167268 | 验证损失: 0.157459 | 学习率: 0.000255
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [150/512] | 训练损失: 0.167511 | 验证损失: 0.159990 | 学习率: 0.000254
+Epoch [151/512] | 训练损失: 0.167004 | 验证损失: 0.158325 | 学习率: 0.000253
+Epoch [152/512] | 训练损失: 0.166486 | 验证损失: 0.158230 | 学习率: 0.000252
+Epoch [153/512] | 训练损失: 0.166465 | 验证损失: 0.158820 | 学习率: 0.000252
+Epoch [154/512] | 训练损失: 0.166056 | 验证损失: 0.156898 | 学习率: 0.000251
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [155/512] | 训练损失: 0.165670 | 验证损失: 0.167374 | 学习率: 0.000250
+Epoch [156/512] | 训练损失: 0.165109 | 验证损失: 0.159861 | 学习率: 0.000250
+Epoch [157/512] | 训练损失: 0.164710 | 验证损失: 0.153209 | 学习率: 0.000249
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [158/512] | 训练损失: 0.163995 | 验证损失: 0.152797 | 学习率: 0.000248
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [159/512] | 训练损失: 0.164262 | 验证损失: 0.157266 | 学习率: 0.000247
+Epoch [160/512] | 训练损失: 0.163657 | 验证损失: 0.151621 | 学习率: 0.000247
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [161/512] | 训练损失: 0.162965 | 验证损失: 0.155419 | 学习率: 0.000246
+Epoch [162/512] | 训练损失: 0.163074 | 验证损失: 0.154956 | 学习率: 0.000245
+Epoch [163/512] | 训练损失: 0.162448 | 验证损失: 0.152628 | 学习率: 0.000244
+Epoch [164/512] | 训练损失: 0.161717 | 验证损失: 0.156156 | 学习率: 0.000244
+Epoch [165/512] | 训练损失: 0.161757 | 验证损失: 0.151706 | 学习率: 0.000243
+Epoch [166/512] | 训练损失: 0.161583 | 验证损失: 0.154310 | 学习率: 0.000242
+Epoch [167/512] | 训练损失: 0.161081 | 验证损失: 0.158798 | 学习率: 0.000241
+Epoch [168/512] | 训练损失: 0.160492 | 验证损失: 0.151948 | 学习率: 0.000241
+Epoch [169/512] | 训练损失: 0.160461 | 验证损失: 0.154303 | 学习率: 0.000240
+Epoch [170/512] | 训练损失: 0.159856 | 验证损失: 0.148951 | 学习率: 0.000239
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [171/512] | 训练损失: 0.160316 | 验证损失: 0.151602 | 学习率: 0.000238
+Epoch [172/512] | 训练损失: 0.159296 | 验证损失: 0.150190 | 学习率: 0.000237
+Epoch [173/512] | 训练损失: 0.158603 | 验证损失: 0.150205 | 学习率: 0.000237
+Epoch [174/512] | 训练损失: 0.158665 | 验证损失: 0.148700 | 学习率: 0.000236
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [175/512] | 训练损失: 0.158308 | 验证损失: 0.151232 | 学习率: 0.000235
+Epoch [176/512] | 训练损失: 0.157825 | 验证损失: 0.146816 | 学习率: 0.000234
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [177/512] | 训练损失: 0.157461 | 验证损失: 0.148533 | 学习率: 0.000233
+Epoch [178/512] | 训练损失: 0.157261 | 验证损失: 0.148170 | 学习率: 0.000233
+Epoch [179/512] | 训练损失: 0.156940 | 验证损失: 0.145465 | 学习率: 0.000232
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [180/512] | 训练损失: 0.157109 | 验证损失: 0.149641 | 学习率: 0.000231
+Epoch [181/512] | 训练损失: 0.156489 | 验证损失: 0.148501 | 学习率: 0.000230
+Epoch [182/512] | 训练损失: 0.156462 | 验证损失: 0.146790 | 学习率: 0.000229
+Epoch [183/512] | 训练损失: 0.155941 | 验证损失: 0.141854 | 学习率: 0.000229
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [184/512] | 训练损失: 0.155139 | 验证损失: 0.143886 | 学习率: 0.000228
+Epoch [185/512] | 训练损失: 0.154662 | 验证损失: 0.145710 | 学习率: 0.000227
+Epoch [186/512] | 训练损失: 0.154709 | 验证损失: 0.149611 | 学习率: 0.000226
+Epoch [187/512] | 训练损失: 0.154049 | 验证损失: 0.145281 | 学习率: 0.000225
+Epoch [188/512] | 训练损失: 0.153980 | 验证损失: 0.144085 | 学习率: 0.000224
+Epoch [189/512] | 训练损失: 0.153445 | 验证损失: 0.148029 | 学习率: 0.000224
+Epoch [190/512] | 训练损失: 0.153582 | 验证损失: 0.146045 | 学习率: 0.000223
+Epoch [191/512] | 训练损失: 0.153041 | 验证损失: 0.141695 | 学习率: 0.000222
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [192/512] | 训练损失: 0.152445 | 验证损失: 0.143991 | 学习率: 0.000221
+Epoch [193/512] | 训练损失: 0.152474 | 验证损失: 0.143916 | 学习率: 0.000220
+Epoch [194/512] | 训练损失: 0.151884 | 验证损失: 0.139795 | 学习率: 0.000219
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [195/512] | 训练损失: 0.151552 | 验证损失: 0.143105 | 学习率: 0.000218
+Epoch [196/512] | 训练损失: 0.151713 | 验证损失: 0.142603 | 学习率: 0.000218
+Epoch [197/512] | 训练损失: 0.150767 | 验证损失: 0.140280 | 学习率: 0.000217
+Epoch [198/512] | 训练损失: 0.150356 | 验证损失: 0.140666 | 学习率: 0.000216
+Epoch [199/512] | 训练损失: 0.150550 | 验证损失: 0.138665 | 学习率: 0.000215
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [200/512] | 训练损失: 0.150162 | 验证损失: 0.141731 | 学习率: 0.000214
+Epoch [201/512] | 训练损失: 0.150070 | 验证损失: 0.139827 | 学习率: 0.000213
+Epoch [202/512] | 训练损失: 0.149747 | 验证损失: 0.139905 | 学习率: 0.000212
+Epoch [203/512] | 训练损失: 0.149086 | 验证损失: 0.137569 | 学习率: 0.000212
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [204/512] | 训练损失: 0.149091 | 验证损失: 0.136521 | 学习率: 0.000211
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [205/512] | 训练损失: 0.148334 | 验证损失: 0.138021 | 学习率: 0.000210
+Epoch [206/512] | 训练损失: 0.148796 | 验证损失: 0.137026 | 学习率: 0.000209
+Epoch [207/512] | 训练损失: 0.148402 | 验证损失: 0.138909 | 学习率: 0.000208
+Epoch [208/512] | 训练损失: 0.147637 | 验证损失: 0.137498 | 学习率: 0.000207
+Epoch [209/512] | 训练损失: 0.147554 | 验证损失: 0.136064 | 学习率: 0.000206
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [210/512] | 训练损失: 0.147187 | 验证损失: 0.134731 | 学习率: 0.000205
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [211/512] | 训练损失: 0.146967 | 验证损失: 0.136468 | 学习率: 0.000204
+Epoch [212/512] | 训练损失: 0.146586 | 验证损失: 0.136248 | 学习率: 0.000203
+Epoch [213/512] | 训练损失: 0.146435 | 验证损失: 0.142184 | 学习率: 0.000203
+Epoch [214/512] | 训练损失: 0.146164 | 验证损失: 0.135400 | 学习率: 0.000202
+Epoch [215/512] | 训练损失: 0.145515 | 验证损失: 0.134229 | 学习率: 0.000201
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [216/512] | 训练损失: 0.145334 | 验证损失: 0.136929 | 学习率: 0.000200
+Epoch [217/512] | 训练损失: 0.145184 | 验证损失: 0.134137 | 学习率: 0.000199
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [218/512] | 训练损失: 0.144976 | 验证损失: 0.132286 | 学习率: 0.000198
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [219/512] | 训练损失: 0.144976 | 验证损失: 0.134408 | 学习率: 0.000197
+Epoch [220/512] | 训练损失: 0.144469 | 验证损失: 0.132866 | 学习率: 0.000196
+Epoch [221/512] | 训练损失: 0.143763 | 验证损失: 0.133757 | 学习率: 0.000195
+Epoch [222/512] | 训练损失: 0.143463 | 验证损失: 0.134106 | 学习率: 0.000194
+Epoch [223/512] | 训练损失: 0.143290 | 验证损失: 0.134498 | 学习率: 0.000193
+Epoch [224/512] | 训练损失: 0.142925 | 验证损失: 0.132521 | 学习率: 0.000192
+Epoch [225/512] | 训练损失: 0.142604 | 验证损失: 0.132110 | 学习率: 0.000192
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [226/512] | 训练损失: 0.142490 | 验证损失: 0.132118 | 学习率: 0.000191
+Epoch [227/512] | 训练损失: 0.142574 | 验证损失: 0.132245 | 学习率: 0.000190
+Epoch [228/512] | 训练损失: 0.141768 | 验证损失: 0.131172 | 学习率: 0.000189
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [229/512] | 训练损失: 0.141352 | 验证损失: 0.131834 | 学习率: 0.000188
+Epoch [230/512] | 训练损失: 0.141314 | 验证损失: 0.131897 | 学习率: 0.000187
+Epoch [231/512] | 训练损失: 0.141155 | 验证损失: 0.132539 | 学习率: 0.000186
+Epoch [232/512] | 训练损失: 0.140754 | 验证损失: 0.128138 | 学习率: 0.000185
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [233/512] | 训练损失: 0.140299 | 验证损失: 0.129646 | 学习率: 0.000184
+Epoch [234/512] | 训练损失: 0.140488 | 验证损失: 0.131655 | 学习率: 0.000183
+Epoch [235/512] | 训练损失: 0.140281 | 验证损失: 0.129061 | 学习率: 0.000182
+Epoch [236/512] | 训练损失: 0.139587 | 验证损失: 0.131227 | 学习率: 0.000181
+Epoch [237/512] | 训练损失: 0.139731 | 验证损失: 0.129253 | 学习率: 0.000180
+Epoch [238/512] | 训练损失: 0.139008 | 验证损失: 0.129215 | 学习率: 0.000179
+Epoch [239/512] | 训练损失: 0.139024 | 验证损失: 0.128345 | 学习率: 0.000178
+Epoch [240/512] | 训练损失: 0.138962 | 验证损失: 0.127556 | 学习率: 0.000177
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [241/512] | 训练损失: 0.138405 | 验证损失: 0.128338 | 学习率: 0.000176
+Epoch [242/512] | 训练损失: 0.138046 | 验证损失: 0.130488 | 学习率: 0.000176
+Epoch [243/512] | 训练损失: 0.137542 | 验证损失: 0.128765 | 学习率: 0.000175
+Epoch [244/512] | 训练损失: 0.137468 | 验证损失: 0.127823 | 学习率: 0.000174
+Epoch [245/512] | 训练损失: 0.137115 | 验证损失: 0.125506 | 学习率: 0.000173
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [246/512] | 训练损失: 0.137336 | 验证损失: 0.127856 | 学习率: 0.000172
+Epoch [247/512] | 训练损失: 0.137011 | 验证损失: 0.127877 | 学习率: 0.000171
+Epoch [248/512] | 训练损失: 0.136240 | 验证损失: 0.126352 | 学习率: 0.000170
+Epoch [249/512] | 训练损失: 0.136119 | 验证损失: 0.126501 | 学习率: 0.000169
+Epoch [250/512] | 训练损失: 0.135847 | 验证损失: 0.125868 | 学习率: 0.000168
+Epoch [251/512] | 训练损失: 0.135779 | 验证损失: 0.123928 | 学习率: 0.000167
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [252/512] | 训练损失: 0.135461 | 验证损失: 0.124580 | 学习率: 0.000166
+Epoch [253/512] | 训练损失: 0.135241 | 验证损失: 0.126358 | 学习率: 0.000165
+Epoch [254/512] | 训练损失: 0.134768 | 验证损失: 0.125545 | 学习率: 0.000164
+Epoch [255/512] | 训练损失: 0.134732 | 验证损失: 0.122466 | 学习率: 0.000163
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [256/512] | 训练损失: 0.134182 | 验证损失: 0.125827 | 学习率: 0.000162
+Epoch [257/512] | 训练损失: 0.134553 | 验证损失: 0.126070 | 学习率: 0.000161
+Epoch [258/512] | 训练损失: 0.133769 | 验证损失: 0.124421 | 学习率: 0.000160
+Epoch [259/512] | 训练损失: 0.133520 | 验证损失: 0.122626 | 学习率: 0.000159
+Epoch [260/512] | 训练损失: 0.133092 | 验证损失: 0.123900 | 学习率: 0.000158
+Epoch [261/512] | 训练损失: 0.132977 | 验证损失: 0.124238 | 学习率: 0.000157
+Epoch [262/512] | 训练损失: 0.132935 | 验证损失: 0.121948 | 学习率: 0.000156
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [263/512] | 训练损失: 0.132566 | 验证损失: 0.122120 | 学习率: 0.000155
+Epoch [264/512] | 训练损失: 0.131994 | 验证损失: 0.126114 | 学习率: 0.000154
+Epoch [265/512] | 训练损失: 0.132079 | 验证损失: 0.122782 | 学习率: 0.000153
+Epoch [266/512] | 训练损失: 0.131570 | 验证损失: 0.120540 | 学习率: 0.000152
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [267/512] | 训练损失: 0.131515 | 验证损失: 0.123415 | 学习率: 0.000151
+Epoch [268/512] | 训练损失: 0.131332 | 验证损失: 0.120676 | 学习率: 0.000150
+Epoch [269/512] | 训练损失: 0.130811 | 验证损失: 0.121005 | 学习率: 0.000150
+Epoch [270/512] | 训练损失: 0.131157 | 验证损失: 0.120185 | 学习率: 0.000149
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [271/512] | 训练损失: 0.130604 | 验证损失: 0.120912 | 学习率: 0.000148
+Epoch [272/512] | 训练损失: 0.130483 | 验证损失: 0.119789 | 学习率: 0.000147
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [273/512] | 训练损失: 0.130556 | 验证损失: 0.120627 | 学习率: 0.000146
+Epoch [274/512] | 训练损失: 0.129335 | 验证损失: 0.122146 | 学习率: 0.000145
+Epoch [275/512] | 训练损失: 0.129404 | 验证损失: 0.118270 | 学习率: 0.000144
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [276/512] | 训练损失: 0.129266 | 验证损失: 0.118376 | 学习率: 0.000143
+Epoch [277/512] | 训练损失: 0.129001 | 验证损失: 0.117366 | 学习率: 0.000142
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [278/512] | 训练损失: 0.128642 | 验证损失: 0.120414 | 学习率: 0.000141
+Epoch [279/512] | 训练损失: 0.128577 | 验证损失: 0.121057 | 学习率: 0.000140
+Epoch [280/512] | 训练损失: 0.128129 | 验证损失: 0.118416 | 学习率: 0.000139
+Epoch [281/512] | 训练损失: 0.128095 | 验证损失: 0.119514 | 学习率: 0.000138
+Epoch [282/512] | 训练损失: 0.127923 | 验证损失: 0.117239 | 学习率: 0.000137
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [283/512] | 训练损失: 0.127444 | 验证损失: 0.119945 | 学习率: 0.000136
+Epoch [284/512] | 训练损失: 0.127390 | 验证损失: 0.118163 | 学习率: 0.000135
+Epoch [285/512] | 训练损失: 0.127157 | 验证损失: 0.120328 | 学习率: 0.000134
+Epoch [286/512] | 训练损失: 0.126879 | 验证损失: 0.117502 | 学习率: 0.000133
+Epoch [287/512] | 训练损失: 0.126657 | 验证损失: 0.116093 | 学习率: 0.000132
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [288/512] | 训练损失: 0.126308 | 验证损失: 0.116442 | 学习率: 0.000131
+Epoch [289/512] | 训练损失: 0.126381 | 验证损失: 0.115885 | 学习率: 0.000130
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [290/512] | 训练损失: 0.126111 | 验证损失: 0.116422 | 学习率: 0.000129
+Epoch [291/512] | 训练损失: 0.125698 | 验证损失: 0.117645 | 学习率: 0.000128
+Epoch [292/512] | 训练损失: 0.125346 | 验证损失: 0.115184 | 学习率: 0.000127
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [293/512] | 训练损失: 0.125207 | 验证损失: 0.115026 | 学习率: 0.000126
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [294/512] | 训练损失: 0.124871 | 验证损失: 0.114021 | 学习率: 0.000125
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [295/512] | 训练损失: 0.124729 | 验证损失: 0.114412 | 学习率: 0.000124
+Epoch [296/512] | 训练损失: 0.124157 | 验证损失: 0.114596 | 学习率: 0.000124
+Epoch [297/512] | 训练损失: 0.124301 | 验证损失: 0.114189 | 学习率: 0.000123
+Epoch [298/512] | 训练损失: 0.124008 | 验证损失: 0.114677 | 学习率: 0.000122
+Epoch [299/512] | 训练损失: 0.123924 | 验证损失: 0.114310 | 学习率: 0.000121
+Epoch [300/512] | 训练损失: 0.123425 | 验证损失: 0.114271 | 学习率: 0.000120
+Epoch [301/512] | 训练损失: 0.123287 | 验证损失: 0.113524 | 学习率: 0.000119
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [302/512] | 训练损失: 0.122902 | 验证损失: 0.112509 | 学习率: 0.000118
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [303/512] | 训练损失: 0.122727 | 验证损失: 0.112281 | 学习率: 0.000117
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [304/512] | 训练损失: 0.122435 | 验证损失: 0.111973 | 学习率: 0.000116
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [305/512] | 训练损失: 0.122265 | 验证损失: 0.113148 | 学习率: 0.000115
+Epoch [306/512] | 训练损失: 0.122318 | 验证损失: 0.112553 | 学习率: 0.000114
+Epoch [307/512] | 训练损失: 0.122351 | 验证损失: 0.112306 | 学习率: 0.000113
+Epoch [308/512] | 训练损失: 0.121812 | 验证损失: 0.110888 | 学习率: 0.000112
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [309/512] | 训练损失: 0.121338 | 验证损失: 0.113564 | 学习率: 0.000111
+Epoch [310/512] | 训练损失: 0.121321 | 验证损失: 0.111111 | 学习率: 0.000110
+Epoch [311/512] | 训练损失: 0.120982 | 验证损失: 0.111319 | 学习率: 0.000109
+Epoch [312/512] | 训练损失: 0.120917 | 验证损失: 0.110511 | 学习率: 0.000108
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [313/512] | 训练损失: 0.120681 | 验证损失: 0.110389 | 学习率: 0.000108
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [314/512] | 训练损失: 0.120493 | 验证损失: 0.110474 | 学习率: 0.000107
+Epoch [315/512] | 训练损失: 0.120270 | 验证损失: 0.109346 | 学习率: 0.000106
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [316/512] | 训练损失: 0.120067 | 验证损失: 0.111003 | 学习率: 0.000105
+Epoch [317/512] | 训练损失: 0.119823 | 验证损失: 0.109870 | 学习率: 0.000104
+Epoch [318/512] | 训练损失: 0.119572 | 验证损失: 0.109336 | 学习率: 0.000103
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [319/512] | 训练损失: 0.119158 | 验证损失: 0.108450 | 学习率: 0.000102
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [320/512] | 训练损失: 0.119190 | 验证损失: 0.108431 | 学习率: 0.000101
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [321/512] | 训练损失: 0.118777 | 验证损失: 0.109064 | 学习率: 0.000100
+Epoch [322/512] | 训练损失: 0.118596 | 验证损失: 0.108327 | 学习率: 0.000099
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [323/512] | 训练损失: 0.118165 | 验证损失: 0.108209 | 学习率: 0.000098
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [324/512] | 训练损失: 0.118142 | 验证损失: 0.108563 | 学习率: 0.000097
+Epoch [325/512] | 训练损失: 0.118303 | 验证损失: 0.107589 | 学习率: 0.000097
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [326/512] | 训练损失: 0.117687 | 验证损失: 0.109420 | 学习率: 0.000096
+Epoch [327/512] | 训练损失: 0.117702 | 验证损失: 0.108493 | 学习率: 0.000095
+Epoch [328/512] | 训练损失: 0.117305 | 验证损失: 0.106849 | 学习率: 0.000094
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [329/512] | 训练损失: 0.117148 | 验证损失: 0.107812 | 学习率: 0.000093
+Epoch [330/512] | 训练损失: 0.117005 | 验证损失: 0.108231 | 学习率: 0.000092
+Epoch [331/512] | 训练损失: 0.116748 | 验证损失: 0.107045 | 学习率: 0.000091
+Epoch [332/512] | 训练损失: 0.116539 | 验证损失: 0.107469 | 学习率: 0.000090
+Epoch [333/512] | 训练损失: 0.116316 | 验证损失: 0.106881 | 学习率: 0.000089
+Epoch [334/512] | 训练损失: 0.116316 | 验证损失: 0.106188 | 学习率: 0.000088
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [335/512] | 训练损失: 0.115736 | 验证损失: 0.107240 | 学习率: 0.000088
+Epoch [336/512] | 训练损失: 0.115823 | 验证损失: 0.106100 | 学习率: 0.000087
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [337/512] | 训练损失: 0.115524 | 验证损失: 0.104827 | 学习率: 0.000086
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [338/512] | 训练损失: 0.115453 | 验证损失: 0.105353 | 学习率: 0.000085
+Epoch [339/512] | 训练损失: 0.115004 | 验证损失: 0.107211 | 学习率: 0.000084
+Epoch [340/512] | 训练损失: 0.115079 | 验证损失: 0.104401 | 学习率: 0.000083
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [341/512] | 训练损失: 0.114606 | 验证损失: 0.103525 | 学习率: 0.000082
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [342/512] | 训练损失: 0.114594 | 验证损失: 0.104162 | 学习率: 0.000082
+Epoch [343/512] | 训练损失: 0.114366 | 验证损失: 0.104360 | 学习率: 0.000081
+Epoch [344/512] | 训练损失: 0.114313 | 验证损失: 0.103861 | 学习率: 0.000080
+Epoch [345/512] | 训练损失: 0.113984 | 验证损失: 0.102910 | 学习率: 0.000079
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [346/512] | 训练损失: 0.113759 | 验证损失: 0.104728 | 学习率: 0.000078
+Epoch [347/512] | 训练损失: 0.113734 | 验证损失: 0.103835 | 学习率: 0.000077
+Epoch [348/512] | 训练损失: 0.113501 | 验证损失: 0.103596 | 学习率: 0.000076
+Epoch [349/512] | 训练损失: 0.113226 | 验证损失: 0.102507 | 学习率: 0.000076
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [350/512] | 训练损失: 0.112972 | 验证损失: 0.103382 | 学习率: 0.000075
+Epoch [351/512] | 训练损失: 0.112780 | 验证损失: 0.103038 | 学习率: 0.000074
+Epoch [352/512] | 训练损失: 0.112657 | 验证损失: 0.103023 | 学习率: 0.000073
+Epoch [353/512] | 训练损失: 0.112357 | 验证损失: 0.102104 | 学习率: 0.000072
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [354/512] | 训练损失: 0.112375 | 验证损失: 0.101381 | 学习率: 0.000071
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [355/512] | 训练损失: 0.112126 | 验证损失: 0.102241 | 学习率: 0.000071
+Epoch [356/512] | 训练损失: 0.112070 | 验证损失: 0.102125 | 学习率: 0.000070
+Epoch [357/512] | 训练损失: 0.111716 | 验证损失: 0.100256 | 学习率: 0.000069
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [358/512] | 训练损失: 0.111704 | 验证损失: 0.101375 | 学习率: 0.000068
+Epoch [359/512] | 训练损失: 0.111550 | 验证损失: 0.100152 | 学习率: 0.000067
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [360/512] | 训练损失: 0.111261 | 验证损失: 0.100879 | 学习率: 0.000067
+Epoch [361/512] | 训练损失: 0.111201 | 验证损失: 0.101826 | 学习率: 0.000066
+Epoch [362/512] | 训练损失: 0.110936 | 验证损失: 0.100072 | 学习率: 0.000065
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [363/512] | 训练损失: 0.110733 | 验证损失: 0.100074 | 学习率: 0.000064
+Epoch [364/512] | 训练损失: 0.110520 | 验证损失: 0.099743 | 学习率: 0.000063
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [365/512] | 训练损失: 0.110277 | 验证损失: 0.101086 | 学习率: 0.000063
+Epoch [366/512] | 训练损失: 0.110125 | 验证损失: 0.101152 | 学习率: 0.000062
+Epoch [367/512] | 训练损失: 0.110109 | 验证损失: 0.101012 | 学习率: 0.000061
+Epoch [368/512] | 训练损失: 0.109934 | 验证损失: 0.099300 | 学习率: 0.000060
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [369/512] | 训练损失: 0.109642 | 验证损失: 0.099967 | 学习率: 0.000059
+Epoch [370/512] | 训练损失: 0.109562 | 验证损失: 0.098697 | 学习率: 0.000059
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [371/512] | 训练损失: 0.109362 | 验证损失: 0.098688 | 学习率: 0.000058
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [372/512] | 训练损失: 0.109308 | 验证损失: 0.098366 | 学习率: 0.000057
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [373/512] | 训练损失: 0.109103 | 验证损失: 0.098381 | 学习率: 0.000056
+Epoch [374/512] | 训练损失: 0.108995 | 验证损失: 0.099111 | 学习率: 0.000056
+Epoch [375/512] | 训练损失: 0.108653 | 验证损失: 0.098036 | 学习率: 0.000055
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [376/512] | 训练损失: 0.108439 | 验证损失: 0.098220 | 学习率: 0.000054
+Epoch [377/512] | 训练损失: 0.108330 | 验证损失: 0.097531 | 学习率: 0.000053
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [378/512] | 训练损失: 0.108301 | 验证损失: 0.098750 | 学习率: 0.000053
+Epoch [379/512] | 训练损失: 0.107986 | 验证损失: 0.097255 | 学习率: 0.000052
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [380/512] | 训练损失: 0.107882 | 验证损失: 0.098342 | 学习率: 0.000051
+Epoch [381/512] | 训练损失: 0.107683 | 验证损失: 0.097573 | 学习率: 0.000050
+Epoch [382/512] | 训练损失: 0.107681 | 验证损失: 0.097291 | 学习率: 0.000050
+Epoch [383/512] | 训练损失: 0.107386 | 验证损失: 0.096934 | 学习率: 0.000049
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [384/512] | 训练损失: 0.107355 | 验证损失: 0.096767 | 学习率: 0.000048
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [385/512] | 训练损失: 0.107130 | 验证损失: 0.096639 | 学习率: 0.000048
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [386/512] | 训练损失: 0.107052 | 验证损失: 0.096961 | 学习率: 0.000047
+Epoch [387/512] | 训练损失: 0.106790 | 验证损失: 0.096811 | 学习率: 0.000046
+Epoch [388/512] | 训练损失: 0.106698 | 验证损失: 0.096338 | 学习率: 0.000045
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [389/512] | 训练损失: 0.106458 | 验证损失: 0.096159 | 学习率: 0.000045
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [390/512] | 训练损失: 0.106387 | 验证损失: 0.095821 | 学习率: 0.000044
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [391/512] | 训练损失: 0.106150 | 验证损失: 0.096813 | 学习率: 0.000043
+Epoch [392/512] | 训练损失: 0.106123 | 验证损失: 0.095684 | 学习率: 0.000043
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [393/512] | 训练损失: 0.105900 | 验证损失: 0.097019 | 学习率: 0.000042
+Epoch [394/512] | 训练损失: 0.105907 | 验证损失: 0.095789 | 学习率: 0.000041
+Epoch [395/512] | 训练损失: 0.105759 | 验证损失: 0.095181 | 学习率: 0.000041
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [396/512] | 训练损失: 0.105538 | 验证损失: 0.094338 | 学习率: 0.000040
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [397/512] | 训练损失: 0.105390 | 验证损失: 0.095114 | 学习率: 0.000039
+Epoch [398/512] | 训练损失: 0.105381 | 验证损失: 0.095403 | 学习率: 0.000039
+Epoch [399/512] | 训练损失: 0.105179 | 验证损失: 0.094969 | 学习率: 0.000038
+Epoch [400/512] | 训练损失: 0.104951 | 验证损失: 0.096281 | 学习率: 0.000037
+Epoch [401/512] | 训练损失: 0.104987 | 验证损失: 0.094881 | 学习率: 0.000037
+Epoch [402/512] | 训练损失: 0.104829 | 验证损失: 0.094123 | 学习率: 0.000036
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [403/512] | 训练损失: 0.104666 | 验证损失: 0.094655 | 学习率: 0.000036
+Epoch [404/512] | 训练损失: 0.104398 | 验证损失: 0.094442 | 学习率: 0.000035
+Epoch [405/512] | 训练损失: 0.104481 | 验证损失: 0.094884 | 学习率: 0.000034
+Epoch [406/512] | 训练损失: 0.104296 | 验证损失: 0.095153 | 学习率: 0.000034
+Epoch [407/512] | 训练损失: 0.104147 | 验证损失: 0.093900 | 学习率: 0.000033
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [408/512] | 训练损失: 0.104082 | 验证损失: 0.093676 | 学习率: 0.000033
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [409/512] | 训练损失: 0.103874 | 验证损失: 0.093537 | 学习率: 0.000032
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [410/512] | 训练损失: 0.103749 | 验证损失: 0.093572 | 学习率: 0.000031
+Epoch [411/512] | 训练损失: 0.103663 | 验证损失: 0.093711 | 学习率: 0.000031
+Epoch [412/512] | 训练损失: 0.103557 | 验证损失: 0.093388 | 学习率: 0.000030
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [413/512] | 训练损失: 0.103322 | 验证损失: 0.093121 | 学习率: 0.000030
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [414/512] | 训练损失: 0.103297 | 验证损失: 0.093466 | 学习率: 0.000029
+Epoch [415/512] | 训练损失: 0.103318 | 验证损失: 0.093443 | 学习率: 0.000028
+Epoch [416/512] | 训练损失: 0.103141 | 验证损失: 0.092931 | 学习率: 0.000028
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [417/512] | 训练损失: 0.102862 | 验证损失: 0.093313 | 学习率: 0.000027
+Epoch [418/512] | 训练损失: 0.102850 | 验证损失: 0.095183 | 学习率: 0.000027
+Epoch [419/512] | 训练损失: 0.102731 | 验证损失: 0.093162 | 学习率: 0.000026
+Epoch [420/512] | 训练损失: 0.102685 | 验证损失: 0.093520 | 学习率: 0.000026
+Epoch [421/512] | 训练损失: 0.102533 | 验证损失: 0.092729 | 学习率: 0.000025
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [422/512] | 训练损失: 0.102443 | 验证损失: 0.093272 | 学习率: 0.000025
+Epoch [423/512] | 训练损失: 0.102307 | 验证损失: 0.092069 | 学习率: 0.000024
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [424/512] | 训练损失: 0.102163 | 验证损失: 0.092799 | 学习率: 0.000024
+Epoch [425/512] | 训练损失: 0.102172 | 验证损失: 0.092963 | 学习率: 0.000023
+Epoch [426/512] | 训练损失: 0.102012 | 验证损失: 0.092281 | 学习率: 0.000022
+Epoch [427/512] | 训练损失: 0.101827 | 验证损失: 0.092134 | 学习率: 0.000022
+Epoch [428/512] | 训练损失: 0.101785 | 验证损失: 0.091879 | 学习率: 0.000021
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [429/512] | 训练损失: 0.101772 | 验证损失: 0.091771 | 学习率: 0.000021
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [430/512] | 训练损失: 0.101606 | 验证损失: 0.092499 | 学习率: 0.000021
+Epoch [431/512] | 训练损失: 0.101553 | 验证损失: 0.091645 | 学习率: 0.000020
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [432/512] | 训练损失: 0.101563 | 验证损失: 0.092388 | 学习率: 0.000020
+Epoch [433/512] | 训练损失: 0.101391 | 验证损失: 0.092032 | 学习率: 0.000019
+Epoch [434/512] | 训练损失: 0.101165 | 验证损失: 0.091746 | 学习率: 0.000019
+Epoch [435/512] | 训练损失: 0.101064 | 验证损失: 0.091247 | 学习率: 0.000018
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [436/512] | 训练损失: 0.101155 | 验证损失: 0.091024 | 学习率: 0.000018
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [437/512] | 训练损失: 0.100969 | 验证损失: 0.091114 | 学习率: 0.000017
+Epoch [438/512] | 训练损失: 0.100914 | 验证损失: 0.091335 | 学习率: 0.000017
+Epoch [439/512] | 训练损失: 0.100848 | 验证损失: 0.091277 | 学习率: 0.000016
+Epoch [440/512] | 训练损失: 0.100755 | 验证损失: 0.090722 | 学习率: 0.000016
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [441/512] | 训练损失: 0.100649 | 验证损失: 0.091739 | 学习率: 0.000015
+Epoch [442/512] | 训练损失: 0.100583 | 验证损失: 0.090829 | 学习率: 0.000015
+Epoch [443/512] | 训练损失: 0.100456 | 验证损失: 0.091019 | 学习率: 0.000015
+Epoch [444/512] | 训练损失: 0.100423 | 验证损失: 0.090692 | 学习率: 0.000014
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [445/512] | 训练损失: 0.100250 | 验证损失: 0.091543 | 学习率: 0.000014
+Epoch [446/512] | 训练损失: 0.100286 | 验证损失: 0.090837 | 学习率: 0.000013
+Epoch [447/512] | 训练损失: 0.100261 | 验证损失: 0.090942 | 学习率: 0.000013
+Epoch [448/512] | 训练损失: 0.100141 | 验证损失: 0.090782 | 学习率: 0.000013
+Epoch [449/512] | 训练损失: 0.100031 | 验证损失: 0.090819 | 学习率: 0.000012
+Epoch [450/512] | 训练损失: 0.099971 | 验证损失: 0.090175 | 学习率: 0.000012
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [451/512] | 训练损失: 0.099895 | 验证损失: 0.090639 | 学习率: 0.000011
+Epoch [452/512] | 训练损失: 0.099928 | 验证损失: 0.091075 | 学习率: 0.000011
+Epoch [453/512] | 训练损失: 0.099883 | 验证损失: 0.090171 | 学习率: 0.000011
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [454/512] | 训练损失: 0.099766 | 验证损失: 0.090384 | 学习率: 0.000010
+Epoch [455/512] | 训练损失: 0.099702 | 验证损失: 0.089780 | 学习率: 0.000010
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [456/512] | 训练损失: 0.099629 | 验证损失: 0.090816 | 学习率: 0.000010
+Epoch [457/512] | 训练损失: 0.099572 | 验证损失: 0.090196 | 学习率: 0.000009
+Epoch [458/512] | 训练损失: 0.099496 | 验证损失: 0.089757 | 学习率: 0.000009
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [459/512] | 训练损失: 0.099359 | 验证损失: 0.089559 | 学习率: 0.000009
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [460/512] | 训练损失: 0.099427 | 验证损失: 0.089931 | 学习率: 0.000008
+Epoch [461/512] | 训练损失: 0.099418 | 验证损失: 0.090105 | 学习率: 0.000008
+Epoch [462/512] | 训练损失: 0.099308 | 验证损失: 0.089989 | 学习率: 0.000008
+Epoch [463/512] | 训练损失: 0.099178 | 验证损失: 0.089700 | 学习率: 0.000007
+Epoch [464/512] | 训练损失: 0.099144 | 验证损失: 0.089792 | 学习率: 0.000007
+Epoch [465/512] | 训练损失: 0.099131 | 验证损失: 0.089971 | 学习率: 0.000007
+Epoch [466/512] | 训练损失: 0.099032 | 验证损失: 0.089320 | 学习率: 0.000007
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [467/512] | 训练损失: 0.099028 | 验证损失: 0.089782 | 学习率: 0.000006
+Epoch [468/512] | 训练损失: 0.098987 | 验证损失: 0.089293 | 学习率: 0.000006
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [469/512] | 训练损失: 0.098930 | 验证损失: 0.089353 | 学习率: 0.000006
+Epoch [470/512] | 训练损失: 0.098875 | 验证损失: 0.089648 | 学习率: 0.000005
+Epoch [471/512] | 训练损失: 0.098906 | 验证损失: 0.089097 | 学习率: 0.000005
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [472/512] | 训练损失: 0.098839 | 验证损失: 0.089556 | 学习率: 0.000005
+Epoch [473/512] | 训练损失: 0.098780 | 验证损失: 0.089384 | 学习率: 0.000005
+Epoch [474/512] | 训练损失: 0.098710 | 验证损失: 0.089384 | 学习率: 0.000004
+Epoch [475/512] | 训练损失: 0.098805 | 验证损失: 0.089267 | 学习率: 0.000004
+Epoch [476/512] | 训练损失: 0.098641 | 验证损失: 0.089261 | 学习率: 0.000004
+Epoch [477/512] | 训练损失: 0.098662 | 验证损失: 0.088974 | 学习率: 0.000004
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [478/512] | 训练损失: 0.098775 | 验证损失: 0.089400 | 学习率: 0.000004
+Epoch [479/512] | 训练损失: 0.098604 | 验证损失: 0.089255 | 学习率: 0.000003
+Epoch [480/512] | 训练损失: 0.098551 | 验证损失: 0.089172 | 学习率: 0.000003
+Epoch [481/512] | 训练损失: 0.098469 | 验证损失: 0.089055 | 学习率: 0.000003
+Epoch [482/512] | 训练损失: 0.098508 | 验证损失: 0.088935 | 学习率: 0.000003
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [483/512] | 训练损失: 0.098541 | 验证损失: 0.089275 | 学习率: 0.000003
+Epoch [484/512] | 训练损失: 0.098430 | 验证损失: 0.089013 | 学习率: 0.000002
+Epoch [485/512] | 训练损失: 0.098414 | 验证损失: 0.089110 | 学习率: 0.000002
+Epoch [486/512] | 训练损失: 0.098336 | 验证损失: 0.089186 | 学习率: 0.000002
+Epoch [487/512] | 训练损失: 0.098289 | 验证损失: 0.089033 | 学习率: 0.000002
+Epoch [488/512] | 训练损失: 0.098406 | 验证损失: 0.089005 | 学习率: 0.000002
+Epoch [489/512] | 训练损失: 0.098217 | 验证损失: 0.088832 | 学习率: 0.000002
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [490/512] | 训练损失: 0.098242 | 验证损失: 0.088782 | 学习率: 0.000002
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [491/512] | 训练损失: 0.098161 | 验证损失: 0.088904 | 学习率: 0.000001
+Epoch [492/512] | 训练损失: 0.098361 | 验证损失: 0.088905 | 学习率: 0.000001
+Epoch [493/512] | 训练损失: 0.098232 | 验证损失: 0.088606 | 学习率: 0.000001
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints_his5/TF_Hist5_1024B_256d_enc3.pth
+Epoch [494/512] | 训练损失: 0.098257 | 验证损失: 0.088783 | 学习率: 0.000001
+Epoch [495/512] | 训练损失: 0.098240 | 验证损失: 0.088829 | 学习率: 0.000001
+Epoch [496/512] | 训练损失: 0.098198 | 验证损失: 0.088866 | 学习率: 0.000001
+Epoch [497/512] | 训练损失: 0.098173 | 验证损失: 0.088820 | 学习率: 0.000001
+Epoch [498/512] | 训练损失: 0.098228 | 验证损失: 0.088772 | 学习率: 0.000001
+Epoch [499/512] | 训练损失: 0.098209 | 验证损失: 0.088832 | 学习率: 0.000001
+Epoch [500/512] | 训练损失: 0.098069 | 验证损失: 0.088808 | 学习率: 0.000000
+Epoch [501/512] | 训练损失: 0.098131 | 验证损失: 0.088794 | 学习率: 0.000000
+Epoch [502/512] | 训练损失: 0.098188 | 验证损失: 0.088782 | 学习率: 0.000000
+Epoch [503/512] | 训练损失: 0.098128 | 验证损失: 0.088763 | 学习率: 0.000000
+Epoch [504/512] | 训练损失: 0.098136 | 验证损失: 0.088805 | 学习率: 0.000000
+Epoch [505/512] | 训练损失: 0.098123 | 验证损失: 0.088762 | 学习率: 0.000000
+Epoch [506/512] | 训练损失: 0.098016 | 验证损失: 0.088796 | 学习率: 0.000000
+Epoch [507/512] | 训练损失: 0.098144 | 验证损失: 0.088832 | 学习率: 0.000000
+Epoch [508/512] | 训练损失: 0.098106 | 验证损失: 0.088811 | 学习率: 0.000000
+Epoch [509/512] | 训练损失: 0.098070 | 验证损失: 0.088787 | 学习率: 0.000000
+Epoch [510/512] | 训练损失: 0.098035 | 验证损失: 0.088788 | 学习率: 0.000000
+Epoch [511/512] | 训练损失: 0.098051 | 验证损失: 0.088792 | 学习率: 0.000000
+Epoch [512/512] | 训练损失: 0.098122 | 验证损失: 0.088792 | 学习率: 0.000000
+
+训练流程全部完成！

@@ -58,7 +58,7 @@ LR_DECAY = 0.01  # 学习率衰减率（每epoch衰减(1-LR_DECAY)）
 BATCH_SIZE = 1024
 EPOCHS = 512  # 最大训练轮数
 # EARLY_STOPPING_PATIENCE = 20  # 早停耐心值（连续多少轮验证集loss不下降则停止）
-EARLY_STOPPING_PATIENCE = 15  # 早停耐心值（连续多少轮验证集loss不下降则停止）
+EARLY_STOPPING_PATIENCE = 20  # 早停耐心值（连续多少轮验证集loss不下降则停止）
 ACCELERATION_WEIGHT = 1  # 加速度损失权重
 STEERING_WEIGHT = 5  # 转角损失权重（转角对轨迹影响更大，权重更高）
 TEST_SIZE = 0.1  # 验证集比例（10%数据用于验证）
@@ -67,15 +67,15 @@ TEST_SIZE = 0.1  # 验证集比例（10%数据用于验证）
 # LOSS_PLOT_SAVE_PATH = fr"/root/autodl-tmp/clone_learning/plots1\gru_loss_curve_{str(LR_DECAY)}LRD_{str(BATCH_SIZE)}BSIZE_{str(HIDDEN_DIM)}HDdim_0.1rad_3_1_2lay_lwmi.svg"  # 损失曲线保存路径
 
 # 确保输出目录存在
-checkpoints_dir = os.path.join(BASE_DIR, "checkpoints1")
-plots_dir = os.path.join(BASE_DIR, "plots1")
+checkpoints_dir = os.path.join(BASE_DIR, "GRU_checkpoints")
+plots_dir = os.path.join(BASE_DIR, "GRU_plots")
 os.makedirs(checkpoints_dir, exist_ok=True)
 os.makedirs(plots_dir, exist_ok=True)
 
 # MODEL_SAVE_PATH = os.path.join(checkpoints_dir, f"gru_trajectory_model_{str(LR_DECAY)}LRD_{str(BATCH_SIZE)}BSIZE_{str(HIDDEN_DIM)}HDdim_0.1rad_3_1_2lay_lwmi.pth")# 小参数模型保存路径
 # LOSS_PLOT_SAVE_PATH = os.path.join(plots_dir, f"gru_loss_curve_{str(LR_DECAY)}LRD_{str(BATCH_SIZE)}BSIZE_{str(HIDDEN_DIM)}HDdim_0.1rad_3_1_2lay_lwmi.svg")
-MODEL_SAVE_PATH = os.path.join(checkpoints_dir, f"gru_trajectory_model_{str(LR_DECAY)}LRD_{str(BATCH_SIZE)}BSIZE_{str(HIDDEN_DIM)}HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout.pth") # 大dropout模型保存路径
-LOSS_PLOT_SAVE_PATH = os.path.join(plots_dir, f"gru_loss_curve_{str(LR_DECAY)}LRD_{str(BATCH_SIZE)}BSIZE_{str(HIDDEN_DIM)}HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout.svg") # 损失曲线
+MODEL_SAVE_PATH = os.path.join(checkpoints_dir, f"gru_trajectory_model_{str(LR_DECAY)}LRD_{str(BATCH_SIZE)}BSIZE_{str(HIDDEN_DIM)}HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth") # 大dropout模型保存路径
+LOSS_PLOT_SAVE_PATH = os.path.join(plots_dir, f"gru_loss_curve_{str(LR_DECAY)}LRD_{str(BATCH_SIZE)}BSIZE_{str(HIDDEN_DIM)}HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.svg") # 损失曲线
 
 # ======================== 模型定义（GRU编码器-解码器结构）========================
 class GRUTrajectoryPredictor(nn.Module):
@@ -85,8 +85,8 @@ class GRUTrajectoryPredictor(nn.Module):
         self.seq_length = seq_length
 
         # 嵌入层：将高维特征映射到低维嵌入空间
-        self.embedding_main_target = nn.Linear(7, embed_dim)  # 主车+目标点特征（7维）
-        self.embedding_vehicle = nn.Linear(7, embed_dim)  # 单个障碍车特征（7维）
+        self.embedding_main_target = nn.Linear(6, embed_dim)  # 主车+目标点特征（6维）
+        self.embedding_vehicle = nn.Linear(6, embed_dim)  # 单个障碍车特征（6维）
 
         self.dropout_embed = nn.Dropout(0.2)  # 嵌入层后dropout
         self.dropout_encoder = nn.Dropout(0.15) # GRU编码器后dropout
@@ -110,8 +110,8 @@ class GRUTrajectoryPredictor(nn.Module):
            - 后car_num*6维：障碍车特征（每个障碍车6维）
         """
         # 1. 拆分输入特征
-        main_target_feat = x[:, 0:7]  # 主车+目标点特征 (batch_size, 7)
-        vehicle_feats = x[:, 7:7 + self.car_num*7].reshape(-1, self.car_num, 7)  # 障碍车特征 (batch_size, car_num, 7)
+        main_target_feat = x[:, 0:6]  # 主车+目标点特征 (batch_size, 6)
+        vehicle_feats = x[:, 6:6 + self.car_num*6].reshape(-1, self.car_num, 6)  # 障碍车特征 (batch_size, car_num, 6)
 
         # 2. 障碍车特征随机打乱（增强模型鲁棒性，避免依赖固定顺序）
         random_indices = torch.randperm(self.car_num).to(device)
