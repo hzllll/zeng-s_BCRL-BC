@@ -58,6 +58,7 @@ data/           # 通用命名
 data0206/       # ★当前项目特定命名 (必须加这个)
 dataset/
 datasets/
+history5_123_history_traj_acc_steer/
 
 # ==========================
 # 5. 仿真输出与日志
@@ -68,5 +69,5 @@ logs/
 wandb/          # Weights & Biases 日志
 
 # (可选) 如果 inputs 文件夹特别大，也可以取消下面这行的注释
-# planner/inputs/
+planner/inputs/
 

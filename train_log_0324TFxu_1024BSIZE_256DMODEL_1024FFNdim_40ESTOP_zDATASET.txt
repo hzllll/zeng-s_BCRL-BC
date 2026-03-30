@@ -1,0 +1,15 @@
+使用设备: cuda
+成功加载文件: /root/autodl-tmp/BCRL/bc/dataset/GRU_choose_closest8_properRL_0.npy | 数据形状: (2807565, 64)
+成功加载文件: /root/autodl-tmp/BCRL/bc/dataset/GRU_choose_closest8_properRL_1.npy | 数据形状: (2718791, 64)
+成功加载文件: /root/autodl-tmp/BCRL/bc/dataset/GRU_choose_closest8_properRL_out.npy | 数据形状: (4411230, 64)
+
+数据合并完成 | 总数据量: 9937586 | 特征维度: 64
+数据预处理完成 | 特征形状: (9937586, 54) | 标签形状: (9937586, 10)
+检测到已有模型文件，加载预训练模型: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Transformer_trajectory_model_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_40es_zDATASET.pth
+
+开始训练模型...
+Epoch [1/512] | 训练损失: 0.046112 | 验证损失: 0.040713 | 学习率: 0.000040
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Transformer_trajectory_model_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_40es_zDATASET.pth
+Epoch [2/512] | 训练损失: 0.045450 | 验证损失: 0.041251 | 学习率: 0.000060
+Epoch [3/512] | 训练损失: 0.045534 | 验证损失: 0.040783 | 学习率: 0.000080
+Epoch [4/512] | 训练损失: 0.045848 | 验证损失: 0.041023 | 学习率: 0.000100

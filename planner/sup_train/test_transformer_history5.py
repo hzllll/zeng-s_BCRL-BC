@@ -237,6 +237,60 @@ def get_lane_info2(road_info):
                    "right_bound": road_info.discretelanes[5].right_vertices[0, 1]}
     return map_info
 
+
+def init_history_buffer(observation, goal, map_info, is_negative_dir, hist_seq_len=5, dt=0.1):
+    """
+    用速度向历史反推，初始化历史 Buffer，
+    解决复制同一帧导致的绝对坐标矛盾问题。
+    """
+    ego_v_raw = observation['vehicle_info']['ego']['v']
+    ego_yaw_raw = observation['vehicle_info']['ego']['yaw']
+    
+    # 归一化 yaw
+    ego_yaw_norm = (ego_yaw_raw + np.pi) % (2 * np.pi) - np.pi
+    
+    # 坐标系翻转时，yaw 也需对应处理（与 extract_frame_features 一致）
+    if is_negative_dir:
+        yaw_used = ego_yaw_norm - np.pi
+        yaw_used = (yaw_used + np.pi) % (2 * np.pi) - np.pi
+    else:
+        yaw_used = ego_yaw_norm
+    
+    # 提取当前帧（= 最新帧，对应 buffer 末尾）
+    current_frame = np.array(
+        extract_frame_features(observation, goal, map_info, is_negative_dir),
+        dtype=np.float32
+    )
+    
+    history_buffer = []
+    # i=hist_seq_len-1 对应最老帧，i=0 对应当前帧
+    for i in range(hist_seq_len - 1, -1, -1):
+        past_frame = current_frame.copy()
+        if i > 0:
+            # 反推 i 步前的位置偏移量（假设速度恒定）
+            offset_x = ego_v_raw * i * dt * np.cos(yaw_used)
+            offset_y = ego_v_raw * i * dt * np.sin(yaw_used)
+            
+            # 修正 ego 特征中受绝对坐标影响的各维度
+            past_frame[2] -= offset_x          # ego_x：过去的 x 更小（还没走到这）
+            past_frame[3] -= offset_y          # ego_y：过去的 y 更小
+            past_frame[4] += offset_x          # rel_goal_x：过去离目标更远
+            past_frame[5] += offset_y          # rel_goal_y
+            past_frame[8] += offset_y          # ego_upper - ego_y：过去 ego_y 更小，距上边界更大
+            past_frame[9] += offset_y          # ego_lower - ego_y
+            
+            # 修正每辆障碍车的 y_j - ego_y（ego_y 过去更小，相对距离更大）
+            # 障碍车特征起始位置：index 10，每辆8维，第1维（offset=1）是 y_j - ego_y
+            for k in range(8):
+                obs_feat_start = 10 + k * 8
+                past_frame[obs_feat_start + 1] += offset_y  # y_j - ego_y
+                # veh_upper - y_j, veh_lower - y_j 不受 ego 移动影响，无需修正
+        
+        history_buffer.append(past_frame)
+    
+    # history_buffer[0] = 最老帧(t-4), history_buffer[-1] = 当前帧(t)
+    return [frame.tolist() for frame in history_buffer]
+
 # 3. 核心处理流程 (引入历史轨迹 Buffer)
 def process_input_directory(input_dir, output_dir, model):
     so = scenarioOrganizer.ScenarioOrganizer()
@@ -269,8 +323,11 @@ def process_input_directory(input_dir, output_dir, model):
             
             # --- 初始化历史轨迹 Buffer ---
             # 初始时刻，用第 0 帧的状态复制 5 份，填满历史队列
-            init_state = extract_frame_features(observation, goal, map_info, is_negative_dir)
-            history_buffer = [init_state for _ in range(HIST_SEQ_LENGTH)]
+            # init_state = extract_frame_features(observation, goal, map_info, is_negative_dir)
+            # history_buffer = [init_state for _ in range(HIST_SEQ_LENGTH)]
+
+            history_buffer = init_history_buffer(observation, goal, map_info, is_negative_dir, 
+                                     hist_seq_len=HIST_SEQ_LENGTH)
             
             while observation['test_setting']['end'] == -1:
                 step_count += 1
@@ -287,7 +344,8 @@ def process_input_directory(input_dir, output_dir, model):
                     action_seq = model(model_input_tensor) # shape: (1, 5, 2)
 
                 # 依次执行预测出的 5 帧动作
-                for i in range(5):
+                # for i in range(5):
+                for i in range(1):  # RHC：只执行第一帧，下一步重新规划
                     if observation['test_setting']['end'] != -1:
                         break
                     
@@ -334,8 +392,8 @@ if __name__ == "__main__":
     # 设置输入输出目录 (请修改为你的实际路径)
     # input_dirs = [f"/root/autodl-tmp/BCRL/bc/planner/inputs/inputs_C"]
     # output_dir = f"/root/autodl-tmp/BCRL/bc/planner/outputs/Transformer_result_C_Hist5_{D_MODEL}d_enc{num_encoder_layers}"
-    input_dirs = [f"/root/autodl-tmp/BCRL/bc/planner/inputs/inputs_B"]
-    output_dir = f"/root/autodl-tmp/BCRL/bc/planner/outputs/Transformer_result_B_Hist5_{D_MODEL}d_enc{num_encoder_layers}"
+    input_dirs = [f"/root/autodl-tmp/BCRL/bc/planner/inputs/inputs_C"]
+    output_dir = f"/root/autodl-tmp/BCRL/bc/planner/outputs/Transformer_result_C_Hist5_{D_MODEL}d_enc{num_encoder_layers}"
     
     
     # 并行执行

@@ -8,6 +8,7 @@ from torch.utils.data import DataLoader, TensorDataset
 from tqdm import tqdm
 import os
 import math
+from datetime import datetime
 
 # ======================== 全局配置（可直接调整）========================
 # 随机种子固定（保证实验可复现）
@@ -65,7 +66,7 @@ LEARNING_RATE = 5e-4
 BATCH_SIZE = 1024
 EPOCHS = 512  # 最大训练轮数
 # EARLY_STOPPING_PATIENCE = 20  # 早停耐心值（连续多少轮验证集loss不下降则停止）
-EARLY_STOPPING_PATIENCE = 25  # 早停耐心值（连续多少轮验证集loss不下降则停止）
+EARLY_STOPPING_PATIENCE = 100  # 早停耐心值（连续多少轮验证集loss不下降则停止）
 ACCELERATION_WEIGHT = 1  # 加速度损失权重
 STEERING_WEIGHT = 5  # 转角损失权重（转角对轨迹影响更大，权重更高）
 TEST_SIZE = 0.1  # 验证集比例（10%数据用于验证）
@@ -77,9 +78,11 @@ checkpoints_dir = os.path.join(BASE_DIR, "Transformer_checkpoints")
 plots_dir = os.path.join(BASE_DIR, "Transformer_plots")
 os.makedirs(checkpoints_dir, exist_ok=True)
 os.makedirs(plots_dir, exist_ok=True)
+RUN_DATE_TIME = datetime.now().strftime("%m%d")
 
-MODEL_SAVE_PATH = os.path.join(checkpoints_dir, f"Transformer_trajectory_model_{str(BATCH_SIZE)}BSIZE_{str(D_MODEL)}dmodel_{str(FFN_DIM)}FFNdim_enc{num_encoder_layers}_dec{num_decoder_layers}_zDATASET.pth") # 模型保存路径
-LOSS_PLOT_SAVE_PATH = os.path.join(plots_dir, f"Transformer_loss_curve_{str(BATCH_SIZE)}BSIZE_{str(D_MODEL)}dmodel_{str(FFN_DIM)}FFNdim_enc{num_encoder_layers}_dec{num_decoder_layers}_zDATASET.svg") # 损失曲线
+
+MODEL_SAVE_PATH = os.path.join(checkpoints_dir, f"Tf_trajectory_model_{RUN_DATE_TIME}_{str(BATCH_SIZE)}BSIZE_{str(D_MODEL)}dmodel_{str(FFN_DIM)}FFNdim_enc{num_encoder_layers}_dec{num_decoder_layers}_{EARLY_STOPPING_PATIENCE}es_CoAnWarmRest_zDATASET.pth") # 模型保存路径
+LOSS_PLOT_SAVE_PATH = os.path.join(plots_dir, f"Tf_loss_curve_{RUN_DATE_TIME}_{str(BATCH_SIZE)}BSIZE_{str(D_MODEL)}dmodel_{str(FFN_DIM)}FFNdim_enc{num_encoder_layers}_dec{num_decoder_layers}_{EARLY_STOPPING_PATIENCE}es_CoAnWarmRest_zDATASET.svg") # 损失曲线
 
 # ======================== 模型定义（transformer编码器-解码器结构）========================
 class TransformerTrajectoryPredictor(nn.Module):
@@ -387,20 +390,34 @@ if __name__ == "__main__":
     # === 学习率调度：epoch 级 warmup + cosine ===
     # 例如前 10% 的 epoch 做 warmup，后 90% 做余弦衰减
     # num_warmup_epochs = max(1, int(0.1 * EPOCHS))
-    num_warmup_epochs = max(1, int(0.05 * EPOCHS))  # 10% → 5%
+    # num_warmup_epochs = max(1, int(0.05 * EPOCHS))  # 10% → 5%
 
 
-    def lr_lambda(current_epoch: int):
-        # current_epoch 从 0 开始计数
-        if current_epoch < num_warmup_epochs:
-            # 线性 warmup：从 0 -> 1
-            return float(current_epoch + 1) / float(num_warmup_epochs)
-        # 余弦衰减：从 1 -> 0
-        progress = float(current_epoch - num_warmup_epochs) / max(
-            1, EPOCHS - num_warmup_epochs
-        )
-        return 0.5 * (1.0 + math.cos(math.pi * progress))
-    scheduler = optim.lr_scheduler.LambdaLR(optimizer, lr_lambda=lr_lambda)
+    # def lr_lambda(current_epoch: int):
+    #     # current_epoch 从 0 开始计数
+    #     if current_epoch < num_warmup_epochs:
+    #         # 线性 warmup：从 0 -> 1
+    #         return float(current_epoch + 1) / float(num_warmup_epochs)
+    #     # 余弦衰减：从 1 -> 0
+    #     progress = float(current_epoch - num_warmup_epochs) / max(
+    #         1, EPOCHS - num_warmup_epochs
+    #     )
+    #     return 0.5 * (1.0 + math.cos(math.pi * progress))
+    # scheduler = optim.lr_scheduler.LambdaLR(optimizer, lr_lambda=lr_lambda)
+
+    
+    # === 替换为：余弦退火伴随热重启 (Cosine Annealing Warm Restarts) ===
+    from torch.optim.lr_scheduler import CosineAnnealingWarmRestarts
+    
+    # T_0: 第一次重启发生前的Epoch数（比如设为 50 或 64）
+    # T_mult: 每次重启后，周期的放大倍数（设为 2，则周期依次为 50, 100, 200...）
+    # eta_min: 学习率衰减的下限（不能完全为0，给一个很小的值即可）
+    scheduler = CosineAnnealingWarmRestarts(
+        optimizer, 
+        T_0=64,           # 建议值：64轮进行第一次重启
+        T_mult=2,         # 建议值：周期翻倍
+        eta_min=1e-6      # 学习率最小降到 1e-6
+    )
 
 
     # 7. 模型训练

@@ -1,0 +1,164 @@
+使用设备: cuda
+成功加载文件: /root/autodl-tmp/clone_learning/dataset/GRU_choose_closest8_properRL_0.npy | 数据形状: (2807565, 64)
+成功加载文件: /root/autodl-tmp/clone_learning/dataset/GRU_choose_closest8_properRL_1.npy | 数据形状: (2718791, 64)
+成功加载文件: /root/autodl-tmp/clone_learning/dataset/GRU_choose_closest8_properRL_out.npy | 数据形状: (4411230, 64)
+
+数据合并完成 | 总数据量: 9937586 | 特征维度: 64
+数据预处理完成 | 特征形状: (9937586, 54) | 标签形状: (9937586, 10)
+未检测到已有模型文件，使用随机初始化模型参数。
+
+开始训练模型...
+Epoch [1/512] | 训练损失: 0.169741 | 验证损失: 0.133791 | 学习率: 0.000040
+验证损失下降，保存最优模型到: /root/autodl-tmp/clone_learning/Transformer_checkpoints/Transformer_trajectory_model_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_zDATASET.pth
+Epoch [2/512] | 训练损失: 0.134716 | 验证损失: 0.113998 | 学习率: 0.000060
+验证损失下降，保存最优模型到: /root/autodl-tmp/clone_learning/Transformer_checkpoints/Transformer_trajectory_model_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_zDATASET.pth
+Epoch [3/512] | 训练损失: 0.121471 | 验证损失: 0.099306 | 学习率: 0.000080
+验证损失下降，保存最优模型到: /root/autodl-tmp/clone_learning/Transformer_checkpoints/Transformer_trajectory_model_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_zDATASET.pth
+Epoch [4/512] | 训练损失: 0.103983 | 验证损失: 0.081908 | 学习率: 0.000100
+验证损失下降，保存最优模型到: /root/autodl-tmp/clone_learning/Transformer_checkpoints/Transformer_trajectory_model_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_zDATASET.pth
+Epoch [5/512] | 训练损失: 0.095053 | 验证损失: 0.079256 | 学习率: 0.000120
+验证损失下降，保存最优模型到: /root/autodl-tmp/clone_learning/Transformer_checkpoints/Transformer_trajectory_model_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_zDATASET.pth
+Epoch [6/512] | 训练损失: 0.089617 | 验证损失: 0.076108 | 学习率: 0.000140
+验证损失下降，保存最优模型到: /root/autodl-tmp/clone_learning/Transformer_checkpoints/Transformer_trajectory_model_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_zDATASET.pth
+Epoch [7/512] | 训练损失: 0.085530 | 验证损失: 0.073418 | 学习率: 0.000160
+验证损失下降，保存最优模型到: /root/autodl-tmp/clone_learning/Transformer_checkpoints/Transformer_trajectory_model_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_zDATASET.pth
+Epoch [8/512] | 训练损失: 0.082416 | 验证损失: 0.069905 | 学习率: 0.000180
+验证损失下降，保存最优模型到: /root/autodl-tmp/clone_learning/Transformer_checkpoints/Transformer_trajectory_model_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_zDATASET.pth
+Epoch [9/512] | 训练损失: 0.080097 | 验证损失: 0.068728 | 学习率: 0.000200
+验证损失下降，保存最优模型到: /root/autodl-tmp/clone_learning/Transformer_checkpoints/Transformer_trajectory_model_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_zDATASET.pth
+Epoch [10/512] | 训练损失: 0.078328 | 验证损失: 0.065789 | 学习率: 0.000220
+验证损失下降，保存最优模型到: /root/autodl-tmp/clone_learning/Transformer_checkpoints/Transformer_trajectory_model_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_zDATASET.pth
+Epoch [11/512] | 训练损失: 0.076764 | 验证损失: 0.066704 | 学习率: 0.000240
+Epoch [12/512] | 训练损失: 0.075737 | 验证损失: 0.064330 | 学习率: 0.000260
+验证损失下降，保存最优模型到: /root/autodl-tmp/clone_learning/Transformer_checkpoints/Transformer_trajectory_model_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_zDATASET.pth
+Epoch [13/512] | 训练损失: 0.074647 | 验证损失: 0.063205 | 学习率: 0.000280
+验证损失下降，保存最优模型到: /root/autodl-tmp/clone_learning/Transformer_checkpoints/Transformer_trajectory_model_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_zDATASET.pth
+Epoch [14/512] | 训练损失: 0.073792 | 验证损失: 0.063665 | 学习率: 0.000300
+Epoch [15/512] | 训练损失: 0.072969 | 验证损失: 0.063110 | 学习率: 0.000320
+验证损失下降，保存最优模型到: /root/autodl-tmp/clone_learning/Transformer_checkpoints/Transformer_trajectory_model_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_zDATASET.pth
+Epoch [16/512] | 训练损失: 0.072341 | 验证损失: 0.060321 | 学习率: 0.000340
+验证损失下降，保存最优模型到: /root/autodl-tmp/clone_learning/Transformer_checkpoints/Transformer_trajectory_model_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_zDATASET.pth
+Epoch [17/512] | 训练损失: 0.071777 | 验证损失: 0.061701 | 学习率: 0.000360
+Epoch [18/512] | 训练损失: 0.071328 | 验证损失: 0.061706 | 学习率: 0.000380
+Epoch [19/512] | 训练损失: 0.070957 | 验证损失: 0.063244 | 学习率: 0.000400
+Epoch [20/512] | 训练损失: 0.070467 | 验证损失: 0.060626 | 学习率: 0.000420
+Epoch [21/512] | 训练损失: 0.070204 | 验证损失: 0.063560 | 学习率: 0.000440
+Epoch [22/512] | 训练损失: 0.069893 | 验证损失: 0.060788 | 学习率: 0.000460
+Epoch [23/512] | 训练损失: 0.069626 | 验证损失: 0.062663 | 学习率: 0.000480
+Epoch [24/512] | 训练损失: 0.069537 | 验证损失: 0.060038 | 学习率: 0.000500
+验证损失下降，保存最优模型到: /root/autodl-tmp/clone_learning/Transformer_checkpoints/Transformer_trajectory_model_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_zDATASET.pth
+Epoch [25/512] | 训练损失: 0.068859 | 验证损失: 0.060016 | 学习率: 0.000500
+验证损失下降，保存最优模型到: /root/autodl-tmp/clone_learning/Transformer_checkpoints/Transformer_trajectory_model_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_zDATASET.pth
+Epoch [26/512] | 训练损失: 0.068212 | 验证损失: 0.058786 | 学习率: 0.000500
+验证损失下降，保存最优模型到: /root/autodl-tmp/clone_learning/Transformer_checkpoints/Transformer_trajectory_model_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_zDATASET.pth
+Epoch [27/512] | 训练损失: 0.067535 | 验证损失: 0.057437 | 学习率: 0.000500
+验证损失下降，保存最优模型到: /root/autodl-tmp/clone_learning/Transformer_checkpoints/Transformer_trajectory_model_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_zDATASET.pth
+Epoch [28/512] | 训练损失: 0.067080 | 验证损失: 0.058985 | 学习率: 0.000500
+Epoch [29/512] | 训练损失: 0.066551 | 验证损失: 0.060148 | 学习率: 0.000500
+Epoch [30/512] | 训练损失: 0.066151 | 验证损失: 0.059392 | 学习率: 0.000500
+Epoch [31/512] | 训练损失: 0.065773 | 验证损失: 0.058257 | 学习率: 0.000500
+Epoch [32/512] | 训练损失: 0.065409 | 验证损失: 0.055928 | 学习率: 0.000500
+验证损失下降，保存最优模型到: /root/autodl-tmp/clone_learning/Transformer_checkpoints/Transformer_trajectory_model_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_zDATASET.pth
+Epoch [33/512] | 训练损失: 0.065137 | 验证损失: 0.056674 | 学习率: 0.000500
+Epoch [34/512] | 训练损失: 0.064730 | 验证损失: 0.056388 | 学习率: 0.000500
+Epoch [35/512] | 训练损失: 0.064403 | 验证损失: 0.055767 | 学习率: 0.000499
+验证损失下降，保存最优模型到: /root/autodl-tmp/clone_learning/Transformer_checkpoints/Transformer_trajectory_model_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_zDATASET.pth
+Epoch [36/512] | 训练损失: 0.064225 | 验证损失: 0.057202 | 学习率: 0.000499
+Epoch [37/512] | 训练损失: 0.063959 | 验证损失: 0.057775 | 学习率: 0.000499
+Epoch [38/512] | 训练损失: 0.063793 | 验证损失: 0.054344 | 学习率: 0.000499
+验证损失下降，保存最优模型到: /root/autodl-tmp/clone_learning/Transformer_checkpoints/Transformer_trajectory_model_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_zDATASET.pth
+Epoch [39/512] | 训练损失: 0.063633 | 验证损失: 0.053379 | 学习率: 0.000499
+验证损失下降，保存最优模型到: /root/autodl-tmp/clone_learning/Transformer_checkpoints/Transformer_trajectory_model_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_zDATASET.pth
+Epoch [40/512] | 训练损失: 0.063395 | 验证损失: 0.054925 | 学习率: 0.000499
+Epoch [41/512] | 训练损失: 0.063223 | 验证损失: 0.053629 | 学习率: 0.000499
+Epoch [42/512] | 训练损失: 0.063074 | 验证损失: 0.055114 | 学习率: 0.000498
+Epoch [43/512] | 训练损失: 0.062943 | 验证损失: 0.056490 | 学习率: 0.000498
+Epoch [44/512] | 训练损失: 0.062728 | 验证损失: 0.054562 | 学习率: 0.000498
+Epoch [45/512] | 训练损失: 0.062639 | 验证损失: 0.053800 | 学习率: 0.000498
+Epoch [46/512] | 训练损失: 0.062512 | 验证损失: 0.055601 | 学习率: 0.000498
+Epoch [47/512] | 训练损失: 0.062462 | 验证损失: 0.052918 | 学习率: 0.000497
+验证损失下降，保存最优模型到: /root/autodl-tmp/clone_learning/Transformer_checkpoints/Transformer_trajectory_model_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_zDATASET.pth
+Epoch [48/512] | 训练损失: 0.062348 | 验证损失: 0.054463 | 学习率: 0.000497
+Epoch [49/512] | 训练损失: 0.062215 | 验证损失: 0.054961 | 学习率: 0.000497
+Epoch [50/512] | 训练损失: 0.061984 | 验证损失: 0.053358 | 学习率: 0.000497
+Epoch [51/512] | 训练损失: 0.061881 | 验证损失: 0.053645 | 学习率: 0.000496
+Epoch [52/512] | 训练损失: 0.061762 | 验证损失: 0.054525 | 学习率: 0.000496
+Epoch [53/512] | 训练损失: 0.061631 | 验证损失: 0.053598 | 学习率: 0.000496
+Epoch [54/512] | 训练损失: 0.061594 | 验证损失: 0.054879 | 学习率: 0.000496
+Epoch [55/512] | 训练损失: 0.061562 | 验证损失: 0.054014 | 学习率: 0.000495
+Epoch [56/512] | 训练损失: 0.061383 | 验证损失: 0.051962 | 学习率: 0.000495
+验证损失下降，保存最优模型到: /root/autodl-tmp/clone_learning/Transformer_checkpoints/Transformer_trajectory_model_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_zDATASET.pth
+Epoch [57/512] | 训练损失: 0.061234 | 验证损失: 0.054277 | 学习率: 0.000495
+Epoch [58/512] | 训练损失: 0.061244 | 验证损失: 0.053013 | 学习率: 0.000494
+Epoch [59/512] | 训练损失: 0.061134 | 验证损失: 0.052860 | 学习率: 0.000494
+Epoch [60/512] | 训练损失: 0.061029 | 验证损失: 0.052388 | 学习率: 0.000494
+Epoch [61/512] | 训练损失: 0.060855 | 验证损失: 0.052749 | 学习率: 0.000493
+Epoch [62/512] | 训练损失: 0.060865 | 验证损失: 0.052566 | 学习率: 0.000493
+Epoch [63/512] | 训练损失: 0.060804 | 验证损失: 0.051622 | 学习率: 0.000493
+验证损失下降，保存最优模型到: /root/autodl-tmp/clone_learning/Transformer_checkpoints/Transformer_trajectory_model_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_zDATASET.pth
+Epoch [64/512] | 训练损失: 0.060724 | 验证损失: 0.053089 | 学习率: 0.000492
+Epoch [65/512] | 训练损失: 0.060641 | 验证损失: 0.054309 | 学习率: 0.000492
+Epoch [66/512] | 训练损失: 0.060512 | 验证损失: 0.053417 | 学习率: 0.000491
+Epoch [67/512] | 训练损失: 0.060373 | 验证损失: 0.053917 | 学习率: 0.000491
+Epoch [68/512] | 训练损失: 0.060399 | 验证损失: 0.051862 | 学习率: 0.000490
+Epoch [69/512] | 训练损失: 0.060409 | 验证损失: 0.053235 | 学习率: 0.000490
+Epoch [70/512] | 训练损失: 0.060225 | 验证损失: 0.053844 | 学习率: 0.000490
+Epoch [71/512] | 训练损失: 0.060270 | 验证损失: 0.051937 | 学习率: 0.000489
+Epoch [72/512] | 训练损失: 0.060201 | 验证损失: 0.052989 | 学习率: 0.000489
+Epoch [73/512] | 训练损失: 0.060095 | 验证损失: 0.055668 | 学习率: 0.000488
+Epoch [74/512] | 训练损失: 0.060047 | 验证损失: 0.051265 | 学习率: 0.000488
+验证损失下降，保存最优模型到: /root/autodl-tmp/clone_learning/Transformer_checkpoints/Transformer_trajectory_model_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_zDATASET.pth
+Epoch [75/512] | 训练损失: 0.060007 | 验证损失: 0.051878 | 学习率: 0.000487
+Epoch [76/512] | 训练损失: 0.059967 | 验证损失: 0.052034 | 学习率: 0.000487
+Epoch [77/512] | 训练损失: 0.059851 | 验证损失: 0.050063 | 学习率: 0.000486
+验证损失下降，保存最优模型到: /root/autodl-tmp/clone_learning/Transformer_checkpoints/Transformer_trajectory_model_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_zDATASET.pth
+Epoch [78/512] | 训练损失: 0.059876 | 验证损失: 0.052272 | 学习率: 0.000486
+Epoch [79/512] | 训练损失: 0.059860 | 验证损失: 0.051720 | 学习率: 0.000485
+Epoch [80/512] | 训练损失: 0.059728 | 验证损失: 0.051359 | 学习率: 0.000484
+Epoch [81/512] | 训练损失: 0.059667 | 验证损失: 0.052444 | 学习率: 0.000484
+Epoch [82/512] | 训练损失: 0.059639 | 验证损失: 0.053157 | 学习率: 0.000483
+Epoch [83/512] | 训练损失: 0.059637 | 验证损失: 0.051647 | 学习率: 0.000483
+Epoch [84/512] | 训练损失: 0.059469 | 验证损失: 0.051564 | 学习率: 0.000482
+Epoch [85/512] | 训练损失: 0.059478 | 验证损失: 0.052233 | 学习率: 0.000482
+Epoch [86/512] | 训练损失: 0.059424 | 验证损失: 0.051170 | 学习率: 0.000481
+Epoch [87/512] | 训练损失: 0.059335 | 验证损失: 0.051505 | 学习率: 0.000480
+Epoch [88/512] | 训练损失: 0.059342 | 验证损失: 0.051238 | 学习率: 0.000480
+Epoch [89/512] | 训练损失: 0.059255 | 验证损失: 0.053721 | 学习率: 0.000479
+Epoch [90/512] | 训练损失: 0.059175 | 验证损失: 0.051167 | 学习率: 0.000478
+Epoch [91/512] | 训练损失: 0.059116 | 验证损失: 0.050658 | 学习率: 0.000478
+Epoch [92/512] | 训练损失: 0.059127 | 验证损失: 0.051045 | 学习率: 0.000477
+Epoch [93/512] | 训练损失: 0.058985 | 验证损失: 0.056303 | 学习率: 0.000476
+Epoch [94/512] | 训练损失: 0.058967 | 验证损失: 0.054947 | 学习率: 0.000476
+Epoch [95/512] | 训练损失: 0.058990 | 验证损失: 0.050548 | 学习率: 0.000475
+Epoch [96/512] | 训练损失: 0.058968 | 验证损失: 0.050700 | 学习率: 0.000474
+Epoch [97/512] | 训练损失: 0.058925 | 验证损失: 0.050336 | 学习率: 0.000474
+Epoch [98/512] | 训练损失: 0.058701 | 验证损失: 0.049615 | 学习率: 0.000473
+验证损失下降，保存最优模型到: /root/autodl-tmp/clone_learning/Transformer_checkpoints/Transformer_trajectory_model_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_zDATASET.pth
+Epoch [99/512] | 训练损失: 0.058747 | 验证损失: 0.053210 | 学习率: 0.000472
+Epoch [100/512] | 训练损失: 0.058703 | 验证损失: 0.050291 | 学习率: 0.000471
+Epoch [101/512] | 训练损失: 0.058535 | 验证损失: 0.050437 | 学习率: 0.000471
+Epoch [102/512] | 训练损失: 0.058609 | 验证损失: 0.052555 | 学习率: 0.000470
+Epoch [103/512] | 训练损失: 0.058510 | 验证损失: 0.050306 | 学习率: 0.000469
+Epoch [104/512] | 训练损失: 0.058523 | 验证损失: 0.050059 | 学习率: 0.000468
+Epoch [105/512] | 训练损失: 0.058458 | 验证损失: 0.050879 | 学习率: 0.000467
+Epoch [106/512] | 训练损失: 0.058453 | 验证损失: 0.051202 | 学习率: 0.000467
+Epoch [107/512] | 训练损失: 0.058374 | 验证损失: 0.050080 | 学习率: 0.000466
+Epoch [108/512] | 训练损失: 0.058331 | 验证损失: 0.049665 | 学习率: 0.000465
+Epoch [109/512] | 训练损失: 0.058235 | 验证损失: 0.051891 | 学习率: 0.000464
+Epoch [110/512] | 训练损失: 0.058163 | 验证损失: 0.051977 | 学习率: 0.000463
+Epoch [111/512] | 训练损失: 0.058190 | 验证损失: 0.050715 | 学习率: 0.000463
+Epoch [112/512] | 训练损失: 0.058104 | 验证损失: 0.051339 | 学习率: 0.000462
+Epoch [113/512] | 训练损失: 0.058118 | 验证损失: 0.050232 | 学习率: 0.000461
+Epoch [114/512] | 训练损失: 0.057960 | 验证损失: 0.051889 | 学习率: 0.000460
+Epoch [115/512] | 训练损失: 0.058022 | 验证损失: 0.050019 | 学习率: 0.000459
+Epoch [116/512] | 训练损失: 0.058006 | 验证损失: 0.051478 | 学习率: 0.000458
+Epoch [117/512] | 训练损失: 0.057870 | 验证损失: 0.051588 | 学习率: 0.000457
+Epoch [118/512] | 训练损失: 0.057864 | 验证损失: 0.050437 | 学习率: 0.000456
+Epoch [119/512] | 训练损失: 0.057878 | 验证损失: 0.051242 | 学习率: 0.000455
+Epoch [120/512] | 训练损失: 0.057729 | 验证损失: 0.050336 | 学习率: 0.000455
+Epoch [121/512] | 训练损失: 0.057795 | 验证损失: 0.052696 | 学习率: 0.000454
+Epoch [122/512] | 训练损失: 0.057718 | 验证损失: 0.051010 | 学习率: 0.000453
+Epoch [123/512] | 训练损失: 0.057680 | 验证损失: 0.051066 | 学习率: 0.000452
+早停触发！连续25轮验证损失未下降，最优验证损失: 0.049615
+
+训练流程全部完成！
