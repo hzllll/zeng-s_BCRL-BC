@@ -36,7 +36,8 @@ DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 # MODEL_PATH = "/root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Transformer_trajectory_model_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_zDATASET.pth"
 # MODEL_PATH = "/root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Transformer_trajectory_model_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_40es_zDATASET.pth"
 # MODEL_PATH = "/root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Transformer_trajectory_model_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_40es_zDATASET_0.05wucos_275epo.pth"
-MODEL_PATH = "/root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Tf_trajectory_model_0328_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_100es_CoAnWarmRest_zDATASET.pth"
+# MODEL_PATH = "/root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Tf_trajectory_model_0328_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_100es_CoAnWarmRest_zDATASET.pth"
+MODEL_PATH = "/root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Tf_trajectory_model_0330_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_500es_CoAnWarmRest_zDATASET.pth"
 # ===========================================
 
 # 1. 定义 Transformer 模型 (必须与训练代码完全一致)
@@ -406,11 +407,11 @@ if __name__ == "__main__":
     # input_dirs = [f"/root/autodl-tmp/BCRL/bc/planner/inputs/inputs_test_multi/inputs{i}" for i in range(5)]
     # output_dir = "/root/autodl-tmp/BCRL/bc/planner/outputs/Transformer_test_result"
     
-    # input_dirs = [f"/root/autodl-tmp/BCRL/bc/planner/inputs/inputs_C"]
-    # output_dir = "/root/autodl-tmp/BCRL/bc/planner/outputs/TF_resultC_1024BSIZE_256DMODEL_1024FFNdim_100ESTOP_291epo_CoAnWarmRest_zDATASET"
+    input_dirs = [f"/root/autodl-tmp/BCRL/bc/planner/inputs/inputs_C"]
+    output_dir = "/root/autodl-tmp/BCRL/bc/planner/outputs/TF_resultC_1024BSIZE_256DMODEL_1024FFNdim_500ESTOP_512epo_CoAnWarmRest_zDATASET"
 
-    input_dirs = [f"/root/autodl-tmp/BCRL/bc/planner/inputs/inputs_B"]
-    output_dir = "/root/autodl-tmp/BCRL/bc/planner/outputs/TF_resultB_1024BSIZE_256DMODEL_1024FFNdim_100ESTOP_291epo_CoAnWarmRest_zDATASET"
+    # input_dirs = [f"/root/autodl-tmp/BCRL/bc/planner/inputs/inputs_B"]
+    # output_dir = "/root/autodl-tmp/BCRL/bc/planner/outputs/TF_resultB_1024BSIZE_256DMODEL_1024FFNdim_500ESTOP_512epo_CoAnWarmRest_zDATASET"
    
     # 并行执行
     with concurrent.futures.ProcessPoolExecutor(max_workers=5) as executor:

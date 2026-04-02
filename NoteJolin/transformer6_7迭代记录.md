@@ -1,12 +1,13 @@
- # `get_clone_learning_Transformer6_7.py`
+# `get_clone_learning_Transformer6_7.py`
 
- ## - d_model = 256,Batch_size = 1024, ffn_dim = 1024,LEARNING_RATE = 5e-4,early_stopping_PATIENCE = 40
+## - d_model = 256,Batch_size = 1024, ffn_dim = 1024,LEARNING_RATE = 5e-4,early_stopping_PATIENCE = 40
 
 ## 一、 3.26前：`线性预热（Linear Warmup） + 单次余弦衰减（Cosine Annealing）`
 
 你目前使用的是一种非常经典的深度学习调度策略：**线性预热（Linear Warmup） + 单次余弦衰减（Cosine Annealing）**。
 
 具体代码（第387-403行）：
+
 ```python
 num_warmup_epochs = max(1, int(0.05 * EPOCHS))  # 5%的预热期，即 512 * 0.05 ≈ 25轮
 
@@ -21,6 +22,7 @@ scheduler = optim.lr_scheduler.LambdaLR(optimizer, lr_lambda=lr_lambda)
 ```
 
 **这个策略的运行轨迹是这样的：**
+
 1. **预热期（第1~25轮）**：学习率从接近 `0` 线性爬升到你设置的最大值 `LEARNING_RATE = 5e-4`。
 2. **衰减期（第26~512轮）**：学习率按照余弦曲线（像半个钟罩一样），从 `5e-4` 极其平滑、缓慢地下降，直到第512轮时降为 `0`。
 
@@ -58,18 +60,62 @@ scheduler = optim.lr_scheduler.LambdaLR(optimizer, lr_lambda=lr_lambda)
 ```
 
 **参数设计思路（以 `EPOCHS=512` 为例）：**
-* 第1个周期：1 ~ 64 轮（学习率从 5e-4 降到 1e-6）
-* 第64轮结束时：**瞬间重启**，学习率突变回 5e-4！
-* 第2个周期：65 ~ 256 轮（长度为 64*2=128 轮，学习率再次缓慢下降）
-* 第256轮结束时：**再次瞬间重启**，学习率突变回 5e-4！
-* 第3个周期：257 ~ 768 轮（长度为 256 轮，覆盖到你设定的最大512轮）
+
+- 第1个周期：1 ~ 64 轮（学习率从 5e-4 降到 1e-6）
+- 第64轮结束时：**瞬间重启**，学习率突变回 5e-4！
+- 第2个周期：65 ~ 256 轮（长度为 64*2=128 轮，学习率再次缓慢下降）
+- 第256轮结束时：**再次瞬间重启**，学习率突变回 5e-4！
+- 第3个周期：257 ~ 768 轮（长度为 256 轮，覆盖到你设定的最大512轮）
 
 这种设置完美模拟了你“跑了200多轮后突然重置学习率”的过程，而且是有规律、周期性地去寻找更平坦的最优解。
 
-
 ### 0326
+
 - 设置了early_stopping = 40 +  `CosineAnnealingWarmRestarts` ，太小了，导致他在64轮时train loss和val loss均突增。在 102 轮就结束了，且最优模型是epoch 64
-- ` /root/autodl-tmp/BCRL/bc/train_log_0326TF_1024BSIZE_256DMODEL_1024FFNdim_40ESTOP_CoAnWarmRest_zDATASET:es40太小没处理好fail.txt`
+-  `/root/autodl-tmp/BCRL/bc/train_log_0326TF_1024BSIZE_256DMODEL_1024FFNdim_40ESTOP_CoAnWarmRest_zDATASET:es40太小没处理好fail.txt`
 - `/root/autodl-tmp/BCRL/bc/Transformer_plots/Tf_loss_curve_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_40es_CoAnWarmRest_zDATASET0326.svg`
 - /`root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Tf_trajectory_model_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_40es_CoAnWarmRest_zDATASET0326.pth`
+
+### 0328 —— 目前（4.2日）最好的结果
+
+- 设置early_stopping = 100 +  `CosineAnnealingWarmRestarts` ，跑到291轮后停止，`Epoch [291/512] | 训练损失: 0.054310 | 验证损失: 0.049135 | 学习率: 0.000337`,
+- 最佳模型出现在191轮，`Epoch [191/512] | 训练损失: 0.044136 | 验证损失: 0.039118 | 学习率: 0.000001` 
+- `/root/autodl-tmp/BCRL/bc/train_log_0328_1024BSIZE_256DMODEL_1024FFNdim_100ESTOP_CoAnWarmRest_zDATASET.txt`
+- `/root/autodl-tmp/BCRL/bc/Transformer_plots/Tf_loss_curve_0328_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_100es_CoAnWarmRest_zDATASET.svg`
+- `/root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Tf_trajectory_model_0328_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_100es_CoAnWarmRest_zDATASET.pth`
+
+### 0330
+
+- 设置early_stopping = 500 +  `CosineAnnealingWarmRestarts` ，跑到512轮后停止，
+- 最佳模型出现在 `Epoch [443/512] | 训练损失: 0.041024 | 验证损失: 0.037408 | 学习率: 0.000001`
+- 但onsite评分结果并不理想，比0328版本-291epoch的分数还要低，貌似是模型陷入了局部最优
+- `/root/autodl-tmp/BCRL/bc/train_log_0330TF_1024BSIZE_256DMODEL_1024FFNdim_500ESTOP_CoAnWarmRest_zDATASET.txt`
+- `/root/autodl-tmp/BCRL/bc/Transformer_plots/Tf_loss_curve_0330_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_500es_CoAnWarmRest_zDATASET.svg`
+- `/root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Tf_trajectory_model_0330_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_500es_CoAnWarmRest_zDATASET.pth`
+
+
+
+
+
+
+
+| 基本参数                                                     |                |                   |                                |            |                                                 | 最优模型epoch | 训练损失 | 验证损失 | 差值     | 学习率   | Safety安全性（满分50） | Efficiency效率性(满分30) | Comfort舒适性(满分20) | resultB(训练集)Total | Safety安全性（满分50） | Efficiency效率性(满分30) | Comfort舒适性(满分20) | resultC(验证集)Total |
+| ------------------------------------------------------------ | -------------- | ----------------- | ------------------------------ | ---------- | ----------------------------------------------- | ------------- | -------- | -------- | -------- | -------- | ---------------------- | ------------------------ | --------------------- | -------------------- | ---------------------- | ------------------------ | --------------------- | -------------------- |
+| **模型名称(zeng's dataset - 6维)**                           | **Betch SIZE** | **DMODEL**        | **num_encoder/decoder_layers** | **FFNdim** | **epoch**                                       |               |          |          |          |          |                        |                          |                       |                      |                        |                          |                       |                      |
+|                                                              |                |                   |                                |            |                                                 |               |          |          |          |          |                        |                          |                       |                      |                        |                          |                       |                      |
+| expert-专家策略                                              |                |                   |                                |            |                                                 |               |          |          |          |          | 49.36                  | 22.51                    | 17.35                 | 89.22                | 47.78                  | 19.7                     | 17.24                 | 84.72                |
+|                                                              |                |                   |                                |            |                                                 |               |          |          |          |          |                        |                          |                       |                      |                        |                          |                       |                      |
+| TF                                                           |                |                   |                                |            |                                                 |               |          |          |          |          |                        |                          |                       |                      |                        |                          |                       |                      |
+| 前5%轮的预热 后余弦衰减-40es_274轮（270轮时es关机了，后重新来之后val骤降，所以有了后续想法） | 1024           | 256               | 3                              | 1024       | 275(270epoch时关机，重启后val_loss骤降效果极佳) | 271+1         | 0.046112 | 0.040713 | 0.005399 | 0.00004  | 48.5                   | 21.3                     | 17.93                 | 87.72                | 48.5                   | 21.3                     | 17.93                 | 87.72                |
+| 0328_100ESTOP_291epo_CosineAnnealingWarmRestarts             | 1024           | 256               | 3                              | 1024       | 291                                             | 191           | 0.044136 | 0.039118 | 0.005018 | 0.000001 | 49.39                  | 21.96                    | 17.94                 | 89.28                | 47.07                  | 19.8                     | 17.94                 | 84.8                 |
+| 0330_1024BSIZE_256DMODEL_1024FFNdim_500ESTOP_512epo_CosineAnnealingWarmRestarts_zDATASET | 1024           | 256               | 3                              | 1024       | 512                                             | 443           | 0.041024 | 0.037408 | 0.003616 | 0.000001 | 48.95                  | 21.8                     | 17.95                 | 88.7                 | 47.06                  | 19.48                    | 17.9                  | 84.45                |
+|                                                              |                |                   |                                |            |                                                 |               |          |          |          |          |                        |                          |                       |                      |                        |                          |                       |                      |
+| **GRU**                                                      | **Betch SIZE** | **EMBEDDING_DIM** | **Hidden_dim**                 | **LAYER**  |                                                 |               |          |          |          |          |                        |                          |                       |                      |                        |                          |                       |                      |
+| GRU_B_0.01LRD_1024BSIZE_256HDdim_0.1rad_2lay_GRUdropout(训练集) | 1024           | 128               | 256                            | 2          |                                                 |               |          |          |          |          | 48.81                  | 21.51                    | 18.01                 | 88.33                | 47.27                  | 19.78                    | 18.05                 | 85.09                |
+|                                                              |                |                   |                                |            |                                                 |               |          |          |          |          |                        |                          |                       |                      |                        |                          |                       |                      |
+| zeng-bc=GRU（感觉这份分数比较奇怪，这个水平比较难达到，感觉可能分数有问题，虚高了） |                | 32                | 64                             | 2          |                                                 |               |          |          |          |          | 49.12                  | **23.10**                | **17.89**             | **90.11**            | 47.60                  | **19.84**                | **17.99**             | **85.43**            |
+| zeng-RNN                                                     |                |                   |                                |            |                                                 |               |          |          |          |          | 45                     | 22.07                    | 16.42                 | 83.49                | 39.99                  | 19.47                    | 16.83                 | 76.29                |
+| zeng-LSTM                                                    |                |                   |                                |            |                                                 |               |          |          |          |          | 48.55                  | 22.41                    | 17.83                 | 88.79                | 46.1                   | 19.16                    | 18.01                 | 83.28                |
+
+
 
