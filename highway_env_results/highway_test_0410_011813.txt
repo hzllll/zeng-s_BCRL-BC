@@ -1,0 +1,63 @@
+Highway-env Transformer BC 测试报告
+模型: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Tf_trajectory_model_0330_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_500es_CoAnWarmRest_zDATASET.pth
+环境: 3 车道 | 30 周围车 | 60s/集
+测试集数: 50
+
+安全完成: 49/50 (98.0%)
+碰撞次数: 1/50 (2.0%)
+平均奖励: 431.03
+平均速度: 21.7 m/s
+平均存活时长: 59.4 s
+平均推理耗时: 21.884 ms
+
+逐集详情:
+  ep=  0 | 安全 | steps= 600 | dur=60.0s | reward=433.94 | speed=20.9
+  ep=  1 | 安全 | steps= 600 | dur=60.0s | reward=431.07 | speed=20.7
+  ep=  2 | 安全 | steps= 600 | dur=60.0s | reward=443.40 | speed=21.5
+  ep=  3 | 安全 | steps= 600 | dur=60.0s | reward=445.37 | speed=21.2
+  ep=  4 | 安全 | steps= 600 | dur=60.0s | reward=438.41 | speed=22.3
+  ep=  5 | 安全 | steps= 600 | dur=60.0s | reward=419.65 | speed=20.5
+  ep=  6 | 安全 | steps= 600 | dur=60.0s | reward=433.66 | speed=20.2
+  ep=  7 | 安全 | steps= 600 | dur=60.0s | reward=450.52 | speed=20.9
+  ep=  8 | 安全 | steps= 600 | dur=60.0s | reward=498.05 | speed=27.1
+  ep=  9 | 安全 | steps= 600 | dur=60.0s | reward=428.73 | speed=20.6
+  ep= 10 | 安全 | steps= 600 | dur=60.0s | reward=426.70 | speed=20.5
+  ep= 11 | 安全 | steps= 600 | dur=60.0s | reward=419.56 | speed=20.6
+  ep= 12 | 安全 | steps= 600 | dur=60.0s | reward=427.04 | speed=21.2
+  ep= 13 | 安全 | steps= 600 | dur=60.0s | reward=440.80 | speed=21.1
+  ep= 14 | 安全 | steps= 600 | dur=60.0s | reward=440.19 | speed=20.1
+  ep= 15 | 安全 | steps= 600 | dur=60.0s | reward=429.13 | speed=20.4
+  ep= 16 | 安全 | steps= 600 | dur=60.0s | reward=463.68 | speed=25.7
+  ep= 17 | 安全 | steps= 600 | dur=60.0s | reward=438.43 | speed=21.2
+  ep= 18 | 安全 | steps= 600 | dur=60.0s | reward=414.67 | speed=20.4
+  ep= 19 | 安全 | steps= 600 | dur=60.0s | reward=428.78 | speed=21.4
+  ep= 20 | 安全 | steps= 600 | dur=60.0s | reward=486.35 | speed=25.5
+  ep= 21 | 安全 | steps= 600 | dur=60.0s | reward=415.92 | speed=20.3
+  ep= 22 | 安全 | steps= 600 | dur=60.0s | reward=434.96 | speed=20.9
+  ep= 23 | 安全 | steps= 600 | dur=60.0s | reward=409.80 | speed=20.5
+  ep= 24 | 安全 | steps= 600 | dur=60.0s | reward=446.59 | speed=21.1
+  ep= 25 | 安全 | steps= 600 | dur=60.0s | reward=443.25 | speed=20.6
+  ep= 26 | 安全 | steps= 600 | dur=60.0s | reward=408.28 | speed=20.3
+  ep= 27 | 安全 | steps= 600 | dur=60.0s | reward=479.17 | speed=24.3
+  ep= 28 | 碰撞 | steps= 291 | dur=29.1s | reward=244.62 | speed=29.0
+  ep= 29 | 安全 | steps= 600 | dur=60.0s | reward=468.29 | speed=21.8
+  ep= 30 | 安全 | steps= 600 | dur=60.0s | reward=451.80 | speed=22.8
+  ep= 31 | 安全 | steps= 600 | dur=60.0s | reward=418.37 | speed=21.1
+  ep= 32 | 安全 | steps= 600 | dur=60.0s | reward=426.62 | speed=22.0
+  ep= 33 | 安全 | steps= 600 | dur=60.0s | reward=403.81 | speed=19.9
+  ep= 34 | 安全 | steps= 600 | dur=60.0s | reward=393.87 | speed=22.3
+  ep= 35 | 安全 | steps= 600 | dur=60.0s | reward=448.94 | speed=20.5
+  ep= 36 | 安全 | steps= 600 | dur=60.0s | reward=447.32 | speed=20.5
+  ep= 37 | 安全 | steps= 600 | dur=60.0s | reward=414.36 | speed=20.3
+  ep= 38 | 安全 | steps= 600 | dur=60.0s | reward=407.83 | speed=20.3
+  ep= 39 | 安全 | steps= 600 | dur=60.0s | reward=405.61 | speed=20.3
+  ep= 40 | 安全 | steps= 600 | dur=60.0s | reward=462.71 | speed=23.9
+  ep= 41 | 安全 | steps= 600 | dur=60.0s | reward=470.46 | speed=25.8
+  ep= 42 | 安全 | steps= 600 | dur=60.0s | reward=432.96 | speed=21.9
+  ep= 43 | 安全 | steps= 600 | dur=60.0s | reward=453.71 | speed=23.6
+  ep= 44 | 安全 | steps= 600 | dur=60.0s | reward=427.57 | speed=21.6
+  ep= 45 | 安全 | steps= 600 | dur=60.0s | reward=441.34 | speed=21.9
+  ep= 46 | 安全 | steps= 600 | dur=60.0s | reward=419.09 | speed=20.6
+  ep= 47 | 安全 | steps= 600 | dur=60.0s | reward=411.80 | speed=20.6
+  ep= 48 | 安全 | steps= 600 | dur=60.0s | reward=417.98 | speed=21.1
+  ep= 49 | 安全 | steps= 600 | dur=60.0s | reward=406.16 | speed=20.8

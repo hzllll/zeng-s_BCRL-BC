@@ -380,7 +380,7 @@ if __name__ == "__main__":
     criterion = nn.MSELoss()  # 均方误差损失
 
    
-    # optimizer = optim.Adam(model.parameters(), lr=LEARNING_RATE) # Adam优化器（带学习率衰减）
+    # optimizer = optim.Adam(model.parameters(), lr=LEARNING_RAπTE) # Adam优化器（带学习率衰减）
     # scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=1, gamma=1-LR_DECAY)
     # from torch.optim.lr_scheduler import CosineAnnealingWarmRestarts
     # scheduler = CosineAnnealingWarmRestarts(optimizer, T_0=32, T_mult=2, eta_min=1e-6)

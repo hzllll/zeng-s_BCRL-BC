@@ -34,13 +34,13 @@ class ControlledVehicle(Vehicle):
         - The lateral controller is a heading controller cascaded with a lateral position controller.
     """
 
-    TAU_A = 0.6  # [s]
-    TAU_DS = 0.2  # [s]
+    TAU_A = 0.6  # [s]  纵向加速度时间常数
+    TAU_DS = 0.2  # [s]  航向角时间常数
     PURSUIT_TAU = 1.5 * TAU_DS  # [s]
-    KP_A = 1 / TAU_A
-    KP_HEADING = 1 / TAU_DS
+    KP_A = 1 / TAU_A  # 纵向加速度PID 比例系数（P）
+    KP_HEADING = 1 / TAU_DS  # 横向航向角PID比例系数
     KP_LATERAL = 1 / 0.5  # [1/s]
-    MAX_STEERING_ANGLE = np.pi / 3  # [rad]
+    MAX_STEERING_ANGLE = np.pi / 3  # [rad] 最大转向角(60度)
 
     DELTA_VELOCITY = 5  # [m/s]
 

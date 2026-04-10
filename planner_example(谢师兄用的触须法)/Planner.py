@@ -7,7 +7,7 @@ import behavioural_planner
 import time
 import EM_Planner
 
-class Lattice_Planner():
+class Lattice_Planner(): # 整个规划器的载体
     def __init__(self, dt):
         self.pre_local_waypoints = None
         self.pre_u0 = np.array([0.0, 0.0])
@@ -282,7 +282,7 @@ class Lattice_Planner():
         self.time += 0.025
         return [acc, steer]
 
-    def exec_waypoint_nav_demo_em_stitch_sn_qp4(self, av):
+    def exec_waypoint_nav_demo_em_stitch_sn_qp4(self, av): # 主循环入口：轨迹拼接模块
         """
         这个版涉及曲线拼接
         """
@@ -345,7 +345,7 @@ class Lattice_Planner():
                     self.replanner = False
                 else:
                     traj_x, traj_y, traj_h, s, s_dot, s_dot2, time_array = self.pre_traj
-                    time_index = np.argmin(abs(time_array - (self.time + 0.1)))
+                    time_index = np.argmin(abs(time_array - (self.time + 0.1))) #找到上一帧轨迹在未来 0.1s 处的点
                     plan_start_x = traj_x[time_index]
                     plan_start_y = traj_y[time_index]
                     plan_start_heading = traj_h[time_index]
@@ -500,15 +500,15 @@ class Lattice_Planner():
         si = s_set[0] + proj_x_set[0]
         qi = l_set[0]
         for goal_state in range(-4, 5):
-            Sf = 60
-            qf0 = goal_state * 1
-            pa = (pc * Sf + 2 * qi - 2 * qf0) / Sf ** 3
+            Sf = 60 # 纵向预测距离60m
+            qf0 = goal_state * 1 # 调节末端位置的偏移量
+            pa = (pc * Sf + 2 * qi - 2 * qf0) / Sf ** 3 #求解三次多项式系数
             pb = (-3 * pa * Sf ** 2 - pc) / (2 * Sf)
             # ss = np.arange(0, Sf+0.1, 0.2)
-            ss = np.linspace(0, Sf, 301)
-            Qs = pa * np.power(ss, 3) + pb * np.power(ss, 2) + pc * ss + qi
-            dqs1 = 3 * pa * np.power(ss, 2) + 2 * pb * ss + pc
-            ddqs1 = 6 * pa * ss + 2 * pb
+            ss = np.linspace(0, Sf, 301) # 纵向采样点
+            Qs = pa * np.power(ss, 3) + pb * np.power(ss, 2) + pc * ss + qi    # 核心：三次多项式生成横向偏移量 Qs
+            dqs1 = 3 * pa * np.power(ss, 2) + 2 * pb * ss + pc  # 一阶导
+            ddqs1 = 6 * pa * ss + 2 * pb  # 二阶导
             # S_G = si + ss
             index = proj_match_point_index_set[0]
             kkb = way_point_kappa[index:index + len(ss)]
@@ -523,6 +523,7 @@ class Lattice_Planner():
         return np.array(path)
 
     def plan_paths_sn_90(self, ego_state, way_point, way_point_kappa):
+        # 备选路径簇生成模块（触须法核心）：论文对应：“采用三次多项式曲线的方式生成若干曲率连续的备选路径...
         path = []
         locationX = np.array([ego_state[0]])
         locationY = np.array([ego_state[1]])
@@ -535,7 +536,7 @@ class Lattice_Planner():
         pc = np.tan(ego_state[2] - proj_heading_set[0])
         si = s_set[0] + proj_x_set[0]
         qi = l_set[0]
-        for goal_state in range(-4, 5):
+        for goal_state in range(-4, 5): # 设定了 9 个不同的终点横向目标（$q_{f0} \in {-4, -3, ..., 4}$ 米）
             Sf = 60
             qf0 = goal_state * 1
             pa = (pc * Sf + 2 * qi - 2 * qf0) / Sf ** 3
@@ -567,6 +568,9 @@ class Lattice_Planner():
         return np.array(path)
 
     def select_best_path_index_numpy_dyn(self, av, dyn_obs_x, dyn_obs_y, dyn_obs_vx, dyn_obs_vy, index2s_set, time_step):
+        '''论文对应：“构建式(2)所示的代价损失函数：$C(i)=w_1 C_c (i)+w_2 C_g (i)+w_3 C_b (i)+w_4 C_d (i)
+        对生成的 9 条路径进行打分，选出代价最小的路径。代码中定义了权重矩阵 weight = np.array([[0.4, 35, 1, 100]])。
+        '''
         # av_lane_index = av.lane_index[2]
         path_num = self.paths.shape[0]
         cost4 = virtual_dynamic_obs_planning(dyn_obs_x, dyn_obs_y, dyn_obs_vx, dyn_obs_vy, index2s_set,

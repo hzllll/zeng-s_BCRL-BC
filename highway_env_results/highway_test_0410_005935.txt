@@ -1,0 +1,18 @@
+Highway-env Transformer BC 测试报告
+模型: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Tf_trajectory_model_0330_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_500es_CoAnWarmRest_zDATASET.pth
+环境: 3 车道 | 30 周围车 | 60s/集
+测试集数: 5
+
+安全完成: 5/5 (100.0%)
+碰撞次数: 0/5 (0.0%)
+平均奖励: 430.02
+平均速度: 21.8 m/s
+平均存活时长: 60.0 s
+平均推理耗时: 10.804 ms
+
+逐集详情:
+  ep=  0 | 安全 | steps= 600 | dur=60.0s | reward=428.58 | speed=21.3
+  ep=  1 | 安全 | steps= 600 | dur=60.0s | reward=416.57 | speed=21.1
+  ep=  2 | 安全 | steps= 600 | dur=60.0s | reward=428.71 | speed=21.7
+  ep=  3 | 安全 | steps= 600 | dur=60.0s | reward=445.86 | speed=24.1
+  ep=  4 | 安全 | steps= 600 | dur=60.0s | reward=430.38 | speed=20.5

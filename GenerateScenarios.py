@@ -5,10 +5,11 @@ import sys
 sys.path.append('.')
 import os
 import numpy as np
-import re
+import re # 正则表达式，用于精准匹配和修改文本文件中的特定字段
 import shutil
 
 def get_lane_info1(road_info):
+    # 从当前道路环境（road_info）中提取离散化车道（discretelanes）的几何边界信息
     map_info = {}
     map_info[0] = {"left_bound":road_info.discretelanes[0].left_vertices[0, 1],
                    "center":road_info.discretelanes[0].center_vertices[0, 1],
@@ -20,6 +21,9 @@ def get_lane_info1(road_info):
                    "center": road_info.discretelanes[2].center_vertices[0, 1],
                    "right_bound": road_info.discretelanes[2].right_vertices[0, 1]}
     return map_info
+    # 返回的数据结构是一个字典，
+    # 包含每条车道的 left_bound（左边界）、center（中心线）、right_bound（右边界）的纵坐标（y值）
+    
 def get_lane_info2(road_info):
     map_info = {}
     map_info[0] = {"left_bound":road_info.discretelanes[3].left_vertices[0, 1],
@@ -50,15 +54,15 @@ for i in range(0, 10):
         scenario_to_test['test_settings']['visualize'] = False
         observation, traj = envi.make(scenario=scenario_to_test)
         road_info = envi.controller.observation.road_info
-        goal = [np.mean(observation['test_setting']['goal']['x']), np.mean(observation['test_setting']['goal']['y'])]
-        init_pos = [observation['vehicle_info']['ego']['x'], observation['vehicle_info']['ego']['y']]
-        yaw0 = observation['vehicle_info']['ego']['yaw']
-        v0 = observation['vehicle_info']['ego']['v']
+        goal = [np.mean(observation['test_setting']['goal']['x']), np.mean(observation['test_setting']['goal']['y'])] # 目标区域
+        init_pos = [observation['vehicle_info']['ego']['x'], observation['vehicle_info']['ego']['y']] # 获取原始场景中主车的初始位置
+        yaw0 = observation['vehicle_info']['ego']['yaw'] # 初始航向角
+        v0 = observation['vehicle_info']['ego']['v'] # 初始速度
         # s = 1/5 * v0
         s = 5
         lane_num = len(road_info.discretelanes)
         # 距离目标点的纵向距离
-        long_dis = np.abs(goal[0] - init_pos[0])
+        long_dis = np.abs(goal[0] - init_pos[0]) 
         # x1 = init_pos[0] - long_dis / 4
         # x2 = init_pos[0] - long_dis / 12
         # x3 = init_pos[0]
@@ -66,18 +70,19 @@ for i in range(0, 10):
         # x5 = init_pos[0] + long_dis / 4
         if lane_num != 6:
             continue
-        if goal[0] > init_pos[0]:
-            # 从左往右
+        if goal[0] > init_pos[0]: 
+            # 判断方向：从左往右
             map_info = get_lane_info1(road_info)
-            # 三个车道的目标区域
+            # 三个车道的目标区域生成：将3条车道的左右边界作为3个不同的目标区域（goal_y1, goal_y2, goal_y3）
             goal_y1 = np.array([map_info[0]['left_bound'], map_info[0]['right_bound']])
             goal_y2 = np.array([map_info[1]['left_bound'], map_info[1]['right_bound']])
             goal_y3 = np.array([map_info[2]['left_bound'], map_info[2]['right_bound']])
-            x1 = init_pos[0] - long_dis / 3
-            x2 = init_pos[0] - long_dis / 6
-            x3 = init_pos[0]
-            x4 = init_pos[0] + long_dis / 12
-            x5 = init_pos[0] + long_dis / 4
+            # 设置5个纵向离散点
+            x1 = init_pos[0] - long_dis / 3 #向后退 1/3 距离
+            x2 = init_pos[0] - long_dis / 6 #向后退 1/6 距离
+            x3 = init_pos[0] # (原位置)
+            x4 = init_pos[0] + long_dis / 12 #向前进 1/12 距离
+            x5 = init_pos[0] + long_dis / 4 #向前进 1/4 距离
             # 速度从-s~s随机均匀分布
             # 车道内的航向角-a~a随机均匀分布,车道外的-2a~2a随机均匀分布
             # x的位置为x1、x2、x3、x4、x5

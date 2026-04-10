@@ -26,8 +26,8 @@ class Speed_planner():
         #                               np.arange(30, 60.1, 1.5),
         #                               # np.arange(50, 60.1, 1.0),
         #                               ])
-        self.s_list = np.arange(0, 90, 2)
-        self.t_list = np.arange(1, 3.1, 1)
+        self.s_list = np.arange(0, 90, 2) # S轴离散化：0~90m，步长2m
+        self.t_list = np.arange(1, 3.1, 1) # T轴离散化：1~3.1s，步长1s
         self.s_length = len(self.s_list)
         self.t_length = len(self.t_list)
         self.w_cost_accel = 100.                  # 加速度代价权重
@@ -68,7 +68,7 @@ class Speed_planner():
         plt.close()
 
     def speed_dp(self, obs_st_s_in_set, obs_st_s_out_set,
-                 obs_st_t_in_set, obs_st_t_out_set, plan_start_s_dot):
+                 obs_st_t_in_set, obs_st_t_out_set, plan_start_s_dot): # 速度规划的动态规划算法
         # 初始化所有的权重都是inf, st矩阵代表从起点开始到(i,j)点的最小值代价为dp_st_cost(i,j),邻接矩阵
         dp_st_cost = np.ones((self.s_length, self.t_length)) * np.inf
         # dp_st_s_dot表示从起点开始到(i,j)点的最优路径的末速度
@@ -354,7 +354,7 @@ class Speed_planner():
         ub = np.ones(3 * qp_size)
         # 计算采样间隔时间dt
         dt = recommend_T / dp_speed_end
-        A_sub = np.array([[1, 0],
+        A_sub = np.array([[1, 0],# 运动学约束矩阵
                           [dt, 1],
                           [(1 / 3) * dt ** 2, (1 / 2) * dt],
                           [-1, 0],
@@ -377,7 +377,7 @@ class Speed_planner():
 
         # 由于生成的凸空间约束s_lb s_ub不带起点，所以lb(i) = s_lb(i-1) 以此类推
         # 允许最小加速度为-6 最大加速度为4(基于车辆动力学), 这里和matlab不一样,这里没有上下界的说法，此处上下界应该要加到A里面
-        for i in range(1, qp_size):
+        for i in range(1, qp_size): # 边界约束
             lb[3 * i] = s_lb[i - 1]
             lb[3 * i + 1] = s_dot_lb[i - 1]
             lb[3 * i + 2] = -6
@@ -413,7 +413,7 @@ class Speed_planner():
         for i in range(1, qp_size):
             A_jerk[3 * i - 3:3 * i + 3, i - 1:i] = A4_sub
 
-        # 生成H F
+        # 生成H F —— 目标函数矩阵：对应了论文中最小化加速度、Jerk（加加速度）和速度偏差
         P = sparse.csc_matrix((self.w_cost_s_dot2 * (A_s_dot2 @ A_s_dot2.T) + self.w_cost_jerk * (A_jerk @ A_jerk.T) + \
             self.w_cost_v_ref * (A_ref @ A_ref.T)) * 2)
         q = np.zeros((3 * qp_size, 1))
