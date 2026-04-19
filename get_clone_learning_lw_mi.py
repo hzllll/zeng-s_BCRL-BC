@@ -58,7 +58,7 @@ LR_DECAY = 0.01  # 学习率衰减率（每epoch衰减(1-LR_DECAY)）
 BATCH_SIZE = 1024
 EPOCHS = 512  # 最大训练轮数
 # EARLY_STOPPING_PATIENCE = 20  # 早停耐心值（连续多少轮验证集loss不下降则停止）
-EARLY_STOPPING_PATIENCE = 20  # 早停耐心值（连续多少轮验证集loss不下降则停止）
+EARLY_STOPPING_PATIENCE = 250  # 早停耐心值（连续多少轮验证集loss不下降则停止）
 ACCELERATION_WEIGHT = 1  # 加速度损失权重
 STEERING_WEIGHT = 5  # 转角损失权重（转角对轨迹影响更大，权重更高）
 TEST_SIZE = 0.1  # 验证集比例（10%数据用于验证）
@@ -351,11 +351,11 @@ if __name__ == "__main__":
     criterion = nn.MSELoss()  # 均方误差损失
 
     # Adam优化器（带学习率衰减）
-    optimizer = optim.Adam(model.parameters(), lr=LEARNING_RATE)
-    scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=1, gamma=1-LR_DECAY)
-    # optimizer = optim.AdamW(model.parameters(), lr=LEARNING_RATE, weight_decay=1e-5)
-    # from torch.optim.lr_scheduler import CosineAnnealingWarmRestarts
-    # scheduler = CosineAnnealingWarmRestarts(optimizer, T_0=32, T_mult=2, eta_min=1e-6)
+    # optimizer = optim.Adam(model.parameters(), lr=LEARNING_RATE)
+    # scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=1, gamma=1-LR_DECAY)
+    optimizer = optim.AdamW(model.parameters(), lr=LEARNING_RATE, weight_decay=1e-2)
+    from torch.optim.lr_scheduler import CosineAnnealingWarmRestarts
+    scheduler = CosineAnnealingWarmRestarts(optimizer, T_0=64, T_mult=2, eta_min=1e-6)
 
     # 7. 模型训练
     print("\n开始训练模型...")

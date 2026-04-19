@@ -7,6 +7,8 @@ import pandas as pd
 import concurrent.futures
 import matplotlib.pyplot as plt
 import time
+import glob  # 用于自动查找对应实验的 .pth 模型文件
+from datetime import datetime
 
 # 添加上级目录以导入 onsite 包
 # sys.path.append('../..')
@@ -23,10 +25,13 @@ from onsite import scenarioOrganizer, env
 
 # ================= 配置区域 =================
 # 请确保这些参数与训练时的配置完全一致！
-D_MODEL = 256
-FFN_DIM = 4 * D_MODEL
-num_encoder_layers = 3
-num_decoder_layers = 3
+# EXP_NAME = "Exp-1"  # 每次跑之前改一下这里和下面的参数
+RUN_DATE_TIME = datetime.now().strftime("%m%d_%H")
+# D_MODEL = 128
+# FFN_DIM = 4 * D_MODEL
+# num_encoder_layers = 2
+# num_decoder_layers = 2
+# BATCH_SIZE = 1024
 OUTPUT_DIM = 2
 SEQ_LENGTH = 5
 CAR_NUM = 8
@@ -37,7 +42,8 @@ DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 # MODEL_PATH = "/root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Transformer_trajectory_model_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_40es_zDATASET.pth"
 # MODEL_PATH = "/root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Transformer_trajectory_model_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_40es_zDATASET_0.05wucos_275epo.pth"
 # MODEL_PATH = "/root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Tf_trajectory_model_0328_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_100es_CoAnWarmRest_zDATASET.pth"
-MODEL_PATH = "/root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Tf_trajectory_model_0330_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_500es_CoAnWarmRest_zDATASET.pth"
+# MODEL_PATH = "/root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Tf_trajectory_model_0330_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_500es_CoAnWarmRest_zDATASET.pth"
+MODEL_PATH = "/root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-1_Tf_trajectory_model_0414_1024BSIZE_128dmodel_512FFNdim_enc2_dec2_300es_CoAnWarmRest_zDATASET.pth"
 # ===========================================
 
 # 1. 定义 Transformer 模型 (必须与训练代码完全一致)
@@ -386,35 +392,98 @@ def observation_to_state2_simRL_proper(observation, goal, map_info):
 
 
 if __name__ == "__main__":
-    # 初始化模型
-    model = TransformerTrajectoryPredictor(
-        d_model=D_MODEL, output_dim=OUTPUT_DIM, seq_length=SEQ_LENGTH, car_num=CAR_NUM,
-        nhead=8, num_encoder_layers=num_encoder_layers, num_decoder_layers=num_decoder_layers,
-        dim_feedforward=FFN_DIM, dropout=0.0
-    ).to(DEVICE)
-    
-    # 加载权重
-    if os.path.exists(MODEL_PATH):
-        model.load_state_dict(torch.load(MODEL_PATH, map_location=DEVICE))
-        print(f"成功加载 Transformer 模型: {MODEL_PATH}")
-    else:
-        print(f"错误：找不到模型文件 {MODEL_PATH}")
-        exit()
-        
-    model.eval() # 开启验证模式
+    # 1. 定义所有实验的超参数配置
+    experiments = [
+        {"name": "Exp-1", "d_model": 128, "ffn_dim": 512,  "enc": 2, "dec": 2, "bs": 1024},
+        {"name": "Exp-2", "d_model": 512, "ffn_dim": 2048, "enc": 4, "dec": 4, "bs": 1024}, 
+        {"name": "Exp-3", "d_model": 256, "ffn_dim": 1024, "enc": 3, "dec": 3, "bs": 256},
+        {"name": "Exp-4", "d_model": 256, "ffn_dim": 1024, "enc": 3, "dec": 3, "bs": 1024},
+        {"name": "Exp-5", "d_model": 256, "ffn_dim": 1024, "enc": 3, "dec": 3, "bs": 1024},
+    ]
 
-    # 设置输入输出目录 (请修改为你的实际路径)
-    # input_dirs = [f"/root/autodl-tmp/BCRL/bc/planner/inputs/inputs_test_multi/inputs{i}" for i in range(5)]
-    # output_dir = "/root/autodl-tmp/BCRL/bc/planner/outputs/Transformer_test_result"
-    
-    input_dirs = [f"/root/autodl-tmp/BCRL/bc/planner/inputs/inputs_C"]
-    output_dir = "/root/autodl-tmp/BCRL/bc/planner/outputs/TF_resultC_1024BSIZE_256DMODEL_1024FFNdim_500ESTOP_512epo_CoAnWarmRest_zDATASET"
+    datasets = {
+        "B": "/root/autodl-tmp/BCRL/bc/planner/inputs/inputs_B",
+        "C": "/root/autodl-tmp/BCRL/bc/planner/inputs/inputs_C"
+    }
 
-    # input_dirs = [f"/root/autodl-tmp/BCRL/bc/planner/inputs/inputs_B"]
-    # output_dir = "/root/autodl-tmp/BCRL/bc/planner/outputs/TF_resultB_1024BSIZE_256DMODEL_1024FFNdim_500ESTOP_512epo_CoAnWarmRest_zDATASET"
-   
-    # 并行执行
+    checkpoints_dir = "/root/autodl-tmp/BCRL/bc/Transformer_checkpoints"
+
+    # 提前开启进程池，避免在循环中反复创建销毁引发 CUDA 报错
     with concurrent.futures.ProcessPoolExecutor(max_workers=5) as executor:
-        futures = [executor.submit(process_input_directory, input_dir, output_dir, model) for input_dir in input_dirs]
-        for future in concurrent.futures.as_completed(futures):
-            future.result()
+        for exp in experiments:
+            print(f"\n{'='*50}")
+            print(f"🚀 开始处理实验: {exp['name']}")
+            
+            # 【修复问题2】：强制匹配 _Tf 开头，完美避开 Exp-2_v2，精准定位 Exp-2 第一版
+            model_pattern = os.path.join(checkpoints_dir, f"{exp['name']}_Tf*.pth")
+            model_files = glob.glob(model_pattern)
+            
+            if not model_files:
+                print(f"⚠️ 未找到 {exp['name']} 的模型文件，跳过...")
+                continue
+                
+            MODEL_PATH = model_files[0]
+            print(f"📂 找到模型文件: {MODEL_PATH}")
+
+            model = TransformerTrajectoryPredictor(
+                d_model=exp['d_model'], output_dim=OUTPUT_DIM, seq_length=SEQ_LENGTH, car_num=CAR_NUM,
+                nhead=8, num_encoder_layers=exp['enc'], num_decoder_layers=exp['dec'],
+                dim_feedforward=exp['ffn_dim'], dropout=0.0
+            ).to(DEVICE)
+            
+            model.load_state_dict(torch.load(MODEL_PATH, map_location=DEVICE))
+            model.eval() 
+            print(f"✅ 成功加载 {exp['name']} 模型权重")
+
+            for data_name, input_dir in datasets.items():
+                print(f"  -> 正在测试数据集: inputs_{data_name}")
+                output_dir = f"/root/autodl-tmp/BCRL/bc/planner/outputs/{exp['name']}_r{data_name}_{RUN_DATE_TIME}_{exp['bs']}BS_{exp['d_model']}dm_{exp['ffn_dim']}FFN_ednc{exp['enc']}_CoAnWarmRest_zDATASET"
+                os.makedirs(output_dir, exist_ok=True)
+                
+                # 【修复问题3】：复用外层的 executor，直接提交任务
+                future = executor.submit(process_input_directory, input_dir, output_dir, model)
+                try:
+                    future.result() # 等待当前数据集跑完再跑下一个
+                except Exception as e:
+                    print(f"❌ 测试 {exp['name']} 在 inputs_{data_name} 时发生错误: {e}")
+                            
+            print(f"🎉 实验 {exp['name']} 测试完成！")
+
+
+
+# if __name__ == "__main__":
+#     # 初始化模型
+#     model = TransformerTrajectoryPredictor(
+#         d_model=D_MODEL, output_dim=OUTPUT_DIM, seq_length=SEQ_LENGTH, car_num=CAR_NUM,
+#         nhead=8, num_encoder_layers=num_encoder_layers, num_decoder_layers=num_decoder_layers,
+#         dim_feedforward=FFN_DIM, dropout=0.0
+#     ).to(DEVICE)
+    
+#     # 加载权重
+#     if os.path.exists(MODEL_PATH):
+#         model.load_state_dict(torch.load(MODEL_PATH, map_location=DEVICE))
+#         print(f"成功加载 Transformer 模型: {MODEL_PATH}")
+#     else:
+#         print(f"错误：找不到模型文件 {MODEL_PATH}")
+#         exit()
+        
+#     model.eval() # 开启验证模式
+
+#     # 设置输入输出目录 (请修改为你的实际路径)
+#     # input_dirs = [f"/root/autodl-tmp/BCRL/bc/planner/inputs/inputs_test_multi/inputs{i}" for i in range(5)]
+#     # output_dir = "/root/autodl-tmp/BCRL/bc/planner/outputs/Transformer_test_result"
+    
+#     input_dirs = [f"/root/autodl-tmp/BCRL/bc/planner/inputs/inputs_C"]
+#     output_dir = f"/root/autodl-tmp/BCRL/bc/planner/outputs/{EXP_NAME}_rC_{RUN_DATE_TIME}_{str(BATCH_SIZE)}BS_{str(D_MODEL)}dm_{str(FFN_DIM)}FFN_ednc{num_encoder_layers}_CoAnWarmRest_zDATASET"
+
+#     # input_dirs = [f"/root/autodl-tmp/BCRL/bc/planner/inputs/inputs_B"]
+#     # output_dir = "/root/autodl-tmp/BCRL/bc/planner/outputs/{EXP_NAME}_rB_{RUN_DATE_TIME}_{str(BATCH_SIZE)}BS_{str(D_MODEL)}dm_{str(FFN_DIM)}FFN_ednc{num_encoder_layers}_CoAnWarmRest_zDATASET"
+
+#     # input_dirs = [f"/root/autodl-tmp/BCRL/bc/planner/inputs/inputs_B"]
+#     # output_dir = "/root/autodl-tmp/BCRL/bc/planner/outputs/TF_resultB_1024BSIZE_256DMODEL_1024FFNdim_500ESTOP_512epo_CoAnWarmRest_zDATASET"
+   
+#     # 并行执行
+#     with concurrent.futures.ProcessPoolExecutor(max_workers=5) as executor:
+#         futures = [executor.submit(process_input_directory, input_dir, output_dir, model) for input_dir in input_dirs]
+#         for future in concurrent.futures.as_completed(futures):
+#             future.result()

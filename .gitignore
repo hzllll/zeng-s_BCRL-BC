@@ -43,7 +43,7 @@ checkpoints/    # 通用命名
 checkpoints1/   # ★当前项目特定命名 (必须加这个)
 Transformer_checkpoints/
 models/
-
+Transformer_checkpoints_his5/
 # ==========================
 # 4. 数据集与大文件
 # ==========================
@@ -71,3 +71,9 @@ wandb/          # Weights & Biases 日志
 # (可选) 如果 inputs 文件夹特别大，也可以取消下面这行的注释
 planner/inputs/
 
+
+# 6. 忽略highway-env生成的结果文件夹
+highway_env_results_v2
+
+# 7. 忽略NGSIM相关文文件夹
+ngsim_data

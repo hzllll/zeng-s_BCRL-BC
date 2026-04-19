@@ -1,0 +1,307 @@
+使用设备: cuda
+成功加载文件: /root/autodl-tmp/BCRL/bc/dataset/GRU_choose_closest8_properRL_0.npy | 数据形状: (2807565, 64)
+成功加载文件: /root/autodl-tmp/BCRL/bc/dataset/GRU_choose_closest8_properRL_1.npy | 数据形状: (2718791, 64)
+成功加载文件: /root/autodl-tmp/BCRL/bc/dataset/GRU_choose_closest8_properRL_out.npy | 数据形状: (4411230, 64)
+
+数据合并完成 | 总数据量: 9937586 | 特征维度: 64
+数据预处理完成 | 特征形状: (9937586, 54) | 标签形状: (9937586, 10)
+未检测到已有模型文件，使用随机初始化模型参数。
+
+开始训练模型...
+Epoch [1/512] | 训练损失: 0.148380 | 验证损失: 0.108167 | 学习率: 0.000100
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [2/512] | 训练损失: 0.101445 | 验证损失: 0.081572 | 学习率: 0.000100
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [3/512] | 训练损失: 0.087481 | 验证损失: 0.071387 | 学习率: 0.000099
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [4/512] | 训练损失: 0.079442 | 验证损失: 0.069142 | 学习率: 0.000099
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [5/512] | 训练损失: 0.074327 | 验证损失: 0.063854 | 学习率: 0.000099
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [6/512] | 训练损失: 0.070637 | 验证损失: 0.062914 | 学习率: 0.000098
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [7/512] | 训练损失: 0.067764 | 验证损失: 0.060350 | 学习率: 0.000097
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [8/512] | 训练损失: 0.065624 | 验证损失: 0.058443 | 学习率: 0.000096
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [9/512] | 训练损失: 0.063833 | 验证损失: 0.055399 | 学习率: 0.000095
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [10/512] | 训练损失: 0.062089 | 验证损失: 0.054203 | 学习率: 0.000094
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [11/512] | 训练损失: 0.060667 | 验证损失: 0.054893 | 学习率: 0.000093
+Epoch [12/512] | 训练损失: 0.059465 | 验证损失: 0.052218 | 学习率: 0.000092
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [13/512] | 训练损失: 0.058284 | 验证损失: 0.051107 | 学习率: 0.000090
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [14/512] | 训练损失: 0.057223 | 验证损失: 0.051185 | 学习率: 0.000089
+Epoch [15/512] | 训练损失: 0.056268 | 验证损失: 0.049889 | 学习率: 0.000087
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [16/512] | 训练损失: 0.055372 | 验证损失: 0.048644 | 学习率: 0.000086
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [17/512] | 训练损失: 0.054615 | 验证损失: 0.049170 | 学习率: 0.000084
+Epoch [18/512] | 训练损失: 0.053702 | 验证损失: 0.048096 | 学习率: 0.000082
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [19/512] | 训练损失: 0.052956 | 验证损失: 0.046663 | 学习率: 0.000080
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [20/512] | 训练损失: 0.052286 | 验证损失: 0.047019 | 学习率: 0.000078
+Epoch [21/512] | 训练损失: 0.051532 | 验证损失: 0.046315 | 学习率: 0.000076
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [22/512] | 训练损失: 0.050878 | 验证损失: 0.045363 | 学习率: 0.000074
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [23/512] | 训练损失: 0.050217 | 验证损失: 0.045936 | 学习率: 0.000072
+Epoch [24/512] | 训练损失: 0.049620 | 验证损失: 0.044613 | 学习率: 0.000069
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [25/512] | 训练损失: 0.049003 | 验证损失: 0.043945 | 学习率: 0.000067
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [26/512] | 训练损失: 0.048454 | 验证损失: 0.043158 | 学习率: 0.000065
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [27/512] | 训练损失: 0.047868 | 验证损失: 0.043526 | 学习率: 0.000063
+Epoch [28/512] | 训练损失: 0.047296 | 验证损失: 0.042458 | 学习率: 0.000060
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [29/512] | 训练损失: 0.046822 | 验证损失: 0.042595 | 学习率: 0.000058
+Epoch [30/512] | 训练损失: 0.046290 | 验证损失: 0.041975 | 学习率: 0.000055
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [31/512] | 训练损失: 0.045830 | 验证损失: 0.041369 | 学习率: 0.000053
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [32/512] | 训练损失: 0.045293 | 验证损失: 0.041414 | 学习率: 0.000051
+Epoch [33/512] | 训练损失: 0.044800 | 验证损失: 0.039860 | 学习率: 0.000048
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [34/512] | 训练损失: 0.044388 | 验证损失: 0.039908 | 学习率: 0.000046
+Epoch [35/512] | 训练损失: 0.043895 | 验证损失: 0.039966 | 学习率: 0.000043
+Epoch [36/512] | 训练损失: 0.043506 | 验证损失: 0.039352 | 学习率: 0.000041
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [37/512] | 训练损失: 0.043042 | 验证损失: 0.039074 | 学习率: 0.000038
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [38/512] | 训练损失: 0.042649 | 验证损失: 0.038705 | 学习率: 0.000036
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [39/512] | 训练损失: 0.042310 | 验证损失: 0.038203 | 学习率: 0.000034
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [40/512] | 训练损失: 0.041888 | 验证损失: 0.037732 | 学习率: 0.000032
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [41/512] | 训练损失: 0.041566 | 验证损失: 0.037556 | 学习率: 0.000029
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [42/512] | 训练损失: 0.041188 | 验证损失: 0.037258 | 学习率: 0.000027
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [43/512] | 训练损失: 0.040818 | 验证损失: 0.037126 | 学习率: 0.000025
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [44/512] | 训练损失: 0.040488 | 验证损失: 0.036581 | 学习率: 0.000023
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [45/512] | 训练损失: 0.040253 | 验证损失: 0.036355 | 学习率: 0.000021
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [46/512] | 训练损失: 0.039909 | 验证损失: 0.036359 | 学习率: 0.000019
+Epoch [47/512] | 训练损失: 0.039651 | 验证损失: 0.035747 | 学习率: 0.000017
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [48/512] | 训练损失: 0.039391 | 验证损失: 0.035708 | 学习率: 0.000015
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [49/512] | 训练损失: 0.039172 | 验证损失: 0.035436 | 学习率: 0.000014
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [50/512] | 训练损失: 0.038916 | 验证损失: 0.035501 | 学习率: 0.000012
+Epoch [51/512] | 训练损失: 0.038732 | 验证损失: 0.035071 | 学习率: 0.000011
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [52/512] | 训练损失: 0.038518 | 验证损失: 0.034969 | 学习率: 0.000009
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [53/512] | 训练损失: 0.038328 | 验证损失: 0.034876 | 学习率: 0.000008
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [54/512] | 训练损失: 0.038182 | 验证损失: 0.034735 | 学习率: 0.000007
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [55/512] | 训练损失: 0.038010 | 验证损失: 0.034813 | 学习率: 0.000006
+Epoch [56/512] | 训练损失: 0.037918 | 验证损失: 0.034754 | 学习率: 0.000005
+Epoch [57/512] | 训练损失: 0.037807 | 验证损失: 0.034442 | 学习率: 0.000004
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [58/512] | 训练损失: 0.037701 | 验证损失: 0.034368 | 学习率: 0.000003
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [59/512] | 训练损失: 0.037617 | 验证损失: 0.034371 | 学习率: 0.000002
+Epoch [60/512] | 训练损失: 0.037537 | 验证损失: 0.034321 | 学习率: 0.000002
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [61/512] | 训练损失: 0.037478 | 验证损失: 0.034322 | 学习率: 0.000002
+Epoch [62/512] | 训练损失: 0.037448 | 验证损失: 0.034211 | 学习率: 0.000001
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [63/512] | 训练损失: 0.037415 | 验证损失: 0.034165 | 学习率: 0.000001
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [64/512] | 训练损失: 0.045825 | 验证损失: 0.042482 | 学习率: 0.000100
+Epoch [65/512] | 训练损失: 0.046838 | 验证损失: 0.042654 | 学习率: 0.000100
+Epoch [66/512] | 训练损失: 0.046797 | 验证损失: 0.042712 | 学习率: 0.000100
+Epoch [67/512] | 训练损失: 0.046768 | 验证损失: 0.042412 | 学习率: 0.000100
+Epoch [68/512] | 训练损失: 0.046493 | 验证损失: 0.042472 | 学习率: 0.000100
+Epoch [69/512] | 训练损失: 0.046279 | 验证损失: 0.042265 | 学习率: 0.000100
+Epoch [70/512] | 训练损失: 0.046041 | 验证损失: 0.041974 | 学习率: 0.000099
+Epoch [71/512] | 训练损失: 0.045825 | 验证损失: 0.042010 | 学习率: 0.000099
+Epoch [72/512] | 训练损失: 0.045589 | 验证损失: 0.042718 | 学习率: 0.000099
+Epoch [73/512] | 训练损失: 0.045297 | 验证损失: 0.040869 | 学习率: 0.000099
+Epoch [74/512] | 训练损失: 0.045087 | 验证损失: 0.041710 | 学习率: 0.000099
+Epoch [75/512] | 训练损失: 0.044865 | 验证损失: 0.040572 | 学习率: 0.000098
+Epoch [76/512] | 训练损失: 0.044588 | 验证损失: 0.040539 | 学习率: 0.000098
+Epoch [77/512] | 训练损失: 0.044372 | 验证损失: 0.041156 | 学习率: 0.000098
+Epoch [78/512] | 训练损失: 0.044071 | 验证损失: 0.040850 | 学习率: 0.000097
+Epoch [79/512] | 训练损失: 0.043841 | 验证损失: 0.040070 | 学习率: 0.000097
+Epoch [80/512] | 训练损失: 0.043603 | 验证损失: 0.040223 | 学习率: 0.000096
+Epoch [81/512] | 训练损失: 0.043342 | 验证损失: 0.039954 | 学习率: 0.000096
+Epoch [82/512] | 训练损失: 0.043125 | 验证损失: 0.039348 | 学习率: 0.000095
+Epoch [83/512] | 训练损失: 0.042836 | 验证损失: 0.039500 | 学习率: 0.000095
+Epoch [84/512] | 训练损失: 0.042668 | 验证损失: 0.038912 | 学习率: 0.000094
+Epoch [85/512] | 训练损失: 0.042342 | 验证损失: 0.038707 | 学习率: 0.000094
+Epoch [86/512] | 训练损失: 0.042133 | 验证损失: 0.038583 | 学习率: 0.000093
+Epoch [87/512] | 训练损失: 0.041902 | 验证损失: 0.038616 | 学习率: 0.000092
+Epoch [88/512] | 训练损失: 0.041699 | 验证损失: 0.038260 | 学习率: 0.000092
+Epoch [89/512] | 训练损失: 0.041405 | 验证损失: 0.037852 | 学习率: 0.000091
+Epoch [90/512] | 训练损失: 0.041208 | 验证损失: 0.038340 | 学习率: 0.000090
+Epoch [91/512] | 训练损失: 0.041007 | 验证损失: 0.037832 | 学习率: 0.000090
+Epoch [92/512] | 训练损失: 0.040750 | 验证损失: 0.038438 | 学习率: 0.000089
+Epoch [93/512] | 训练损失: 0.040545 | 验证损失: 0.037332 | 学习率: 0.000088
+Epoch [94/512] | 训练损失: 0.040306 | 验证损失: 0.036998 | 学习率: 0.000087
+Epoch [95/512] | 训练损失: 0.040144 | 验证损失: 0.037215 | 学习率: 0.000086
+Epoch [96/512] | 训练损失: 0.039851 | 验证损失: 0.037128 | 学习率: 0.000086
+Epoch [97/512] | 训练损失: 0.039685 | 验证损失: 0.036824 | 学习率: 0.000085
+Epoch [98/512] | 训练损失: 0.039436 | 验证损失: 0.036892 | 学习率: 0.000084
+Epoch [99/512] | 训练损失: 0.039248 | 验证损失: 0.037185 | 学习率: 0.000083
+Epoch [100/512] | 训练损失: 0.039079 | 验证损失: 0.036417 | 学习率: 0.000082
+Epoch [101/512] | 训练损失: 0.038833 | 验证损失: 0.036179 | 学习率: 0.000081
+Epoch [102/512] | 训练损失: 0.038642 | 验证损失: 0.036572 | 学习率: 0.000080
+Epoch [103/512] | 训练损失: 0.038429 | 验证损失: 0.036431 | 学习率: 0.000079
+Epoch [104/512] | 训练损失: 0.038261 | 验证损失: 0.036512 | 学习率: 0.000078
+Epoch [105/512] | 训练损失: 0.038034 | 验证损失: 0.035917 | 学习率: 0.000077
+Epoch [106/512] | 训练损失: 0.037847 | 验证损失: 0.035870 | 学习率: 0.000076
+Epoch [107/512] | 训练损失: 0.037664 | 验证损失: 0.036059 | 学习率: 0.000075
+Epoch [108/512] | 训练损失: 0.037463 | 验证损失: 0.035417 | 学习率: 0.000074
+Epoch [109/512] | 训练损失: 0.037240 | 验证损失: 0.035196 | 学习率: 0.000073
+Epoch [110/512] | 训练损失: 0.037062 | 验证损失: 0.034910 | 学习率: 0.000072
+Epoch [111/512] | 训练损失: 0.036876 | 验证损失: 0.034710 | 学习率: 0.000071
+Epoch [112/512] | 训练损失: 0.036713 | 验证损失: 0.035074 | 学习率: 0.000069
+Epoch [113/512] | 训练损失: 0.036491 | 验证损失: 0.034713 | 学习率: 0.000068
+Epoch [114/512] | 训练损失: 0.036308 | 验证损失: 0.035109 | 学习率: 0.000067
+Epoch [115/512] | 训练损失: 0.036171 | 验证损失: 0.034815 | 学习率: 0.000066
+Epoch [116/512] | 训练损失: 0.035982 | 验证损失: 0.034639 | 学习率: 0.000065
+Epoch [117/512] | 训练损失: 0.035755 | 验证损失: 0.034662 | 学习率: 0.000064
+Epoch [118/512] | 训练损失: 0.035580 | 验证损失: 0.034699 | 学习率: 0.000063
+Epoch [119/512] | 训练损失: 0.035387 | 验证损失: 0.034210 | 学习率: 0.000061
+Epoch [120/512] | 训练损失: 0.035218 | 验证损失: 0.034465 | 学习率: 0.000060
+Epoch [121/512] | 训练损失: 0.035060 | 验证损失: 0.034431 | 学习率: 0.000059
+Epoch [122/512] | 训练损失: 0.034895 | 验证损失: 0.033986 | 学习率: 0.000058
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [123/512] | 训练损失: 0.034699 | 验证损失: 0.034020 | 学习率: 0.000057
+Epoch [124/512] | 训练损失: 0.034488 | 验证损失: 0.033671 | 学习率: 0.000055
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [125/512] | 训练损失: 0.034342 | 验证损失: 0.033492 | 学习率: 0.000054
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [126/512] | 训练损失: 0.034174 | 验证损失: 0.033294 | 学习率: 0.000053
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [127/512] | 训练损失: 0.033969 | 验证损失: 0.033623 | 学习率: 0.000052
+Epoch [128/512] | 训练损失: 0.033809 | 验证损失: 0.033226 | 学习率: 0.000051
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [129/512] | 训练损失: 0.033645 | 验证损失: 0.032955 | 学习率: 0.000049
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [130/512] | 训练损失: 0.033509 | 验证损失: 0.033212 | 学习率: 0.000048
+Epoch [131/512] | 训练损失: 0.033300 | 验证损失: 0.033026 | 学习率: 0.000047
+Epoch [132/512] | 训练损失: 0.033172 | 验证损失: 0.033132 | 学习率: 0.000046
+Epoch [133/512] | 训练损失: 0.033006 | 验证损失: 0.032730 | 学习率: 0.000044
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [134/512] | 训练损失: 0.032837 | 验证损失: 0.032706 | 学习率: 0.000043
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [135/512] | 训练损失: 0.032678 | 验证损失: 0.032662 | 学习率: 0.000042
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [136/512] | 训练损失: 0.032558 | 验证损失: 0.032520 | 学习率: 0.000041
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [137/512] | 训练损失: 0.032342 | 验证损失: 0.032466 | 学习率: 0.000040
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [138/512] | 训练损失: 0.032219 | 验证损失: 0.032230 | 学习率: 0.000038
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [139/512] | 训练损失: 0.032062 | 验证损失: 0.032384 | 学习率: 0.000037
+Epoch [140/512] | 训练损失: 0.031914 | 验证损失: 0.031982 | 学习率: 0.000036
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [141/512] | 训练损失: 0.031757 | 验证损失: 0.032179 | 学习率: 0.000035
+Epoch [142/512] | 训练损失: 0.031592 | 验证损失: 0.032292 | 学习率: 0.000034
+Epoch [143/512] | 训练损失: 0.031483 | 验证损失: 0.031909 | 学习率: 0.000033
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [144/512] | 训练损失: 0.031310 | 验证损失: 0.032121 | 学习率: 0.000032
+Epoch [145/512] | 训练损失: 0.031167 | 验证损失: 0.032170 | 学习率: 0.000030
+Epoch [146/512] | 训练损失: 0.031052 | 验证损失: 0.031777 | 学习率: 0.000029
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [147/512] | 训练损失: 0.030893 | 验证损失: 0.031691 | 学习率: 0.000028
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [148/512] | 训练损失: 0.030764 | 验证损失: 0.031686 | 学习率: 0.000027
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [149/512] | 训练损失: 0.030655 | 验证损失: 0.031707 | 学习率: 0.000026
+Epoch [150/512] | 训练损失: 0.030510 | 验证损失: 0.031582 | 学习率: 0.000025
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [151/512] | 训练损失: 0.030390 | 验证损失: 0.031415 | 学习率: 0.000024
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [152/512] | 训练损失: 0.030248 | 验证损失: 0.031614 | 学习率: 0.000023
+Epoch [153/512] | 训练损失: 0.030131 | 验证损失: 0.031543 | 学习率: 0.000022
+Epoch [154/512] | 训练损失: 0.030015 | 验证损失: 0.031363 | 学习率: 0.000021
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [155/512] | 训练损失: 0.029877 | 验证损失: 0.031115 | 学习率: 0.000020
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [156/512] | 训练损失: 0.029794 | 验证损失: 0.031119 | 学习率: 0.000019
+Epoch [157/512] | 训练损失: 0.029669 | 验证损失: 0.030995 | 学习率: 0.000018
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [158/512] | 训练损失: 0.029555 | 验证损失: 0.031169 | 学习率: 0.000017
+Epoch [159/512] | 训练损失: 0.029471 | 验证损失: 0.031051 | 学习率: 0.000016
+Epoch [160/512] | 训练损失: 0.029321 | 验证损失: 0.031106 | 学习率: 0.000015
+Epoch [161/512] | 训练损失: 0.029252 | 验证损失: 0.030989 | 学习率: 0.000015
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [162/512] | 训练损失: 0.029149 | 验证损失: 0.030927 | 学习率: 0.000014
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [163/512] | 训练损失: 0.029062 | 验证损失: 0.030731 | 学习率: 0.000013
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [164/512] | 训练损失: 0.028995 | 验证损失: 0.030881 | 学习率: 0.000012
+Epoch [165/512] | 训练损失: 0.028893 | 验证损失: 0.030816 | 学习率: 0.000011
+Epoch [166/512] | 训练损失: 0.028795 | 验证损失: 0.030650 | 学习率: 0.000011
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [167/512] | 训练损失: 0.028736 | 验证损失: 0.030758 | 学习率: 0.000010
+Epoch [168/512] | 训练损失: 0.028677 | 验证损失: 0.030567 | 学习率: 0.000009
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [169/512] | 训练损失: 0.028595 | 验证损失: 0.030548 | 学习率: 0.000009
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [170/512] | 训练损失: 0.028498 | 验证损失: 0.030705 | 学习率: 0.000008
+Epoch [171/512] | 训练损失: 0.028441 | 验证损失: 0.030589 | 学习率: 0.000007
+Epoch [172/512] | 训练损失: 0.028380 | 验证损失: 0.030510 | 学习率: 0.000007
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [173/512] | 训练损失: 0.028334 | 验证损失: 0.030556 | 学习率: 0.000006
+Epoch [174/512] | 训练损失: 0.028292 | 验证损失: 0.030488 | 学习率: 0.000006
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [175/512] | 训练损失: 0.028196 | 验证损失: 0.030493 | 学习率: 0.000005
+Epoch [176/512] | 训练损失: 0.028167 | 验证损失: 0.030555 | 学习率: 0.000005
+Epoch [177/512] | 训练损失: 0.028115 | 验证损失: 0.030495 | 学习率: 0.000004
+Epoch [178/512] | 训练损失: 0.028059 | 验证损失: 0.030411 | 学习率: 0.000004
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [179/512] | 训练损失: 0.028038 | 验证损失: 0.030487 | 学习率: 0.000003
+Epoch [180/512] | 训练损失: 0.027987 | 验证损失: 0.030457 | 学习率: 0.000003
+Epoch [181/512] | 训练损失: 0.027948 | 验证损失: 0.030376 | 学习率: 0.000003
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [182/512] | 训练损失: 0.027908 | 验证损失: 0.030363 | 学习率: 0.000002
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [183/512] | 训练损失: 0.027908 | 验证损失: 0.030392 | 学习率: 0.000002
+Epoch [184/512] | 训练损失: 0.027873 | 验证损失: 0.030435 | 学习率: 0.000002
+Epoch [185/512] | 训练损失: 0.027863 | 验证损失: 0.030400 | 学习率: 0.000002
+Epoch [186/512] | 训练损失: 0.027833 | 验证损失: 0.030412 | 学习率: 0.000002
+Epoch [187/512] | 训练损失: 0.027824 | 验证损失: 0.030358 | 学习率: 0.000001
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [188/512] | 训练损失: 0.027810 | 验证损失: 0.030365 | 学习率: 0.000001
+Epoch [189/512] | 训练损失: 0.027788 | 验证损失: 0.030282 | 学习率: 0.000001
+验证损失下降，保存最优模型到: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-2_v2_Tf_trajectory_model_0415_23_1024BSIZE_512dmodel_2048FFNdim_enc4_dec4_250es_CoAnWarmRest_zDATASET.pth
+Epoch [190/512] | 训练损失: 0.027789 | 验证损失: 0.030336 | 学习率: 0.000001
+Epoch [191/512] | 训练损失: 0.027771 | 验证损失: 0.030355 | 学习率: 0.000001
+Epoch [192/512] | 训练损失: 0.034173 | 验证损失: 0.035994 | 学习率: 0.000100
+Epoch [193/512] | 训练损失: 0.035278 | 验证损失: 0.036094 | 学习率: 0.000100
+Epoch [194/512] | 训练损失: 0.035538 | 验证损失: 0.035606 | 学习率: 0.000100
+Epoch [195/512] | 训练损失: 0.035540 | 验证损失: 0.034772 | 学习率: 0.000100
+Epoch [196/512] | 训练损失: 0.035616 | 验证损失: 0.035026 | 学习率: 0.000100
+Epoch [197/512] | 训练损失: 0.035559 | 验证损失: 0.035127 | 学习率: 0.000100
+Epoch [198/512] | 训练损失: 0.035513 | 验证损失: 0.035395 | 学习率: 0.000100
+Epoch [199/512] | 训练损失: 0.035466 | 验证损失: 0.035332 | 学习率: 0.000100
+Epoch [200/512] | 训练损失: 0.035408 | 验证损失: 0.035173 | 学习率: 0.000100
+Epoch [201/512] | 训练损失: 0.035344 | 验证损失: 0.035654 | 学习率: 0.000100
+Epoch [202/512] | 训练损失: 0.035279 | 验证损失: 0.035351 | 学习率: 0.000100
+Epoch [203/512] | 训练损失: 0.035172 | 验证损失: 0.035244 | 学习率: 0.000100
+Epoch [204/512] | 训练损失: 0.035126 | 验证损失: 0.034678 | 学习率: 0.000099
+Epoch [205/512] | 训练损失: 0.035029 | 验证损失: 0.035000 | 学习率: 0.000099
+Epoch [206/512] | 训练损失: 0.034964 | 验证损失: 0.035826 | 学习率: 0.000099
+Epoch [207/512] | 训练损失: 0.034873 | 验证损失: 0.035216 | 学习率: 0.000099
+Epoch [208/512] | 训练损失: 0.034811 | 验证损失: 0.034364 | 学习率: 0.000099
+Epoch [209/512] | 训练损失: 0.034757 | 验证损失: 0.034554 | 学习率: 0.000099
+Epoch [210/512] | 训练损失: 0.034611 | 验证损失: 0.035960 | 学习率: 0.000099
+Epoch [211/512] | 训练损失: 0.034542 | 验证损失: 0.034707 | 学习率: 0.000099
+Epoch [212/512] | 训练损失: 0.034461 | 验证损失: 0.034830 | 学习率: 0.000099
+Epoch [213/512] | 训练损失: 0.034348 | 验证损失: 0.035002 | 学习率: 0.000098
+Epoch [214/512] | 训练损失: 0.034285 | 验证损失: 0.034839 | 学习率: 0.000098
+Epoch [215/512] | 训练损失: 0.034191 | 验证损失: 0.034967 | 学习率: 0.000098

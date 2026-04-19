@@ -1,0 +1,64 @@
+---
+description: Generate and validate draw.io diagrams with AI, specialized for engineering and autonomous driving.
+globs: *.drawio
+---
+# Draw.io Diagram Generation Skill
+
+## Description
+使 AI 能够根据 draw.io 官方规范，生成正确的、未压缩的 draw.io (`.drawio`) XML 图表文件。已针对复杂系统架构（如自动驾驶）的连线逻辑、视觉美化和分层布局进行了专门优化。
+
+## Workflow (交互工作流)
+1. **确认架构**：在生成 XML 前，先用 Markdown 列表向用户确认图表的逻辑结构、模块划分和连线关系。
+2. **静默生成**：用户确认后，直接将代码写入 `.drawio` 文件，并在对话框中提示“图表已生成，请使用 Draw.io 插件打开查看”。
+
+## Instructions
+
+当用户要求绘制、生成或修改 draw.io 图表时，请严格遵循以下规则生成有效的 XML 代码：
+
+### 1. 文件结构 (File Structure)
+推荐使用**简化版格式**（适用于单页图表，draw.io 会自动补全外层标签）：
+```xml
+<mxGraphModel adaptiveColors="auto">
+  <root>
+    <mxCell id="0" />
+    <mxCell id="1" parent="0" />
+    <!-- 图表元素放在这里，并设置 parent="1" -->
+  </root>
+</mxGraphModel>
+```
+
+### 2. AI 生成核心规则 (Key Rules)
+1. **必须包含基础结构节点**：永远不要遗漏 `<mxCell id="0"/>`（根容器）和 `<mxCell id="1" parent="0"/>`（默认图层）。
+2. **仅使用明文 XML**：绝对不要生成压缩的或 Base64 编码的内容。
+3. **ID 必须唯一**：图表内的所有 `id` 属性不能重复（建议使用递增数字）。
+4. **节点与连线互斥**：形状（节点）必须包含 `vertex="1"`，连线（边缘）必须包含 `edge="1"`。
+5. **HTML 转义**：`value` 属性中的任何 HTML 字符必须进行 XML 转义（使用 `&lt;`, `&gt;`, `&amp;`, `&quot;`）。
+6. **相对坐标**：群组（Group）内的子元素坐标是相对于其父容器的，而不是整个画布。
+
+### 3. 逻辑与布局进阶 (Advanced Logic & Layout)
+1. **显式连线**：所有 `edge="1"` 的元素必须具备 `source` 和 `target` 属性，对应已有节点的 `id`，严禁孤立连线。
+   ```xml
+   <mxCell id="4" value="数据流" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" edge="1" parent="1" source="2" target="3">
+     <mxGeometry relative="1" as="geometry" />
+   </mxCell>
+   ```
+2. **自动路由**：默认连线样式推荐使用 `edgeStyle=orthogonalEdgeStyle;rounded=1;` 以确保线条横平竖直且美观。
+3. **布局步进（避免重叠）**：
+   - 生成坐标时，遵循明确的步进逻辑。
+   - 水平布局：起始 x=20, 每次增加 width + 80（例如 x=20, 220, 420）。
+   - 垂直布局：起始 y=20, 每次增加 height + 60（例如 y=20, 140, 260）。
+
+### 4. 专业配色与视觉规范 (Styling)
+样式属性必须使用 `key=value;` 的分号分隔格式。请根据模块属性自动应用以下配色：
+- **感知层/逻辑模块 (Perception/Logic)**: `fillColor=#dae8fc;strokeColor=#6c8ebf;` (浅蓝)
+- **规控层 (Planning & Control)**: `fillColor=#d5e8d4;strokeColor=#82b366;` (浅绿)
+- **执行器/硬件 (Execution/Hardware)**: `fillColor=#ffe6cc;strokeColor=#d79b00;` (浅橘)
+- **决策/判断 (Decision)**: `rhombus;fillColor=#fff2cc;strokeColor=#d6b656;` (菱形，浅黄)
+- **数据存储/Buffer (Storage)**: `shape=cylinder;fillColor=#f5f5f5;strokeColor=#666666;` (圆柱体，灰色)
+
+### 5. 自动驾驶场景特化 (Autonomous Driving Context)
+在处理自动驾驶或机器人架构时，默认采用**从左到右 (Left-to-Right)** 的数据流向布局：
+- **左侧 (x=0~200)**：传感器 (LiDAR, Camera, Radar, GPS/IMU)
+- **中左 (x=300~500)**：感知与融合 (Perception, Sensor Fusion, Localization)
+- **中右 (x=600~800)**：规划与控制 (Prediction, Routing, Trajectory Planning, MPC/PID)
+- **右侧 (x=900+)**：执行机构 (Steering, Throttle, Brake)

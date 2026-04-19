@@ -49,6 +49,8 @@ NPY_FILE_PATHS = [
 ]
 
 
+EXP_NAME = "Exp-6"  # 每次跑之前改一下这里和下面的参数
+
 # 模型超参数配置
 D_MODEL = 256           # Transformer 的隐藏维度
 FFN_DIM = 4 * D_MODEL   # 前馈层维度，经验上 4×d_model 比较常见
@@ -78,11 +80,11 @@ checkpoints_dir = os.path.join(BASE_DIR, "Transformer_checkpoints")
 plots_dir = os.path.join(BASE_DIR, "Transformer_plots")
 os.makedirs(checkpoints_dir, exist_ok=True)
 os.makedirs(plots_dir, exist_ok=True)
-RUN_DATE_TIME = datetime.now().strftime("%m%d")
+RUN_DATE_TIME = datetime.now().strftime("%m%d_%H")
 
 
-MODEL_SAVE_PATH = os.path.join(checkpoints_dir, f"Tf_trajectory_model_{RUN_DATE_TIME}_{str(BATCH_SIZE)}BSIZE_{str(D_MODEL)}dmodel_{str(FFN_DIM)}FFNdim_enc{num_encoder_layers}_dec{num_decoder_layers}_{EARLY_STOPPING_PATIENCE}es_CoAnWarmRest_zDATASET.pth") # 模型保存路径
-LOSS_PLOT_SAVE_PATH = os.path.join(plots_dir, f"Tf_loss_curve_{RUN_DATE_TIME}_{str(BATCH_SIZE)}BSIZE_{str(D_MODEL)}dmodel_{str(FFN_DIM)}FFNdim_enc{num_encoder_layers}_dec{num_decoder_layers}_{EARLY_STOPPING_PATIENCE}es_CoAnWarmRest_zDATASET.svg") # 损失曲线
+MODEL_SAVE_PATH = os.path.join(checkpoints_dir, f"{EXP_NAME}_Tf_trajectory_model_{RUN_DATE_TIME}_{str(BATCH_SIZE)}BSIZE_{str(D_MODEL)}dmodel_{str(FFN_DIM)}FFNdim_enc{num_encoder_layers}_dec{num_decoder_layers}_{EARLY_STOPPING_PATIENCE}es_CoAnWarmRest_zDATASET.pth") # 模型保存路径
+LOSS_PLOT_SAVE_PATH = os.path.join(plots_dir, f"{EXP_NAME}_Tf_loss_curve_{RUN_DATE_TIME}_{str(BATCH_SIZE)}BSIZE_{str(D_MODEL)}dmodel_{str(FFN_DIM)}FFNdim_enc{num_encoder_layers}_dec{num_decoder_layers}_{EARLY_STOPPING_PATIENCE}es_CoAnWarmRest_zDATASET.svg") # 损失曲线
 
 # ======================== 模型定义（transformer编码器-解码器结构）========================
 class TransformerTrajectoryPredictor(nn.Module):
