@@ -1,0 +1,233 @@
+<mxfile host="65bd71144e">
+    <diagram id="hb0J4oe-P3EyfE6p963x" name="第 1 页">
+        <mxGraphModel dx="272" dy="263" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#CCCCFF" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="road_bg" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e6e6e6;strokeColor=#999999;" parent="1" vertex="1">
+                    <mxGeometry x="20" y="100" width="160" height="320" as="geometry"/>
+                </mxCell>
+                <mxCell id="lane1" value="" style="endArrow=none;dashed=1;html=1;strokeWidth=2;strokeColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="73" y="420" as="sourcePoint"/>
+                        <mxPoint x="73" y="100" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="lane2" value="" style="endArrow=none;dashed=1;html=1;strokeWidth=2;strokeColor=#ffffff;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="126" y="420" as="sourcePoint"/>
+                        <mxPoint x="126" y="100" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="car_ego" value="Ego" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="85" y="240" width="30" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="car_obs1" value="Obs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFCC;strokeColor=#666666;fontSize=9;fontColor=#666666;" parent="1" vertex="1">
+                    <mxGeometry x="30" y="150" width="30" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="car_obs2" value="Obs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFCC;strokeColor=#666666;fontSize=9;fontColor=#666666;" parent="1" vertex="1">
+                    <mxGeometry x="140" y="180" width="30" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="car_obs3" value="Obs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFCC;strokeColor=#666666;fontSize=9;fontColor=#666666;" parent="1" vertex="1">
+                    <mxGeometry x="85" y="330" width="30" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="car_obs4" value="Obs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFCC;strokeColor=#666666;fontSize=9;fontColor=#666666;" parent="1" vertex="1">
+                    <mxGeometry x="30" y="280" width="30" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="scene_label" value="物理场景 (三车道)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="40" y="70" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="state_ego" value="主车状态特征&#10;(1 × 6维)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="240" y="160" width="100" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="state_obs" value="障碍车状态特征&#10;(8 × 6维)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFCC;strokeColor=#666666;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="240" y="280" width="100" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge_ego_extract" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#6c8ebf;strokeWidth=2;" parent="1" source="car_ego" target="state_ego" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="200" y="265"/>
+                            <mxPoint x="200" y="185"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="edge_obs_extract" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#666666;strokeWidth=2;dashed=1;" parent="1" source="road_bg" target="state_obs" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="200" y="260"/>
+                            <mxPoint x="200" y="305"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="linear_ego" value="Linear&#10;(d_model=256)" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+                    <mxGeometry x="380" y="155" width="110" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="linear_obs" value="Linear&#10;(d_model=256)" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+                    <mxGeometry x="380" y="275" width="110" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge_to_lin_ego" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1" source="state_ego" target="linear_ego" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge_to_lin_obs" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1" source="state_obs" target="linear_obs" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="token_group" value="" style="group" parent="1" vertex="1" connectable="0">
+                    <mxGeometry x="530" y="160" width="120" height="170" as="geometry"/>
+                </mxCell>
+                <mxCell id="token_ego" value="Ego Token (1×256)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" parent="token_group" vertex="1">
+                    <mxGeometry width="120" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="token_obs1" value="Obs Token 1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#999999;fontSize=10;" parent="token_group" vertex="1">
+                    <mxGeometry y="20" width="120" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="token_obs2" value="Obs Token 2" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#999999;fontSize=10;" parent="token_group" vertex="1">
+                    <mxGeometry y="35" width="120" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="token_obs_dots" value="..." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#999999;fontSize=14;strokeWidth=0;" parent="token_group" vertex="1">
+                    <mxGeometry y="50" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="token_obs8" value="Obs Token 8" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#999999;fontSize=10;" parent="token_group" vertex="1">
+                    <mxGeometry y="80" width="120" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="token_label" value="9个 Token 序列&#10;(9 × 256)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" parent="token_group" vertex="1">
+                    <mxGeometry y="100" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge_lin_to_tok_ego" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#6c8ebf;" parent="1" source="linear_ego" target="token_ego" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="510" y="185"/>
+                            <mxPoint x="510" y="170"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="edge_lin_to_tok_obs" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#666666;" parent="1" source="linear_obs" target="token_obs8" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="510" y="305"/>
+                            <mxPoint x="510" y="248"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="encoder" value="Transformer Encoder&#10;(N_enc Layers)&#10;&#10;多头自注意力机制&#10;(Self-Attention)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="690" y="140" width="140" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge_tok_to_enc" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;" parent="1" source="token_group" target="encoder" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="670" y="245"/>
+                            <mxPoint x="670" y="205"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="memory_group" value="" style="group" parent="1" vertex="1" connectable="0">
+                    <mxGeometry x="870" y="150" width="120" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="mem1" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="memory_group" vertex="1">
+                    <mxGeometry width="120" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="mem2" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="memory_group" vertex="1">
+                    <mxGeometry y="15" width="120" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="mem3" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="memory_group" vertex="1">
+                    <mxGeometry y="30" width="120" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="mem_dots" value="..." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=14;strokeWidth=0;" parent="memory_group" vertex="1">
+                    <mxGeometry y="45" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="mem9" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="memory_group" vertex="1">
+                    <mxGeometry y="75" width="120" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="mem_label" value="Memory 特征矩阵&#10;(9 × 256)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontColor=#660066;" parent="memory_group" vertex="1">
+                    <mxGeometry y="95" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge_enc_to_mem" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;" parent="1" source="encoder" target="memory_group" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="queries_group" value="" style="group" parent="1" vertex="1" connectable="0">
+                    <mxGeometry x="870" y="340" width="120" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="q1" value="Query (t+1)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" parent="queries_group" vertex="1">
+                    <mxGeometry width="120" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="q2" value="Query (t+2)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" parent="queries_group" vertex="1">
+                    <mxGeometry y="15" width="120" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="q3" value="Query (t+3)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" parent="queries_group" vertex="1">
+                    <mxGeometry y="30" width="120" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="q4" value="Query (t+4)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" parent="queries_group" vertex="1">
+                    <mxGeometry y="45" width="120" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="q5" value="Query (t+5)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" parent="queries_group" vertex="1">
+                    <mxGeometry y="60" width="120" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="q_label" value="Learnable Future&#10;Queries (5 × 256)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontColor=#b08d00;" parent="queries_group" vertex="1">
+                    <mxGeometry y="80" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="decoder" value="Transformer Decoder&#10;(N_dec Layers)&#10;&#10;交叉注意力机制&#10;(Cross-Attention)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="1050" y="210" width="140" height="140" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge_mem_to_dec" value="K, V" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;fontColor=#660066;fontStyle=1" parent="1" source="memory_group" target="decoder" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="1020" y="205"/>
+                            <mxPoint x="1020" y="250"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="edge_q_to_dec" value="Q" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;fontColor=#b08d00;fontStyle=1" parent="1" source="queries_group" target="decoder" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="1020" y="395"/>
+                            <mxPoint x="1020" y="310"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="dec_out_group" value="" style="group" parent="1" vertex="1" connectable="0">
+                    <mxGeometry x="1240" y="240" width="100" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="do1" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="dec_out_group" vertex="1">
+                    <mxGeometry width="100" height="12" as="geometry"/>
+                </mxCell>
+                <mxCell id="do2" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="dec_out_group" vertex="1">
+                    <mxGeometry y="12" width="100" height="12" as="geometry"/>
+                </mxCell>
+                <mxCell id="do3" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="dec_out_group" vertex="1">
+                    <mxGeometry y="24" width="100" height="12" as="geometry"/>
+                </mxCell>
+                <mxCell id="do4" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="dec_out_group" vertex="1">
+                    <mxGeometry y="36" width="100" height="12" as="geometry"/>
+                </mxCell>
+                <mxCell id="do5" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="dec_out_group" vertex="1">
+                    <mxGeometry y="48" width="100" height="12" as="geometry"/>
+                </mxCell>
+                <mxCell id="do_label" value="解码特征&#10;(5 × 256)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" parent="dec_out_group" vertex="1">
+                    <mxGeometry y="65" width="100" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge_dec_to_out" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;" parent="1" source="decoder" target="dec_out_group" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="mlp_head" value="Prediction Head&#10;&#10;MLP + Tanh" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="1390" y="225" width="100" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge_out_to_mlp" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;" parent="1" source="dec_out_group" target="mlp_head" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="final_output" value="未来 5 步控制指令&#10;[a_t, δ_t]&#10;(5 × 2)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="1540" y="240" width="120" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge_mlp_to_final" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;" parent="1" source="mlp_head" target="final_output" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge_feedback" value="预测轨迹" style="edgeStyle=orthogonalEdgeStyle;curved=1;rounded=1;html=1;dashed=1;strokeWidth=2;strokeColor=#6c8ebf;fontColor=#6c8ebf;fontStyle=1" parent="1" source="final_output" target="car_ego" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="1600" y="80"/>
+                            <mxPoint x="100" y="80"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

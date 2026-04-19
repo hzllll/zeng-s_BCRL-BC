@@ -1,0 +1,99 @@
+<mxfile host="65bd71144e">
+    <diagram id="EuOgdqPHjTeM6GS0lnC0" name="第 1 页">
+        <mxGraphModel dx="415" dy="423" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#ffffff" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="ego_input" value="主车状态特征&#10;(1 × 6维)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="40" y="100" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="obs_input" value="障碍车状态特征&#10;(8 × 6维)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="40" y="220" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="linear_ego" value="Linear Embedding&#10;(d_model=256)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+                    <mxGeometry x="220" y="100" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="linear_obs" value="Linear Embedding&#10;(d_model=256)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+                    <mxGeometry x="220" y="220" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="tokens" value="拼接与序列化&#10;9个 Token&#10;(9 × 256)" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="390" y="160" width="140" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="encoder" value="Transformer Encoder&#10;(N_enc Layers)&#10;多头自注意力机制" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="580" y="150" width="150" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="memory" value="Memory 特征矩阵&#10;(9 × 256)" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="780" y="160" width="140" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="queries" value="Learnable Future Queries&#10;可学习未来查询向量&#10;(5 × 256)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="770" y="300" width="160" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="decoder" value="Transformer Decoder&#10;(N_dec Layers)&#10;交叉注意力机制" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="980" y="210" width="150" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="dec_out" value="5个时间步特征&#10;(5 × 256)" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="1180" y="220" width="140" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="mlp" value="Prediction Head&#10;(MLP + Tanh)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="1370" y="210" width="120" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="output" value="未来5步控制指令&#10;[a_t, δ_t]&#10;(5 × 2)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="1540" y="210" width="140" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="e1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1" source="ego_input" target="linear_ego" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1" source="obs_input" target="linear_obs" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1" source="linear_ego" target="tokens" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="360" y="130"/>
+                            <mxPoint x="360" y="190"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1" source="linear_obs" target="tokens" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="360" y="250"/>
+                            <mxPoint x="360" y="190"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1" source="tokens" target="encoder" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1" source="encoder" target="memory" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e7" value="Memory (K, V)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1" source="memory" target="decoder" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="950" y="190"/>
+                            <mxPoint x="950" y="230"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e8" value="Queries (Q)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1" source="queries" target="decoder" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="950" y="330"/>
+                            <mxPoint x="950" y="270"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1" source="decoder" target="dec_out" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1" source="dec_out" target="mlp" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e11" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1" source="mlp" target="output" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
