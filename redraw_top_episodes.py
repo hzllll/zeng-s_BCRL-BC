@@ -54,13 +54,16 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 MODEL_PATH = os.path.join(
     BASE_DIR, "Transformer_checkpoints",
-    "Tf_trajectory_model_0330_1024BSIZE_256dmodel_1024FFNdim_"
-    "enc3_dec3_500es_CoAnWarmRest_zDATASET.pth",
+    # "Tf_trajectory_model_0330_1024BSIZE_256dmodel_1024FFNdim_"
+    # "enc3_dec3_500es_CoAnWarmRest_zDATASET.pth",
+    "Exp-5_Tf_trajectory_model_0418_10_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_300es_CoAnWarmRest_zDATASET.pth",
 )
 
 SOURCE_CSV = os.path.join(
-    BASE_DIR, "highway_env_results_v2", "0410_104509",
-    "episode_details_0410_104509.csv",
+    # BASE_DIR, "highway_env_results_v2", "0410_104509",
+    # "episode_details_0410_104509.csv",
+    BASE_DIR, "highway_env_results_v2", "0430_160428",
+    "episode_details_0430_160428.csv",
 )
 
 D_MODEL        = 256
@@ -584,10 +587,25 @@ def draw_episode_v3(ep, save_path, cn_name, rank, orig_ep_idx):
 
     n_panels = len(vis)
 
-    # ---- 全集固定 y 轴范围（与道路一致）----
-    y_lo = -LANE_WIDTH / 2 - 0.8
-    y_hi = (LANES_COUNT - 1) * LANE_WIDTH + LANE_WIDTH / 2 + 0.8
+    # ---- 仅用于绘图的 y 方向压缩：让道路看起来更窄，仿真/评分坐标不变 ----
+    DISPLAY_LANE_WIDTH = 2.8
+    Y_DISPLAY_SCALE = DISPLAY_LANE_WIDTH / LANE_WIDTH
+    ROAD_Y_MARGIN = 0.25
+
+    def y_disp(y):
+        return y * Y_DISPLAY_SCALE
+
+    y_lo = -DISPLAY_LANE_WIDTH / 2 - ROAD_Y_MARGIN
+    y_hi = ((LANES_COUNT - 1) * DISPLAY_LANE_WIDTH
+            + DISPLAY_LANE_WIDTH / 2 + ROAD_Y_MARGIN)
     y_range = y_hi - y_lo
+
+    # 车辆视觉尺寸仍按原始道路比例计算，避免压缩道路后车辆也跟着变小。
+    y_range_for_vehicle = (
+        (LANES_COUNT - 1) * LANE_WIDTH + LANE_WIDTH / 2
+    ) - (
+        -LANE_WIDTH / 2
+    )
 
     # ---- 全集固定 x 轴范围（基于完整 ego 轨迹 + margin）----
     all_ego_x = ep.get("ego_x", [])
@@ -603,11 +621,11 @@ def draw_episode_v3(ep, save_path, cn_name, rank, orig_ep_idx):
     # visual_length_in / visual_width_in = VIS_TARGET_RATIO
     # => VIS_VEH_LENGTH = VIS_TARGET_RATIO × veh_width × (x_range/FIG_W) / (y_range/FIG_H_PER_PANEL)
     veh_width_ref = 2.0  # highway-env 标准车宽 (m)
-    VIS_VEH_LENGTH = VIS_TARGET_RATIO * veh_width_ref * (x_range / FIG_W) / (y_range / FIG_H_PER_PANEL)
+    VIS_VEH_LENGTH = VIS_TARGET_RATIO * veh_width_ref * (x_range / FIG_W) / (y_range_for_vehicle / FIG_H_PER_PANEL)
     # 上限：固定 12m，防止避让/跟车等近距场景中矩形严重重叠
     VIS_VEH_LENGTH = min(VIS_VEH_LENGTH, 12.0)
     # 动态绘图车宽：使视觉长宽比恒为 1.3:1（车在 x 方向视觉长度 > y 方向）
-    VIS_VEH_WIDTH = min((VIS_VEH_LENGTH / 1.3) * (y_range / FIG_H_PER_PANEL) / (x_range / FIG_W), 2.0)
+    VIS_VEH_WIDTH = min((VIS_VEH_LENGTH / 1.3) * (y_range_for_vehicle / FIG_H_PER_PANEL) / (x_range / FIG_W), 2.0)
 
     fig, axes = plt.subplots(n_panels, 1, figsize=(FIG_W, FIG_H_PER_PANEL * n_panels))
     if n_panels == 1:
@@ -620,27 +638,28 @@ def draw_episode_v3(ep, save_path, cn_name, rank, orig_ep_idx):
         # ---- 道路背景 ----
         ax.set_facecolor("#f5f5f5")
         for li in range(LANES_COUNT + 1):
-            yy = li * LANE_WIDTH - LANE_WIDTH / 2
+            yy = li * DISPLAY_LANE_WIDTH - DISPLAY_LANE_WIDTH / 2
             lw  = 1.5 if (li == 0 or li == LANES_COUNT) else 0.8
             col = "black" if (li == 0 or li == LANES_COUNT) else "#777777"
             ax.axhline(yy, color=col, lw=lw, ls="-", zorder=1)
         for li in range(LANES_COUNT):
-            yc = li * LANE_WIDTH
+            yc = li * DISPLAY_LANE_WIDTH
             ax.axhline(yc, color="#cccccc", lw=0.4, ls=":", zorder=1)
 
         # ---- 目标点（红色方块，只在显示范围内绘制）----
         if x_lo - VIS_VEH_LENGTH <= gx_f <= x_hi + VIS_VEH_LENGTH:
+            gy_draw = y_disp(gy_f)
             ax.add_patch(mpatches.Rectangle(
-                (gx_f - VIS_VEH_LENGTH / 2, gy_f - LANE_WIDTH / 2),
-                VIS_VEH_LENGTH, LANE_WIDTH,
+                (gx_f - VIS_VEH_LENGTH / 2, gy_draw - DISPLAY_LANE_WIDTH / 2),
+                VIS_VEH_LENGTH, DISPLAY_LANE_WIDTH,
                 fc="red", ec="#990000", lw=0.8, alpha=0.92, zorder=5,
             ))
-            ax.text(gx_f, gy_f, "目标", ha="center", va="center",
+            ax.text(gx_f, gy_draw, "目标", ha="center", va="center",
                     fontsize=6.5, color="white", fontweight="bold", zorder=6)
 
         # ---- 车辆（矩形）----
         for veh in frame["vehicles"]:
-            vx, vy = veh["x"], veh["y"]
+            vx, vy = veh["x"], y_disp(veh["y"])
             # 只绘制当前 x 范围内的车辆
             if vx < x_lo - VIS_VEH_LENGTH or vx > x_hi + VIS_VEH_LENGTH:
                 continue
@@ -660,7 +679,7 @@ def draw_episode_v3(ep, save_path, cn_name, rank, orig_ep_idx):
         pred = frame.get("pred_traj", [])
         if pred:
             px_list = [p[0] for p in pred]
-            py_list = [p[1] for p in pred]
+            py_list = [y_disp(p[1]) for p in pred]
             ax.scatter(px_list, py_list,
                        color="limegreen", s=14, zorder=8,
                        edgecolors="darkgreen", linewidths=0.5, alpha=0.9)

@@ -1,0 +1,54 @@
+[2026-04-30 22:53:26] [INFO   ] ======================================================================
+[2026-04-30 22:53:26] [INFO   ]    NGSIM 公开数据集 Transformer BC 模型 开环测试
+[2026-04-30 22:53:26] [INFO   ] ======================================================================
+[2026-04-30 22:53:26] [INFO   ] 日志文件: /root/autodl-tmp/BCRL/bc/ngsim_results/Exp-5_0430_225326/ngsim_test_0430_225326.log
+[2026-04-30 22:53:26] [INFO   ] 设备: cuda
+[2026-04-30 22:53:26] [INFO   ] 模型: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-5_Tf_trajectory_model_0418_10_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_300es_CoAnWarmRest_zDATASET.pth
+[2026-04-30 22:53:26] [INFO   ] NGSIM 数据: /root/autodl-tmp/BCRL/bc/ngsim_data/Next_Generation_Simulation_NGSIM_Vehicle_Trajectories_and_Supporting_Data_20260418.csv
+[2026-04-30 22:53:26] [INFO   ] 目标车道: [2, 3, 4]
+[2026-04-30 22:53:26] [INFO   ] 最大评估样本: 5000
+[2026-04-30 22:53:26] [INFO   ] 
+[2026-04-30 22:53:26] [INFO   ] [步骤 1/5] 加载 Transformer 模型...
+[2026-04-30 22:53:27] [INFO   ]   模型加载成功, 参数量: 5,799,682
+[2026-04-30 22:53:27] [INFO   ] 
+[步骤 2/5] 加载并预处理 NGSIM 数据...
+[2026-04-30 22:53:27] [INFO   ] 正在加载 NGSIM 数据: /root/autodl-tmp/BCRL/bc/ngsim_data/Next_Generation_Simulation_NGSIM_Vehicle_Trajectories_and_Supporting_Data_20260418.csv
+[2026-04-30 22:53:27] [WARNING] 部分列名不存在，尝试加载全部列...
+[2026-04-30 22:53:47] [INFO   ] CSV 文件中的所有列名: ['Vehicle_ID', 'Frame_ID', 'Total_Frames', 'Global_Time', 'Local_X', 'Local_Y', 'Global_X', 'Global_Y', 'v_length', 'v_Width', 'v_Class', 'v_Vel', 'v_Acc', 'Lane_ID', 'O_Zone', 'D_Zone', 'Int_ID', 'Section_ID', 'Direction', 'Movement', 'Preceding', 'Following', 'Space_Headway', 'Time_Headway', 'Location']
+[2026-04-30 22:53:47] [INFO   ] 原始数据: 11850526 行, 25 列
+[2026-04-30 22:53:47] [INFO   ] CSV 列名: ['Vehicle_ID', 'Frame_ID', 'Total_Frames', 'Global_Time', 'Local_X', 'Local_Y', 'Global_X', 'Global_Y', 'v_length', 'v_Width', 'v_Class', 'v_Vel', 'v_Acc', 'Lane_ID', 'O_Zone', 'D_Zone', 'Int_ID', 'Section_ID', 'Direction', 'Movement', 'Preceding', 'Following', 'Space_Headway', 'Time_Headway', 'Location']
+[2026-04-30 22:53:57] [WARNING] 已剔除 5041983 行包含脏数据/缺失值的无效记录
+[2026-04-30 22:54:03] [INFO   ] 单位转换完成: 距离(m), 速度(m/s), 加速度(m/s²), 时间(s)
+[2026-04-30 22:54:03] [INFO   ] 提取出独立的连续轨迹数量: 1543803
+[2026-04-30 22:54:03] [INFO   ] Lane_ID 分布: {0.0: 211590, 1.0: 1165142, 2.0: 1374218, 3.0: 1207610, 4.0: 976733, 5.0: 865664, 6.0: 564330, 7.0: 169522, 11.0: 111572, 12.0: 150507, 31.0: 11655}
+[2026-04-30 22:54:03] [INFO   ] 车辆类型分布: {1: 26737, 2: 6593694, 3: 188112}
+[2026-04-30 22:54:03] [INFO   ] 
+  数据概览:
+[2026-04-30 22:54:03] [INFO   ]     总行数:       6808543
+[2026-04-30 22:54:03] [INFO   ]     车辆数:       3233
+[2026-04-30 22:54:03] [INFO   ]     帧数范围:     1 ~ 11071
+[2026-04-30 22:54:03] [INFO   ]     时间范围:     1163023.1s ~ 1118937747.0s
+[2026-04-30 22:54:03] [INFO   ]     Local_Y范围:  0.0 ~ 304.8 m (纵向)
+[2026-04-30 22:54:03] [INFO   ]     Local_X范围:  -98.2 ~ 35.6 m (横向)
+[2026-04-30 22:54:03] [INFO   ]     速度范围:     0.0 ~ 29.0 m/s
+[2026-04-30 22:54:03] [INFO   ] 
+[步骤 3/5] 计算航向角(yaw)和转向角(steer)...
+[2026-04-30 22:54:03] [INFO   ] 正在计算航向角(yaw)和转向角(steer)...
+[2026-05-01 01:27:36] [INFO   ] 航向角/转向角计算完成: 处理 13108 辆车, 4145853/6808543 行有效
+[2026-05-01 01:27:36] [INFO   ] 
+[步骤 4/5] 计算车道边界...
+[2026-05-01 01:27:36] [INFO   ] 正在计算车道边界 (目标车道: [2, 3, 4])...
+[2026-05-01 01:27:36] [INFO   ]   Lane_ID=2: 中心 Local_X = 5.38 m, 数据量 = 1374218
+[2026-05-01 01:27:36] [INFO   ]   Lane_ID=3: 中心 Local_X = 8.94 m, 数据量 = 1207610
+[2026-05-01 01:27:37] [INFO   ]   Lane_ID=4: 中心 Local_X = 12.48 m, 数据量 = 976733
+[2026-05-01 01:27:37] [INFO   ]   map_info[0] (Lane_ID=4): left=14.31, center=12.48, right=10.65
+[2026-05-01 01:27:37] [INFO   ]   map_info[1] (Lane_ID=3): left=10.77, center=8.94, right=7.11
+[2026-05-01 01:27:37] [INFO   ]   map_info[2] (Lane_ID=2): left=7.21, center=5.38, right=3.55
+[2026-05-01 01:27:37] [INFO   ]   lane1(上)=14.31, lane2=10.65, lane3=7.11, lane4(下)=3.55
+[2026-05-01 01:27:37] [INFO   ] 
+[步骤 5/5] 执行开环评估...
+[2026-05-01 01:27:37] [INFO   ] ======================================================================
+[2026-05-01 01:27:37] [INFO   ] 开始 NGSIM 开环评估 (Open-loop Evaluation)
+[2026-05-01 01:27:37] [INFO   ] ======================================================================
+[2026-05-01 01:27:40] [INFO   ] 目标车道 [2, 3, 4] 的数据量: 3558561 行
+[2026-05-01 01:27:40] [INFO   ] 轨迹长度 >= 50 帧的车辆: 6235 辆

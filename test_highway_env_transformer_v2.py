@@ -47,8 +47,9 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 MODEL_PATH = os.path.join(
     BASE_DIR, "Transformer_checkpoints",
-    "Tf_trajectory_model_0330_1024BSIZE_256dmodel_1024FFNdim_"
-    "enc3_dec3_500es_CoAnWarmRest_zDATASET.pth",
+    # "Tf_trajectory_model_0330_1024BSIZE_256dmodel_1024FFNdim_"
+    # "enc3_dec3_500es_CoAnWarmRest_zDATASET.pth",
+    "Exp-5_Tf_trajectory_model_0418_10_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_300es_CoAnWarmRest_zDATASET.pth",
 )
 
 D_MODEL        = 256

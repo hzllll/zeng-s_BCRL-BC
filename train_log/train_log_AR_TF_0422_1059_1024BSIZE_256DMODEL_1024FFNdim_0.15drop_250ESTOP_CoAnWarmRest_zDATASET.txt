@@ -1,0 +1,24 @@
+使用设备: cuda
+Epoch [1/512] | Train Loss: 0.074410 | Val Loss: 0.107657
+Epoch [2/512] | Train Loss: 0.054067 | Val Loss: 0.089929
+Epoch [3/512] | Train Loss: 0.051039 | Val Loss: 0.090294
+Epoch [4/512] | Train Loss: 0.049287 | Val Loss: 0.084345
+Epoch [5/512] | Train Loss: 0.047970 | Val Loss: 0.084950
+Epoch [6/512] | Train Loss: 0.047044 | Val Loss: 0.078132
+Epoch [7/512] | Train Loss: 0.046238 | Val Loss: 0.078608
+Epoch [8/512] | Train Loss: 0.045634 | Val Loss: 0.075003
+Epoch [9/512] | Train Loss: 0.045109 | Val Loss: 0.078323
+Epoch [10/512] | Train Loss: 0.044627 | Val Loss: 0.076963
+Epoch [11/512] | Train Loss: 0.044180 | Val Loss: 0.078393
+Epoch [12/512] | Train Loss: 0.043802 | Val Loss: 0.072924
+Epoch [13/512] | Train Loss: 0.043448 | Val Loss: 0.076199
+Epoch [14/512] | Train Loss: 0.043125 | Val Loss: 0.071687
+Epoch [15/512] | Train Loss: 0.042809 | Val Loss: 0.071689
+Epoch [16/512] | Train Loss: 0.042527 | Val Loss: 0.074129
+Epoch [17/512] | Train Loss: 0.042250 | Val Loss: 0.069378
+Epoch [18/512] | Train Loss: 0.041974 | Val Loss: 0.072088
+Epoch [19/512] | Train Loss: 0.041767 | Val Loss: 0.069028
+Epoch [20/512] | Train Loss: 0.041506 | Val Loss: 0.073466
+Epoch [21/512] | Train Loss: 0.041260 | Val Loss: 0.070407
+Epoch [22/512] | Train Loss: 0.041018 | Val Loss: 0.069377
+Epoch [23/512] | Train Loss: 0.040806 | Val Loss: 0.066366

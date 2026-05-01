@@ -49,8 +49,11 @@ os.makedirs(checkpoints_dir, exist_ok=True)
 os.makedirs(plots_dir, exist_ok=True)
 RUN_DATE_TIME = datetime.now().strftime("%m%d_%H")
 
-MODEL_SAVE_PATH = os.path.join(checkpoints_dir, f"{EXP_NAME}_AR_model_{RUN_DATE_TIME}.pth")
-LOSS_PLOT_SAVE_PATH = os.path.join(plots_dir, f"{EXP_NAME}_AR_loss_{RUN_DATE_TIME}.svg")
+# MODEL_SAVE_PATH = os.path.join(checkpoints_dir, f"{EXP_NAME}_AR_model_{RUN_DATE_TIME}.pth")
+# LOSS_PLOT_SAVE_PATH = os.path.join(plots_dir, f"{EXP_NAME}_AR_loss_{RUN_DATE_TIME}.svg")
+
+MODEL_SAVE_PATH = os.path.join(checkpoints_dir, f"{EXP_NAME}_AR_model_{RUN_DATE_TIME}_{str(BATCH_SIZE)}BSIZE_{str(D_MODEL)}dmodel_{str(FFN_DIM)}FFNdim_enc{num_encoder_layers}_dec{num_decoder_layers}_{EARLY_STOPPING_PATIENCE}es.pth")
+LOSS_PLOT_SAVE_PATH = os.path.join(plots_dir, f"{EXP_NAME}_AR_loss_{RUN_DATE_TIME}_{str(BATCH_SIZE)}BSIZE_{str(D_MODEL)}dmodel_{str(FFN_DIM)}FFNdim_enc{num_encoder_layers}_dec{num_decoder_layers}_{EARLY_STOPPING_PATIENCE}es.svg")
 
 # ======================== 传统自回归 Transformer 模型 ========================
 class AutoregressiveTransformerPredictor(nn.Module):
@@ -156,19 +159,44 @@ class AutoregressiveTransformerPredictor(nn.Module):
 
 # ======================== 数据加载与预处理 ========================
 # (与原代码完全相同，保持不变)
+# def load_and_merge_npy(file_paths):
+#     dataset_list = []
+#     for path in file_paths:
+#         data = np.load(path)
+#         dataset_list.append(data)
+#     return np.concatenate(dataset_list, axis=0)
+
 def load_and_merge_npy(file_paths):
     dataset_list = []
     for path in file_paths:
-        data = np.load(path)
-        dataset_list.append(data)
-    return np.concatenate(dataset_list, axis=0)
+        try:
+            data = np.load(path)
+            dataset_list.append(data)
+            print(f"成功加载文件: {path} | 数据形状: {data.shape}")
+        except Exception as e:
+            print(f"加载文件失败 {path}: {str(e)}")
+    
+    if not dataset_list:
+        raise ValueError("未加载到任何有效npy文件！")
+    
+    merged_dataset = np.concatenate(dataset_list, axis=0)
+    print(f"\n数据合并完成 | 总数据量: {merged_dataset.shape[0]} | 特征维度: {merged_dataset.shape[1]}")
+    return merged_dataset
 
 def preprocess_data(dataset):
     states = dataset[:, :-10]
     actions = dataset[:, -10:]
     actions[:, 0:10:2] = np.clip(actions[:, 0:10:2] / 6, -1, 1)
     actions[:, 1:10:2] = np.clip(actions[:, 1:10:2] / 0.15, -1, 1)
+    print(f"数据预处理完成 | 特征形状: {states.shape} | 标签形状: {actions.shape}")
     return states, actions
+
+# def preprocess_data(dataset):
+#     states = dataset[:, :-10]
+#     actions = dataset[:, -10:]
+#     actions[:, 0:10:2] = np.clip(actions[:, 0:10:2] / 6, -1, 1)
+#     actions[:, 1:10:2] = np.clip(actions[:, 1:10:2] / 0.15, -1, 1)
+#     return states, actions
 
 # ======================== 训练与验证 ========================
 def train_model(model, train_loader, val_loader, criterion, optimizer, scheduler, epochs, patience):
@@ -221,26 +249,34 @@ def train_model(model, train_loader, val_loader, criterion, optimizer, scheduler
         avg_val_loss = val_epoch_loss / len(val_loader)
         val_losses.append(avg_val_loss)
 
-        print(f"Epoch [{epoch+1}/{epochs}] | Train Loss: {avg_train_loss:.6f} | Val Loss: {avg_val_loss:.6f}")
+        # print(f"Epoch [{epoch+1}/{epochs}] | Train Loss: {avg_train_loss:.6f} | Val Loss: {avg_val_loss:.6f}")
+        print(f"Epoch [{epoch+1}/{epochs}] | 训练损失: {avg_train_loss:.6f} | 验证损失: {avg_val_loss:.6f} | 学习率: {scheduler.get_last_lr()[0]:.6f}")
+
+        plot_loss_curve(train_losses, val_losses, LOSS_PLOT_SAVE_PATH)
 
         if avg_val_loss < best_val_loss:
             best_val_loss = avg_val_loss
             patience_counter = 0
             torch.save(model.state_dict(), MODEL_SAVE_PATH)
+            print(f"验证损失下降，保存最优模型到: {MODEL_SAVE_PATH}")
         else:
             patience_counter += 1
             if patience_counter >= patience:
-                print("早停触发！")
+                print(f"早停触发！连续 {patience} 轮验证损失未下降，最优验证损失: {best_val_loss:.6f}")
                 break
 
     return train_losses, val_losses
 
 def plot_loss_curve(train_losses, val_losses, save_path):
     plt.figure(figsize=(10, 6))
-    plt.plot(train_losses, label='Train Loss', color='blue')
-    plt.plot(val_losses, label='Val loss', color='red')
-    plt.legend()
-    plt.savefig(save_path)
+    plt.plot(train_losses, label='Train Loss', color='blue', linewidth=2)
+    plt.plot(val_losses, label='Val loss', color='red', linewidth=2)
+    plt.xlabel('Epoch', fontsize=12)
+    plt.ylabel('Loss', fontsize=12)
+    plt.title('Training and Validation Loss', fontsize=14)
+    plt.legend(fontsize=10)
+    plt.grid(True, alpha=0.3)
+    plt.savefig(save_path, dpi=300, bbox_inches='tight')  # 高分辨率保存
     plt.close()
 
 if __name__ == "__main__":
@@ -263,6 +299,14 @@ if __name__ == "__main__":
         # dropout=0.1
         dropout=0.15
     ).to(device)
+
+    # ================== 新增：加载已有模型逻辑 ==================
+    if os.path.exists(MODEL_SAVE_PATH):
+        print(f"检测到已有模型文件，加载预训练模型: {MODEL_SAVE_PATH}")
+        model.load_state_dict(torch.load(MODEL_SAVE_PATH, map_location=device))
+    else:
+        print("未检测到已有模型文件，使用随机初始化模型参数。")
+    # ==========================================================
 
     weights = torch.tensor([ACCELERATION_WEIGHT, STEERING_WEIGHT] * SEQ_LENGTH, dtype=torch.float32, device=device)
     criterion = nn.MSELoss()

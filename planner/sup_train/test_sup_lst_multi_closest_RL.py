@@ -12,7 +12,14 @@ import concurrent.futures
 import joblib
 import matplotlib.pyplot as plt
 import time
+from datetime import datetime
 
+# ================= 配置区域 =================
+RUN_DATE_TIME = datetime.now().strftime("%m%d_%H")
+OUTPUT_DIM = 2
+SEQ_LENGTH = 5
+CAR_NUM = 8
+# ===========================================
 # 优化路径导入，确保能找到 onsite
 current_dir = os.path.dirname(os.path.abspath(__file__))
 project_root = os.path.abspath(os.path.join(current_dir, "../.."))
@@ -686,39 +693,114 @@ def process_input_directory(input_dir, output_dir, model):
             so.add_result(scenario_to_test, observation['test_setting']['end'])
 
 if __name__ == "__main__":
-    # device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    model = GRUTrajectoryPredictor(
-        embed_dim=128, 
-        hidden_dim=256, 
-        output_dim=2, 
-        seq_length=5, 
-        car_num=8
-    ).to(device)
+    # 1. 定义实验配置 (方便统一管理超参数和输出命名)
+    experiments = [
+        {
+            "name": "Exp-GRU", 
+            "embed_dim": 128, 
+            "hidden_dim": 256, 
+            "bs": 1024,
+            "lrd": "0.01" # 学习率衰减，用于命名
+        },
+    ]
 
-    # model.load_state_dict(torch.load('model_GRU_Multi1_choose_closest8_sim_01o.pth'))
-    # model.load_state_dict(torch.load('/root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth'))
-    # 定义模型路径变量
+    # 2. 定义需要测试的数据集路径字典
+    datasets = {
+        "B": "/root/autodl-tmp/BCRL/bc/planner/inputs/inputs_B",
+        "C": "/root/autodl-tmp/BCRL/bc/planner/inputs/inputs_C"
+    }
+
+    # 3. 模型文件路径
     model_path = '/root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth'
 
-    if os.path.exists(model_path):
-        model.load_state_dict(torch.load(model_path, map_location=device))
-        print(f"成功加载 GRU 模型: {model_path}")
-    else:
-        print("模型文件不存在，请检查路径！")
-        exit()
-    # 【新增】开启评估模式（关闭 Dropout）
-    model.eval()
+    for exp in experiments:
+        print(f"\n{'='*50}")
+        print(f"🚀 开始处理实验: {exp['name']}")
 
-    # input_dirs = [f"E:\\python_program\\Onsite\\planner\\inputs\\inputs_all_multi\\inputs{i}" for i in range(5)]
-    input_dirs = [f"/root/autodl-tmp/BCRL/bc/planner/inputs/inputs_B"]
-    output_dir = "/root/autodl-tmp/BCRL/bc/planner/outputs/GRU_test_resultB_0.01LRD_1024BSIZE_256HDdim_0.1rad_2lay_GRUdropout"
+        # 初始化模型
+        model = GRUTrajectoryPredictor(
+            embed_dim=exp['embed_dim'], 
+            hidden_dim=exp['hidden_dim'], 
+            output_dim=OUTPUT_DIM, 
+            seq_length=SEQ_LENGTH, 
+            car_num=CAR_NUM
+        ).to(device)
 
-    # 使用进程池并行处理
-    with concurrent.futures.ProcessPoolExecutor(max_workers=5) as executor:
-        futures = [executor.submit(process_input_directory, input_dir, output_dir, model) for input_dir in input_dirs]
+        # 加载权重
+        if os.path.exists(model_path):
+            model.load_state_dict(torch.load(model_path, map_location=device))
+            print(f"📂 成功加载 GRU 模型: {model_path}")
+        else:
+            print(f"⚠️ 模型文件不存在，请检查路径: {model_path}")
+            continue # 跳过当前实验
 
-        for future in concurrent.futures.as_completed(futures):
-            future.result()
+        model.eval() # 开启评估模式
+
+        # 4. 循环测试所有数据集
+        for data_name, input_dir in datasets.items():
+            print(f"  -> 正在测试数据集: inputs_{data_name}")
+            
+            # 自动生成具有描述性的输出目录名称
+            output_dir_name = f"{exp['name']}_result{data_name}_{RUN_DATE_TIME}_{exp['lrd']}LRD_{exp['bs']}BSIZE_{exp['hidden_dim']}HDdim_0.1rad_2lay_GRUdropout"
+            output_dir = f"/root/autodl-tmp/BCRL/bc/planner/outputs/{output_dir_name}"
+            
+            os.makedirs(output_dir, exist_ok=True)
+
+            try:
+                # 注意：这里如果需要多进程，可以保留 ProcessPoolExecutor
+                # 但因为 inputs_B 本身就是一个文件夹，原代码是把它放在列表里
+                # 如果你想对单个输入文件夹内部的场景进行多进程，需要修改 process_input_directory
+                # 这里为了保持与原逻辑兼容，直接调用单进程处理（或者你可以把 input_dir 包装成列表传给多进程）
+                
+                # 单进程调用方式：
+                process_input_directory(input_dir, output_dir, model)
+                
+                # 如果你想保留多进程（假设 input_dir 下有多个子文件夹需要并行）：
+                # input_dirs_list = [input_dir] # 根据实际情况调整
+                # with concurrent.futures.ProcessPoolExecutor(max_workers=5) as executor:
+                #     futures = [executor.submit(process_input_directory, d, output_dir, model) for d in input_dirs_list]
+                #     for future in concurrent.futures.as_completed(futures):
+                #         future.result()
+
+            except Exception as e:
+                print(f"❌ 测试 {exp['name']} 在 inputs_{data_name} 时发生错误: {e}")
+
+        print(f"🎉 实验 {exp['name']} 测试完成！")
+        
+# if __name__ == "__main__":
+#     # device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+#     model = GRUTrajectoryPredictor(
+#         embed_dim=128, 
+#         hidden_dim=256, 
+#         output_dim=2, 
+#         seq_length=5, 
+#         car_num=8
+#     ).to(device)
+
+#     # model.load_state_dict(torch.load('model_GRU_Multi1_choose_closest8_sim_01o.pth'))
+#     # model.load_state_dict(torch.load('/root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth'))
+#     # 定义模型路径变量
+#     model_path = '/root/autodl-tmp/BCRL/bc/GRU_checkpoints/gru_trajectory_model_0.01LRD_1024BSIZE_256HDdim_0.1rad_3_1_2lay_lwmi_GRUdropout_zDATASET.pth'
+
+#     if os.path.exists(model_path):
+#         model.load_state_dict(torch.load(model_path, map_location=device))
+#         print(f"成功加载 GRU 模型: {model_path}")
+#     else:
+#         print("模型文件不存在，请检查路径！")
+#         exit()
+#     # 【新增】开启评估模式（关闭 Dropout）
+#     model.eval()
+
+#     # input_dirs = [f"E:\\python_program\\Onsite\\planner\\inputs\\inputs_all_multi\\inputs{i}" for i in range(5)]
+#     input_dirs = [f"/root/autodl-tmp/BCRL/bc/planner/inputs/inputs_B"]
+#     output_dir = "/root/autodl-tmp/BCRL/bc/planner/outputs/GRU_test_resultB_0.01LRD_1024BSIZE_256HDdim_0.1rad_2lay_GRUdropout"
+
+#     # 使用进程池并行处理
+#     with concurrent.futures.ProcessPoolExecutor(max_workers=5) as executor:
+#         futures = [executor.submit(process_input_directory, input_dir, output_dir, model) for input_dir in input_dirs]
+
+#         for future in concurrent.futures.as_completed(futures):
+#             future.result()
             # try:
             #     future.result()
             # except Exception as e:

@@ -1,0 +1,19 @@
+[2026-04-23 17:40:06] [INFO   ] ======================================================================
+[2026-04-23 17:40:06] [INFO   ]    NGSIM 公开数据集 Transformer BC 模型 开环测试
+[2026-04-23 17:40:06] [INFO   ] ======================================================================
+[2026-04-23 17:40:06] [INFO   ] 日志文件: /root/autodl-tmp/BCRL/bc/ngsim_results/ngsim_test_0423_174006.log
+[2026-04-23 17:40:06] [INFO   ] 设备: cuda
+[2026-04-23 17:40:06] [INFO   ] 模型: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Tf_trajectory_model_0328_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_100es_CoAnWarmRest_zDATASET.pth
+[2026-04-23 17:40:06] [INFO   ] NGSIM 数据: /root/autodl-tmp/BCRL/bc/ngsim_data/Next_Generation_Simulation_NGSIM_Vehicle_Trajectories_and_Supporting_Data_20260418.csv
+[2026-04-23 17:40:06] [INFO   ] 目标车道: [2, 3, 4]
+[2026-04-23 17:40:06] [INFO   ] 最大评估样本: 5000
+[2026-04-23 17:40:06] [INFO   ] 
+[2026-04-23 17:40:06] [INFO   ] [步骤 1/5] 加载 Transformer 模型...
+[2026-04-23 17:40:18] [INFO   ]   模型加载成功, 参数量: 5,799,682
+[2026-04-23 17:40:18] [INFO   ] 
+[步骤 2/5] 加载并预处理 NGSIM 数据...
+[2026-04-23 17:40:18] [INFO   ] 正在加载 NGSIM 数据: /root/autodl-tmp/BCRL/bc/ngsim_data/Next_Generation_Simulation_NGSIM_Vehicle_Trajectories_and_Supporting_Data_20260418.csv
+[2026-04-23 17:40:18] [WARNING] 部分列名不存在，尝试加载全部列...
+[2026-04-23 17:44:38] [INFO   ] CSV 文件中的所有列名: ['Vehicle_ID', 'Frame_ID', 'Total_Frames', 'Global_Time', 'Local_X', 'Local_Y', 'Global_X', 'Global_Y', 'v_length', 'v_Width', 'v_Class', 'v_Vel', 'v_Acc', 'Lane_ID', 'O_Zone', 'D_Zone', 'Int_ID', 'Section_ID', 'Direction', 'Movement', 'Preceding', 'Following', 'Space_Headway', 'Time_Headway', 'Location']
+[2026-04-23 17:44:38] [INFO   ] 原始数据: 11850526 行, 25 列
+[2026-04-23 17:44:38] [INFO   ] CSV 列名: ['Vehicle_ID', 'Frame_ID', 'Total_Frames', 'Global_Time', 'Local_X', 'Local_Y', 'Global_X', 'Global_Y', 'v_length', 'v_Width', 'v_Class', 'v_Vel', 'v_Acc', 'Lane_ID', 'O_Zone', 'D_Zone', 'Int_ID', 'Section_ID', 'Direction', 'Movement', 'Preceding', 'Following', 'Space_Headway', 'Time_Headway', 'Location']

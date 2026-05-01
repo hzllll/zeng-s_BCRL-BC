@@ -10,7 +10,7 @@ RUN_DATE_TIME = datetime.now().strftime("%m%d_%H")
 log_files = {
     # 注意 Exp-1 的文件名是大写的 TFExp-1
     "Exp-1:Underfitting": glob.glob("../train_log/*TFExp-1*.txt")[0] if glob.glob("../train_log/*TFExp-1*.txt") else None,
-    "Exp-2:Overfitting": glob.glob("../train_log/*TFexp-2*.txt")[0] if glob.glob("../train_log/*TFexp-2_v2*.txt") else None,
+    "Exp-2:Overfitting": glob.glob("../train_log/*TFexp-2*.txt")[0] if glob.glob("../train_log/*TFexp-2*.txt") else None,
     "Exp-3:SmallBatch": glob.glob("../train_log/*TFexp-3*.txt")[0] if glob.glob("../train_log/*TFexp-3*.txt") else None,
     "Exp-4:Dropout=0.0": glob.glob("../train_log/*TFexp-4*.txt")[0] if glob.glob("../train_log/*TFexp-4*.txt") else None,
     "Exp-5:Dropout=0.15": glob.glob("../train_log/*TFexp-5*.txt")[0] if glob.glob("../train_log/*TFexp-5*.txt") else None,

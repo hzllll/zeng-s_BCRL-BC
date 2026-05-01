@@ -394,11 +394,12 @@ def observation_to_state2_simRL_proper(observation, goal, map_info):
 if __name__ == "__main__":
     # 1. 定义所有实验的超参数配置
     experiments = [
-        {"name": "Exp-1", "d_model": 128, "ffn_dim": 512,  "enc": 2, "dec": 2, "bs": 1024},
-        {"name": "Exp-2", "d_model": 512, "ffn_dim": 2048, "enc": 4, "dec": 4, "bs": 1024}, 
-        {"name": "Exp-3", "d_model": 256, "ffn_dim": 1024, "enc": 3, "dec": 3, "bs": 256},
-        {"name": "Exp-4", "d_model": 256, "ffn_dim": 1024, "enc": 3, "dec": 3, "bs": 1024},
-        {"name": "Exp-5", "d_model": 256, "ffn_dim": 1024, "enc": 3, "dec": 3, "bs": 1024},
+        # {"name": "Exp-1", "d_model": 128, "ffn_dim": 512,  "enc": 2, "dec": 2, "bs": 1024},
+        # {"name": "Exp-2", "d_model": 512, "ffn_dim": 2048, "enc": 4, "dec": 4, "bs": 1024}, 
+        # {"name": "Exp-3", "d_model": 256, "ffn_dim": 1024, "enc": 3, "dec": 3, "bs": 256},
+        # {"name": "Exp-4", "d_model": 256, "ffn_dim": 1024, "enc": 3, "dec": 3, "bs": 1024},
+        # {"name": "Exp-5", "d_model": 256, "ffn_dim": 1024, "enc": 3, "dec": 3, "bs": 1024},
+        {"name": "Exp-7", "d_model": 256, "ffn_dim": 1024, "enc": 3, "dec": 3, "bs": 1024},
     ]
 
     datasets = {
@@ -409,45 +410,52 @@ if __name__ == "__main__":
     checkpoints_dir = "/root/autodl-tmp/BCRL/bc/Transformer_checkpoints"
 
     # 提前开启进程池，避免在循环中反复创建销毁引发 CUDA 报错
-    with concurrent.futures.ProcessPoolExecutor(max_workers=5) as executor:
-        for exp in experiments:
-            print(f"\n{'='*50}")
-            print(f"🚀 开始处理实验: {exp['name']}")
+    # with concurrent.futures.ProcessPoolExecutor(max_workers=5) as executor:
+    for exp in experiments:
+        print(f"\n{'='*50}")
+        print(f"🚀 开始处理实验: {exp['name']}")
             
-            # 【修复问题2】：强制匹配 _Tf 开头，完美避开 Exp-2_v2，精准定位 Exp-2 第一版
-            model_pattern = os.path.join(checkpoints_dir, f"{exp['name']}_Tf*.pth")
-            model_files = glob.glob(model_pattern)
+        # 【修复问题2】：强制匹配 _Tf 开头，完美避开 Exp-2_v2，精准定位 Exp-2 第一版
+        model_pattern = os.path.join(checkpoints_dir, f"{exp['name']}_Tf*.pth")
+        model_files = glob.glob(model_pattern)
             
-            if not model_files:
-                print(f"⚠️ 未找到 {exp['name']} 的模型文件，跳过...")
-                continue
+        if not model_files:
+            print(f"⚠️ 未找到 {exp['name']} 的模型文件，跳过...")
+            continue
                 
-            MODEL_PATH = model_files[0]
-            print(f"📂 找到模型文件: {MODEL_PATH}")
+        MODEL_PATH = model_files[0]
+        print(f"📂 找到模型文件: {MODEL_PATH}")
 
-            model = TransformerTrajectoryPredictor(
-                d_model=exp['d_model'], output_dim=OUTPUT_DIM, seq_length=SEQ_LENGTH, car_num=CAR_NUM,
-                nhead=8, num_encoder_layers=exp['enc'], num_decoder_layers=exp['dec'],
-                dim_feedforward=exp['ffn_dim'], dropout=0.0
-            ).to(DEVICE)
+        model = TransformerTrajectoryPredictor(
+            d_model=exp['d_model'], output_dim=OUTPUT_DIM, seq_length=SEQ_LENGTH, car_num=CAR_NUM,
+            nhead=8, num_encoder_layers=exp['enc'], num_decoder_layers=exp['dec'],
+            dim_feedforward=exp['ffn_dim'], dropout=0.0
+        ).to(DEVICE)
             
-            model.load_state_dict(torch.load(MODEL_PATH, map_location=DEVICE))
-            model.eval() 
-            print(f"✅ 成功加载 {exp['name']} 模型权重")
+        model.load_state_dict(torch.load(MODEL_PATH, map_location=DEVICE))
+        model.eval() 
+        print(f"✅ 成功加载 {exp['name']} 模型权重")
 
-            for data_name, input_dir in datasets.items():
-                print(f"  -> 正在测试数据集: inputs_{data_name}")
-                output_dir = f"/root/autodl-tmp/BCRL/bc/planner/outputs/{exp['name']}_r{data_name}_{RUN_DATE_TIME}_{exp['bs']}BS_{exp['d_model']}dm_{exp['ffn_dim']}FFN_ednc{exp['enc']}_CoAnWarmRest_zDATASET"
-                os.makedirs(output_dir, exist_ok=True)
+        for data_name, input_dir in datasets.items():
+            print(f"  -> 正在测试数据集: inputs_{data_name}")
+            output_dir = f"/root/autodl-tmp/BCRL/bc/planner/outputs/{exp['name']}_r{data_name}_{RUN_DATE_TIME}_{exp['bs']}BS_{exp['d_model']}dm_{exp['ffn_dim']}FFN_ednc{exp['enc']}_CoAnWarmRest_zDATASET"
+            os.makedirs(output_dir, exist_ok=True)
                 
-                # 【修复问题3】：复用外层的 executor，直接提交任务
-                future = executor.submit(process_input_directory, input_dir, output_dir, model)
-                try:
-                    future.result() # 等待当前数据集跑完再跑下一个
-                except Exception as e:
-                    print(f"❌ 测试 {exp['name']} 在 inputs_{data_name} 时发生错误: {e}")
-                            
-            print(f"🎉 实验 {exp['name']} 测试完成！")
+            # 【修复问题3】：复用外层的 executor，直接提交任务
+            # future = executor.submit(process_input_directory, input_dir, output_dir, model)
+            # try:
+            #     future.result() # 等待当前数据集跑完再跑下一个
+            # except Exception as e:
+            #     print(f"❌ 测试 {exp['name']} 在 inputs_{data_name} 时发生错误: {e}")
+
+            try:
+            # 直接在主进程调用，彻底告别多进程崩溃！
+                process_input_directory(input_dir, output_dir, model)
+            except Exception as e:
+                print(f"❌ 测试 {exp['name']} 在 inputs_{data_name} 时发生错误: {e}")
+
+
+        print(f"🎉 实验 {exp['name']} 测试完成！")
 
 
 

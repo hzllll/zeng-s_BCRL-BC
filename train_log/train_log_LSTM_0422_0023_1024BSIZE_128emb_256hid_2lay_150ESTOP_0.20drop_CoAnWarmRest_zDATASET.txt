@@ -1,0 +1,211 @@
+使用设备: cuda
+成功加载: /root/autodl-tmp/BCRL/bc/dataset/GRU_choose_closest8_properRL_0.npy | shape: (2807565, 64)
+成功加载: /root/autodl-tmp/BCRL/bc/dataset/GRU_choose_closest8_properRL_1.npy | shape: (2718791, 64)
+成功加载: /root/autodl-tmp/BCRL/bc/dataset/GRU_choose_closest8_properRL_out.npy | shape: (4411230, 64)
+
+合并完成 | 总量: 9937586 | 特征维度: 64
+预处理完成 | states: (9937586, 54) | actions: (9937586, 10)
+未检测到已有模型，使用随机初始化。
+
+开始训练 LSTM 模型...
+Epoch [1/512] | 训练损失: 0.147596 | 验证损失: 0.106621 | 学习率: 0.000500
+验证损失下降，保存最优模型 → /root/autodl-tmp/BCRL/bc/LSTM_checkpoints/lstm_trajectory_model_0422_1024BSIZE_256HDdim_2layers_150es_CoAnWarmRest_zDATASET.pth
+Epoch [2/512] | 训练损失: 0.109352 | 验证损失: 0.091540 | 学习率: 0.000499
+验证损失下降，保存最优模型 → /root/autodl-tmp/BCRL/bc/LSTM_checkpoints/lstm_trajectory_model_0422_1024BSIZE_256HDdim_2layers_150es_CoAnWarmRest_zDATASET.pth
+Epoch [3/512] | 训练损失: 0.097439 | 验证损失: 0.085133 | 学习率: 0.000497
+验证损失下降，保存最优模型 → /root/autodl-tmp/BCRL/bc/LSTM_checkpoints/lstm_trajectory_model_0422_1024BSIZE_256HDdim_2layers_150es_CoAnWarmRest_zDATASET.pth
+Epoch [4/512] | 训练损失: 0.090597 | 验证损失: 0.079486 | 学习率: 0.000495
+验证损失下降，保存最优模型 → /root/autodl-tmp/BCRL/bc/LSTM_checkpoints/lstm_trajectory_model_0422_1024BSIZE_256HDdim_2layers_150es_CoAnWarmRest_zDATASET.pth
+Epoch [5/512] | 训练损失: 0.086206 | 验证损失: 0.075294 | 学习率: 0.000493
+验证损失下降，保存最优模型 → /root/autodl-tmp/BCRL/bc/LSTM_checkpoints/lstm_trajectory_model_0422_1024BSIZE_256HDdim_2layers_150es_CoAnWarmRest_zDATASET.pth
+Epoch [6/512] | 训练损失: 0.083062 | 验证损失: 0.072116 | 学习率: 0.000489
+验证损失下降，保存最优模型 → /root/autodl-tmp/BCRL/bc/LSTM_checkpoints/lstm_trajectory_model_0422_1024BSIZE_256HDdim_2layers_150es_CoAnWarmRest_zDATASET.pth
+Epoch [7/512] | 训练损失: 0.080689 | 验证损失: 0.071949 | 学习率: 0.000485
+验证损失下降，保存最优模型 → /root/autodl-tmp/BCRL/bc/LSTM_checkpoints/lstm_trajectory_model_0422_1024BSIZE_256HDdim_2layers_150es_CoAnWarmRest_zDATASET.pth
+Epoch [8/512] | 训练损失: 0.078847 | 验证损失: 0.068322 | 学习率: 0.000481
+验证损失下降，保存最优模型 → /root/autodl-tmp/BCRL/bc/LSTM_checkpoints/lstm_trajectory_model_0422_1024BSIZE_256HDdim_2layers_150es_CoAnWarmRest_zDATASET.pth
+Epoch [9/512] | 训练损失: 0.077328 | 验证损失: 0.068518 | 学习率: 0.000476
+Epoch [10/512] | 训练损失: 0.076034 | 验证损失: 0.066106 | 学习率: 0.000471
+验证损失下降，保存最优模型 → /root/autodl-tmp/BCRL/bc/LSTM_checkpoints/lstm_trajectory_model_0422_1024BSIZE_256HDdim_2layers_150es_CoAnWarmRest_zDATASET.pth
+Epoch [11/512] | 训练损失: 0.074822 | 验证损失: 0.065994 | 学习率: 0.000465
+验证损失下降，保存最优模型 → /root/autodl-tmp/BCRL/bc/LSTM_checkpoints/lstm_trajectory_model_0422_1024BSIZE_256HDdim_2layers_150es_CoAnWarmRest_zDATASET.pth
+Epoch [12/512] | 训练损失: 0.073885 | 验证损失: 0.063758 | 学习率: 0.000458
+验证损失下降，保存最优模型 → /root/autodl-tmp/BCRL/bc/LSTM_checkpoints/lstm_trajectory_model_0422_1024BSIZE_256HDdim_2layers_150es_CoAnWarmRest_zDATASET.pth
+Epoch [13/512] | 训练损失: 0.073006 | 验证损失: 0.062641 | 学习率: 0.000451
+验证损失下降，保存最优模型 → /root/autodl-tmp/BCRL/bc/LSTM_checkpoints/lstm_trajectory_model_0422_1024BSIZE_256HDdim_2layers_150es_CoAnWarmRest_zDATASET.pth
+Epoch [14/512] | 训练损失: 0.072168 | 验证损失: 0.062722 | 学习率: 0.000443
+Epoch [15/512] | 训练损失: 0.071509 | 验证损失: 0.062809 | 学习率: 0.000435
+Epoch [16/512] | 训练损失: 0.070867 | 验证损失: 0.061220 | 学习率: 0.000427
+验证损失下降，保存最优模型 → /root/autodl-tmp/BCRL/bc/LSTM_checkpoints/lstm_trajectory_model_0422_1024BSIZE_256HDdim_2layers_150es_CoAnWarmRest_zDATASET.pth
+Epoch [17/512] | 训练损失: 0.070185 | 验证损失: 0.062417 | 学习率: 0.000418
+Epoch [18/512] | 训练损失: 0.069645 | 验证损失: 0.060771 | 学习率: 0.000409
+验证损失下降，保存最优模型 → /root/autodl-tmp/BCRL/bc/LSTM_checkpoints/lstm_trajectory_model_0422_1024BSIZE_256HDdim_2layers_150es_CoAnWarmRest_zDATASET.pth
+Epoch [19/512] | 训练损失: 0.069140 | 验证损失: 0.060861 | 学习率: 0.000399
+Epoch [20/512] | 训练损失: 0.068698 | 验证损失: 0.061021 | 学习率: 0.000389
+Epoch [21/512] | 训练损失: 0.068245 | 验证损失: 0.059140 | 学习率: 0.000379
+验证损失下降，保存最优模型 → /root/autodl-tmp/BCRL/bc/LSTM_checkpoints/lstm_trajectory_model_0422_1024BSIZE_256HDdim_2layers_150es_CoAnWarmRest_zDATASET.pth
+Epoch [22/512] | 训练损失: 0.067785 | 验证损失: 0.059370 | 学习率: 0.000368
+Epoch [23/512] | 训练损失: 0.067404 | 验证损失: 0.058657 | 学习率: 0.000357
+验证损失下降，保存最优模型 → /root/autodl-tmp/BCRL/bc/LSTM_checkpoints/lstm_trajectory_model_0422_1024BSIZE_256HDdim_2layers_150es_CoAnWarmRest_zDATASET.pth
+Epoch [24/512] | 训练损失: 0.066965 | 验证损失: 0.058437 | 学习率: 0.000346
+验证损失下降，保存最优模型 → /root/autodl-tmp/BCRL/bc/LSTM_checkpoints/lstm_trajectory_model_0422_1024BSIZE_256HDdim_2layers_150es_CoAnWarmRest_zDATASET.pth
+Epoch [25/512] | 训练损失: 0.066550 | 验证损失: 0.057643 | 学习率: 0.000335
+验证损失下降，保存最优模型 → /root/autodl-tmp/BCRL/bc/LSTM_checkpoints/lstm_trajectory_model_0422_1024BSIZE_256HDdim_2layers_150es_CoAnWarmRest_zDATASET.pth
+Epoch [26/512] | 训练损失: 0.066198 | 验证损失: 0.056681 | 学习率: 0.000323
+验证损失下降，保存最优模型 → /root/autodl-tmp/BCRL/bc/LSTM_checkpoints/lstm_trajectory_model_0422_1024BSIZE_256HDdim_2layers_150es_CoAnWarmRest_zDATASET.pth
+Epoch [27/512] | 训练损失: 0.065752 | 验证损失: 0.056785 | 学习率: 0.000311
+Epoch [28/512] | 训练损失: 0.065421 | 验证损失: 0.056203 | 学习率: 0.000299
+验证损失下降，保存最优模型 → /root/autodl-tmp/BCRL/bc/LSTM_checkpoints/lstm_trajectory_model_0422_1024BSIZE_256HDdim_2layers_150es_CoAnWarmRest_zDATASET.pth
+Epoch [29/512] | 训练损失: 0.065001 | 验证损失: 0.056755 | 学习率: 0.000287
+Epoch [30/512] | 训练损失: 0.064656 | 验证损失: 0.055775 | 学习率: 0.000275
+验证损失下降，保存最优模型 → /root/autodl-tmp/BCRL/bc/LSTM_checkpoints/lstm_trajectory_model_0422_1024BSIZE_256HDdim_2layers_150es_CoAnWarmRest_zDATASET.pth
+Epoch [31/512] | 训练损失: 0.064266 | 验证损失: 0.055982 | 学习率: 0.000263
+Epoch [32/512] | 训练损失: 0.063890 | 验证损失: 0.055358 | 学习率: 0.000251
+验证损失下降，保存最优模型 → /root/autodl-tmp/BCRL/bc/LSTM_checkpoints/lstm_trajectory_model_0422_1024BSIZE_256HDdim_2layers_150es_CoAnWarmRest_zDATASET.pth
+Epoch [33/512] | 训练损失: 0.063572 | 验证损失: 0.055548 | 学习率: 0.000238
+Epoch [34/512] | 训练损失: 0.063231 | 验证损失: 0.054947 | 学习率: 0.000226
+验证损失下降，保存最优模型 → /root/autodl-tmp/BCRL/bc/LSTM_checkpoints/lstm_trajectory_model_0422_1024BSIZE_256HDdim_2layers_150es_CoAnWarmRest_zDATASET.pth
+Epoch [35/512] | 训练损失: 0.062863 | 验证损失: 0.054195 | 学习率: 0.000214
+验证损失下降，保存最优模型 → /root/autodl-tmp/BCRL/bc/LSTM_checkpoints/lstm_trajectory_model_0422_1024BSIZE_256HDdim_2layers_150es_CoAnWarmRest_zDATASET.pth
+Epoch [36/512] | 训练损失: 0.062513 | 验证损失: 0.054260 | 学习率: 0.000202
+Epoch [37/512] | 训练损失: 0.062225 | 验证损失: 0.053829 | 学习率: 0.000190
+验证损失下降，保存最优模型 → /root/autodl-tmp/BCRL/bc/LSTM_checkpoints/lstm_trajectory_model_0422_1024BSIZE_256HDdim_2layers_150es_CoAnWarmRest_zDATASET.pth
+Epoch [38/512] | 训练损失: 0.061930 | 验证损失: 0.052933 | 学习率: 0.000178
+验证损失下降，保存最优模型 → /root/autodl-tmp/BCRL/bc/LSTM_checkpoints/lstm_trajectory_model_0422_1024BSIZE_256HDdim_2layers_150es_CoAnWarmRest_zDATASET.pth
+Epoch [39/512] | 训练损失: 0.061556 | 验证损失: 0.052798 | 学习率: 0.000166
+验证损失下降，保存最优模型 → /root/autodl-tmp/BCRL/bc/LSTM_checkpoints/lstm_trajectory_model_0422_1024BSIZE_256HDdim_2layers_150es_CoAnWarmRest_zDATASET.pth
+Epoch [40/512] | 训练损失: 0.061243 | 验证损失: 0.053024 | 学习率: 0.000155
+Epoch [41/512] | 训练损失: 0.060929 | 验证损失: 0.052680 | 学习率: 0.000144
+验证损失下降，保存最优模型 → /root/autodl-tmp/BCRL/bc/LSTM_checkpoints/lstm_trajectory_model_0422_1024BSIZE_256HDdim_2layers_150es_CoAnWarmRest_zDATASET.pth
+Epoch [42/512] | 训练损失: 0.060671 | 验证损失: 0.052451 | 学习率: 0.000133
+验证损失下降，保存最优模型 → /root/autodl-tmp/BCRL/bc/LSTM_checkpoints/lstm_trajectory_model_0422_1024BSIZE_256HDdim_2layers_150es_CoAnWarmRest_zDATASET.pth
+Epoch [43/512] | 训练损失: 0.060382 | 验证损失: 0.052239 | 学习率: 0.000122
+验证损失下降，保存最优模型 → /root/autodl-tmp/BCRL/bc/LSTM_checkpoints/lstm_trajectory_model_0422_1024BSIZE_256HDdim_2layers_150es_CoAnWarmRest_zDATASET.pth
+Epoch [44/512] | 训练损失: 0.060047 | 验证损失: 0.052110 | 学习率: 0.000112
+验证损失下降，保存最优模型 → /root/autodl-tmp/BCRL/bc/LSTM_checkpoints/lstm_trajectory_model_0422_1024BSIZE_256HDdim_2layers_150es_CoAnWarmRest_zDATASET.pth
+Epoch [45/512] | 训练损失: 0.059784 | 验证损失: 0.051645 | 学习率: 0.000102
+验证损失下降，保存最优模型 → /root/autodl-tmp/BCRL/bc/LSTM_checkpoints/lstm_trajectory_model_0422_1024BSIZE_256HDdim_2layers_150es_CoAnWarmRest_zDATASET.pth
+Epoch [46/512] | 训练损失: 0.059578 | 验证损失: 0.051443 | 学习率: 0.000092
+验证损失下降，保存最优模型 → /root/autodl-tmp/BCRL/bc/LSTM_checkpoints/lstm_trajectory_model_0422_1024BSIZE_256HDdim_2layers_150es_CoAnWarmRest_zDATASET.pth
+Epoch [47/512] | 训练损失: 0.059325 | 验证损失: 0.051027 | 学习率: 0.000083
+验证损失下降，保存最优模型 → /root/autodl-tmp/BCRL/bc/LSTM_checkpoints/lstm_trajectory_model_0422_1024BSIZE_256HDdim_2layers_150es_CoAnWarmRest_zDATASET.pth
+Epoch [48/512] | 训练损失: 0.059092 | 验证损失: 0.050758 | 学习率: 0.000074
+验证损失下降，保存最优模型 → /root/autodl-tmp/BCRL/bc/LSTM_checkpoints/lstm_trajectory_model_0422_1024BSIZE_256HDdim_2layers_150es_CoAnWarmRest_zDATASET.pth
+Epoch [49/512] | 训练损失: 0.058863 | 验证损失: 0.050685 | 学习率: 0.000066
+验证损失下降，保存最优模型 → /root/autodl-tmp/BCRL/bc/LSTM_checkpoints/lstm_trajectory_model_0422_1024BSIZE_256HDdim_2layers_150es_CoAnWarmRest_zDATASET.pth
+Epoch [50/512] | 训练损失: 0.058655 | 验证损失: 0.050383 | 学习率: 0.000058
+验证损失下降，保存最优模型 → /root/autodl-tmp/BCRL/bc/LSTM_checkpoints/lstm_trajectory_model_0422_1024BSIZE_256HDdim_2layers_150es_CoAnWarmRest_zDATASET.pth
+Epoch [51/512] | 训练损失: 0.058467 | 验证损失: 0.050460 | 学习率: 0.000050
+Epoch [52/512] | 训练损失: 0.058253 | 验证损失: 0.050100 | 学习率: 0.000043
+验证损失下降，保存最优模型 → /root/autodl-tmp/BCRL/bc/LSTM_checkpoints/lstm_trajectory_model_0422_1024BSIZE_256HDdim_2layers_150es_CoAnWarmRest_zDATASET.pth
+Epoch [53/512] | 训练损失: 0.058082 | 验证损失: 0.049926 | 学习率: 0.000036
+验证损失下降，保存最优模型 → /root/autodl-tmp/BCRL/bc/LSTM_checkpoints/lstm_trajectory_model_0422_1024BSIZE_256HDdim_2layers_150es_CoAnWarmRest_zDATASET.pth
+Epoch [54/512] | 训练损失: 0.057975 | 验证损失: 0.049707 | 学习率: 0.000030
+验证损失下降，保存最优模型 → /root/autodl-tmp/BCRL/bc/LSTM_checkpoints/lstm_trajectory_model_0422_1024BSIZE_256HDdim_2layers_150es_CoAnWarmRest_zDATASET.pth
+Epoch [55/512] | 训练损失: 0.057851 | 验证损失: 0.049804 | 学习率: 0.000025
+Epoch [56/512] | 训练损失: 0.057688 | 验证损失: 0.049562 | 学习率: 0.000020
+验证损失下降，保存最优模型 → /root/autodl-tmp/BCRL/bc/LSTM_checkpoints/lstm_trajectory_model_0422_1024BSIZE_256HDdim_2layers_150es_CoAnWarmRest_zDATASET.pth
+Epoch [57/512] | 训练损失: 0.057616 | 验证损失: 0.049377 | 学习率: 0.000016
+验证损失下降，保存最优模型 → /root/autodl-tmp/BCRL/bc/LSTM_checkpoints/lstm_trajectory_model_0422_1024BSIZE_256HDdim_2layers_150es_CoAnWarmRest_zDATASET.pth
+Epoch [58/512] | 训练损失: 0.057507 | 验证损失: 0.049379 | 学习率: 0.000012
+Epoch [59/512] | 训练损失: 0.057452 | 验证损失: 0.049334 | 学习率: 0.000008
+验证损失下降，保存最优模型 → /root/autodl-tmp/BCRL/bc/LSTM_checkpoints/lstm_trajectory_model_0422_1024BSIZE_256HDdim_2layers_150es_CoAnWarmRest_zDATASET.pth
+Epoch [60/512] | 训练损失: 0.057380 | 验证损失: 0.049291 | 学习率: 0.000006
+验证损失下降，保存最优模型 → /root/autodl-tmp/BCRL/bc/LSTM_checkpoints/lstm_trajectory_model_0422_1024BSIZE_256HDdim_2layers_150es_CoAnWarmRest_zDATASET.pth
+Epoch [61/512] | 训练损失: 0.057310 | 验证损失: 0.049227 | 学习率: 0.000004
+验证损失下降，保存最优模型 → /root/autodl-tmp/BCRL/bc/LSTM_checkpoints/lstm_trajectory_model_0422_1024BSIZE_256HDdim_2layers_150es_CoAnWarmRest_zDATASET.pth
+Epoch [62/512] | 训练损失: 0.057278 | 验证损失: 0.049216 | 学习率: 0.000002
+验证损失下降，保存最优模型 → /root/autodl-tmp/BCRL/bc/LSTM_checkpoints/lstm_trajectory_model_0422_1024BSIZE_256HDdim_2layers_150es_CoAnWarmRest_zDATASET.pth
+Epoch [63/512] | 训练损失: 0.057279 | 验证损失: 0.049222 | 学习率: 0.000001
+Epoch [64/512] | 训练损失: 0.067459 | 验证损失: 0.063565 | 学习率: 0.000500
+Epoch [65/512] | 训练损失: 0.068068 | 验证损失: 0.059567 | 学习率: 0.000500
+Epoch [66/512] | 训练损失: 0.068009 | 验证损失: 0.059988 | 学习率: 0.000500
+Epoch [67/512] | 训练损失: 0.067675 | 验证损失: 0.058849 | 学习率: 0.000499
+Epoch [68/512] | 训练损失: 0.067628 | 验证损失: 0.057885 | 学习率: 0.000499
+Epoch [69/512] | 训练损失: 0.067510 | 验证损失: 0.057877 | 学习率: 0.000498
+Epoch [70/512] | 训练损失: 0.067197 | 验证损失: 0.058438 | 学习率: 0.000497
+Epoch [71/512] | 训练损失: 0.067114 | 验证损失: 0.061924 | 学习率: 0.000496
+Epoch [72/512] | 训练损失: 0.066932 | 验证损失: 0.058459 | 学习率: 0.000495
+Epoch [73/512] | 训练损失: 0.066721 | 验证损失: 0.059856 | 学习率: 0.000494
+Epoch [74/512] | 训练损失: 0.066558 | 验证损失: 0.057945 | 学习率: 0.000493
+Epoch [75/512] | 训练损失: 0.066611 | 验证损失: 0.058912 | 学习率: 0.000491
+Epoch [76/512] | 训练损失: 0.066257 | 验证损失: 0.056863 | 学习率: 0.000489
+Epoch [77/512] | 训练损失: 0.066210 | 验证损失: 0.057674 | 学习率: 0.000487
+Epoch [78/512] | 训练损失: 0.066058 | 验证损失: 0.057231 | 学习率: 0.000485
+Epoch [79/512] | 训练损失: 0.065889 | 验证损失: 0.058559 | 学习率: 0.000483
+Epoch [80/512] | 训练损失: 0.065783 | 验证损失: 0.057311 | 学习率: 0.000481
+Epoch [81/512] | 训练损失: 0.065644 | 验证损失: 0.056892 | 学习率: 0.000479
+Epoch [82/512] | 训练损失: 0.065360 | 验证损失: 0.056389 | 学习率: 0.000476
+Epoch [83/512] | 训练损失: 0.065323 | 验证损失: 0.057496 | 学习率: 0.000473
+Epoch [84/512] | 训练损失: 0.065254 | 验证损失: 0.057268 | 学习率: 0.000471
+Epoch [85/512] | 训练损失: 0.065108 | 验证损失: 0.058931 | 学习率: 0.000468
+Epoch [86/512] | 训练损失: 0.064894 | 验证损失: 0.056659 | 学习率: 0.000465
+Epoch [87/512] | 训练损失: 0.064872 | 验证损失: 0.055992 | 学习率: 0.000461
+Epoch [88/512] | 训练损失: 0.064750 | 验证损失: 0.055699 | 学习率: 0.000458
+Epoch [89/512] | 训练损失: 0.064573 | 验证损失: 0.058513 | 学习率: 0.000454
+Epoch [90/512] | 训练损失: 0.064468 | 验证损失: 0.057273 | 学习率: 0.000451
+Epoch [91/512] | 训练损失: 0.064248 | 验证损失: 0.055061 | 学习率: 0.000447
+Epoch [92/512] | 训练损失: 0.064156 | 验证损失: 0.056139 | 学习率: 0.000443
+Epoch [93/512] | 训练损失: 0.064034 | 验证损失: 0.055646 | 学习率: 0.000439
+Epoch [94/512] | 训练损失: 0.063948 | 验证损失: 0.055042 | 学习率: 0.000435
+Epoch [95/512] | 训练损失: 0.063843 | 验证损失: 0.056886 | 学习率: 0.000431
+Epoch [96/512] | 训练损失: 0.063719 | 验证损失: 0.056027 | 学习率: 0.000427
+Epoch [97/512] | 训练损失: 0.063538 | 验证损失: 0.054856 | 学习率: 0.000423
+Epoch [98/512] | 训练损失: 0.063359 | 验证损失: 0.056575 | 学习率: 0.000418
+Epoch [99/512] | 训练损失: 0.063306 | 验证损失: 0.054838 | 学习率: 0.000413
+Epoch [100/512] | 训练损失: 0.063096 | 验证损失: 0.054254 | 学习率: 0.000409
+Epoch [101/512] | 训练损失: 0.063021 | 验证损失: 0.054246 | 学习率: 0.000404
+Epoch [102/512] | 训练损失: 0.062840 | 验证损失: 0.054250 | 学习率: 0.000399
+Epoch [103/512] | 训练损失: 0.062811 | 验证损失: 0.054252 | 学习率: 0.000394
+Epoch [104/512] | 训练损失: 0.062639 | 验证损失: 0.055196 | 学习率: 0.000389
+Epoch [105/512] | 训练损失: 0.062476 | 验证损失: 0.054357 | 学习率: 0.000384
+Epoch [106/512] | 训练损失: 0.062413 | 验证损失: 0.053298 | 学习率: 0.000379
+Epoch [107/512] | 训练损失: 0.062273 | 验证损失: 0.055077 | 学习率: 0.000373
+Epoch [108/512] | 训练损失: 0.062114 | 验证损失: 0.053807 | 学习率: 0.000368
+Epoch [109/512] | 训练损失: 0.061939 | 验证损失: 0.053468 | 学习率: 0.000363
+Epoch [110/512] | 训练损失: 0.061804 | 验证损失: 0.053184 | 学习率: 0.000357
+Epoch [111/512] | 训练损失: 0.061715 | 验证损失: 0.054182 | 学习率: 0.000352
+Epoch [112/512] | 训练损失: 0.061570 | 验证损失: 0.053525 | 学习率: 0.000346
+Epoch [113/512] | 训练损失: 0.061378 | 验证损失: 0.053101 | 学习率: 0.000340
+Epoch [114/512] | 训练损失: 0.061311 | 验证损失: 0.053125 | 学习率: 0.000335
+Epoch [115/512] | 训练损失: 0.061142 | 验证损失: 0.053325 | 学习率: 0.000329
+Epoch [116/512] | 训练损失: 0.061005 | 验证损失: 0.052731 | 学习率: 0.000323
+Epoch [117/512] | 训练损失: 0.060883 | 验证损失: 0.053109 | 学习率: 0.000317
+Epoch [118/512] | 训练损失: 0.060650 | 验证损失: 0.052518 | 学习率: 0.000311
+Epoch [119/512] | 训练损失: 0.060552 | 验证损失: 0.051742 | 学习率: 0.000305
+Epoch [120/512] | 训练损失: 0.060379 | 验证损失: 0.052507 | 学习率: 0.000299
+Epoch [121/512] | 训练损失: 0.060234 | 验证损失: 0.053256 | 学习率: 0.000293
+Epoch [122/512] | 训练损失: 0.060078 | 验证损失: 0.052048 | 学习率: 0.000287
+Epoch [123/512] | 训练损失: 0.059923 | 验证损失: 0.051646 | 学习率: 0.000281
+Epoch [124/512] | 训练损失: 0.059822 | 验证损失: 0.052288 | 学习率: 0.000275
+Epoch [125/512] | 训练损失: 0.059662 | 验证损失: 0.052204 | 学习率: 0.000269
+Epoch [126/512] | 训练损失: 0.059506 | 验证损失: 0.051650 | 学习率: 0.000263
+Epoch [127/512] | 训练损失: 0.059318 | 验证损失: 0.052242 | 学习率: 0.000257
+Epoch [128/512] | 训练损失: 0.059248 | 验证损失: 0.051629 | 学习率: 0.000251
+Epoch [129/512] | 训练损失: 0.059046 | 验证损失: 0.052113 | 学习率: 0.000244
+Epoch [130/512] | 训练损失: 0.058926 | 验证损失: 0.050984 | 学习率: 0.000238
+Epoch [131/512] | 训练损失: 0.058797 | 验证损失: 0.050593 | 学习率: 0.000232
+Epoch [132/512] | 训练损失: 0.058681 | 验证损失: 0.051122 | 学习率: 0.000226
+Epoch [133/512] | 训练损失: 0.058492 | 验证损失: 0.051960 | 学习率: 0.000220
+Epoch [134/512] | 训练损失: 0.058291 | 验证损失: 0.050222 | 学习率: 0.000214
+Epoch [135/512] | 训练损失: 0.058195 | 验证损失: 0.050446 | 学习率: 0.000208
+Epoch [136/512] | 训练损失: 0.058019 | 验证损失: 0.050594 | 学习率: 0.000202
+Epoch [137/512] | 训练损失: 0.057897 | 验证损失: 0.050261 | 学习率: 0.000196
+Epoch [138/512] | 训练损失: 0.057753 | 验证损失: 0.050422 | 学习率: 0.000190
+Epoch [139/512] | 训练损失: 0.057572 | 验证损失: 0.049918 | 学习率: 0.000184
+Epoch [140/512] | 训练损失: 0.057433 | 验证损失: 0.049710 | 学习率: 0.000178
+Epoch [141/512] | 训练损失: 0.057288 | 验证损失: 0.049101 | 学习率: 0.000172
+验证损失下降，保存最优模型 → /root/autodl-tmp/BCRL/bc/LSTM_checkpoints/lstm_trajectory_model_0422_1024BSIZE_256HDdim_2layers_150es_CoAnWarmRest_zDATASET.pth
+Epoch [142/512] | 训练损失: 0.057123 | 验证损失: 0.049497 | 学习率: 0.000166
+Epoch [143/512] | 训练损失: 0.057045 | 验证损失: 0.048945 | 学习率: 0.000161
+验证损失下降，保存最优模型 → /root/autodl-tmp/BCRL/bc/LSTM_checkpoints/lstm_trajectory_model_0422_1024BSIZE_256HDdim_2layers_150es_CoAnWarmRest_zDATASET.pth
+Epoch [144/512] | 训练损失: 0.056882 | 验证损失: 0.049293 | 学习率: 0.000155
+Epoch [145/512] | 训练损失: 0.056721 | 验证损失: 0.049176 | 学习率: 0.000149
+Epoch [146/512] | 训练损失: 0.056639 | 验证损失: 0.048912 | 学习率: 0.000144
+验证损失下降，保存最优模型 → /root/autodl-tmp/BCRL/bc/LSTM_checkpoints/lstm_trajectory_model_0422_1024BSIZE_256HDdim_2layers_150es_CoAnWarmRest_zDATASET.pth
+Epoch [147/512] | 训练损失: 0.056464 | 验证损失: 0.049139 | 学习率: 0.000138
+Epoch [148/512] | 训练损失: 0.056259 | 验证损失: 0.048438 | 学习率: 0.000133
+验证损失下降，保存最优模型 → /root/autodl-tmp/BCRL/bc/LSTM_checkpoints/lstm_trajectory_model_0422_1024BSIZE_256HDdim_2layers_150es_CoAnWarmRest_zDATASET.pth
+Epoch [149/512] | 训练损失: 0.056155 | 验证损失: 0.048532 | 学习率: 0.000128
+Epoch [150/512] | 训练损失: 0.056037 | 验证损失: 0.048178 | 学习率: 0.000122
+验证损失下降，保存最优模型 → /root/autodl-tmp/BCRL/bc/LSTM_checkpoints/lstm_trajectory_model_0422_1024BSIZE_256HDdim_2layers_150es_CoAnWarmRest_zDATASET.pth
