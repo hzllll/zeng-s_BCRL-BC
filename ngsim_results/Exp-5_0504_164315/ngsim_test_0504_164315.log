@@ -1,0 +1,26 @@
+[2026-05-04 16:43:15] [INFO   ] ======================================================================
+[2026-05-04 16:43:15] [INFO   ]    NGSIM 公开数据集 Transformer BC 模型 开环测试
+[2026-05-04 16:43:15] [INFO   ] ======================================================================
+[2026-05-04 16:43:15] [INFO   ] 日志文件: /root/autodl-tmp/BCRL/bc/ngsim_results/Exp-5_0504_164315/ngsim_test_0504_164315.log
+[2026-05-04 16:43:15] [INFO   ] 设备: cpu
+[2026-05-04 16:43:15] [INFO   ] 模型: /root/autodl-tmp/BCRL/bc/Transformer_checkpoints/Exp-5_Tf_trajectory_model_0418_10_1024BSIZE_256dmodel_1024FFNdim_enc3_dec3_300es_CoAnWarmRest_zDATASET.pth
+[2026-05-04 16:43:15] [INFO   ] NGSIM 数据: /root/autodl-tmp/BCRL/bc/ngsim_data/Next_Generation_Simulation_NGSIM_Vehicle_Trajectories_and_Supporting_Data_20260418.csv
+[2026-05-04 16:43:15] [INFO   ] 目标车道: [2, 3, 4]
+[2026-05-04 16:43:15] [INFO   ] 最大评估样本: 100
+[2026-05-04 16:43:15] [INFO   ] 场景选择: 自动选择
+[2026-05-04 16:43:15] [INFO   ] 
+[2026-05-04 16:43:15] [INFO   ] [步骤 1/5] 加载 Transformer 模型...
+[2026-05-04 16:43:15] [INFO   ]   模型加载成功, 参数量: 5,799,682
+[2026-05-04 16:43:15] [INFO   ] 
+[步骤 2/5] 加载并预处理 NGSIM 数据...
+[2026-05-04 16:43:15] [INFO   ] 正在加载 NGSIM 数据: /root/autodl-tmp/BCRL/bc/ngsim_data/Next_Generation_Simulation_NGSIM_Vehicle_Trajectories_and_Supporting_Data_20260418.csv
+[2026-05-04 16:43:15] [INFO   ] CSV 文件中的所有列名: ['Vehicle_ID', 'Frame_ID', 'Total_Frames', 'Global_Time', 'Local_X', 'Local_Y', 'Global_X', 'Global_Y', 'v_length', 'v_Width', 'v_Class', 'v_Vel', 'v_Acc', 'Lane_ID', 'O_Zone', 'D_Zone', 'Int_ID', 'Section_ID', 'Direction', 'Movement', 'Preceding', 'Following', 'Space_Headway', 'Time_Headway', 'Location']
+[2026-05-04 16:44:27] [INFO   ] 分块扫描完成: 共扫描 11850526 行
+[2026-05-04 16:44:27] [INFO   ] 目标车道样本最多的前5个场景:
+[2026-05-04 16:44:27] [INFO   ]   Scene_ID=us-101|NA|NA: 目标车道样本 2885994
+[2026-05-04 16:44:27] [INFO   ]   Scene_ID=i-80|NA|NA: 目标车道样本 2430711
+[2026-05-04 16:44:27] [INFO   ]   Scene_ID=lankershim|2.0|2.0: 目标车道样本 236138
+[2026-05-04 16:44:27] [INFO   ]   Scene_ID=lankershim|3.0|4.0: 目标车道样本 134461
+[2026-05-04 16:44:27] [INFO   ]   Scene_ID=lankershim|4.0|2.0: 目标车道样本 94501
+[2026-05-04 16:44:27] [INFO   ] 自动选择主场景: us-101|NA|NA
+[2026-05-04 16:44:27] [INFO   ] 按必要列分块读取 CSV: ['Vehicle_ID', 'Frame_ID', 'Total_Frames', 'Global_Time', 'Local_X', 'Local_Y', 'v_length', 'v_Width', 'v_Class', 'v_Vel', 'v_Acc', 'Lane_ID', 'Section_ID', 'Direction', 'Preceding', 'Following', 'Space_Headway', 'Time_Headway', 'Location']

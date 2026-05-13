@@ -81,6 +81,7 @@ import os
 import sys
 import time
 import logging
+import argparse
 import numpy as np
 import pandas as pd
 import torch
@@ -120,10 +121,15 @@ LANE_WIDTH = 3.66            # 标准美国高速车道宽度: 12 英尺 ≈ 3.6
 # ---------- 测试参数 ----------
 # NGSIM 有数万帧数据，我们可以选取大量样本进行评估
 MAX_EVAL_SAMPLES = 5000      # 最大评估样本数 (设为 -1 表示全部评估)
+NUM_EVAL_PERIODS = 4         # 分时段报告数量；设为 4 时输出 时段1~时段4 + 总计
 PREDICTION_HORIZON = 5       # 预测步长 = 5 步 × 0.1s = 0.5 秒（与模型输出一致）
 MIN_TRAJECTORY_LENGTH = 50   # 车辆最少存在帧数，太短的轨迹不适合评估
 SMOOTHING_WINDOW = 11        # Savitzky-Golay 滤波窗口长度 (必须为奇数)，用于平滑位置/速度噪声
 SMOOTHING_POLY = 3           # Savitzky-Golay 滤波多项式阶数
+AUTO_SELECT_PRIMARY_SCENE = True  # 从混合 CSV 中自动选取目标车道样本最多的单一路段/方向
+PRIMARY_SCENE_ID = None           # 如需固定场景，可填类似 "us-101|2|1"；None 表示自动选择
+CSV_CHUNK_SIZE = 100_000          # 分块读取行数，避免一次性读入千万级 CSV 被系统 killed
+MAX_DATA_ROWS = 800_000           # 评估最多 5000 样本，不需要把主场景几百万行全部读入内存
 
 # ---------- 模型路径 ----------
 MODEL_PATH = os.path.join(
@@ -248,6 +254,109 @@ class TransformerTrajectoryPredictor(nn.Module):
 # ║                     NGSIM 数据加载与预处理                      ║
 # ╚══════════════════════════════════════════════════════════════════╝
 
+def _make_scene_id(df):
+    """构造场景键，避免把不同路段/方向/数据源的相同 Frame_ID 混在一起。"""
+    scene_cols = [col for col in ['Location', 'Section_ID', 'Direction'] if col in df.columns]
+    if not scene_cols:
+        df['Scene_ID'] = 'ALL'
+        return df
+
+    parts = []
+    for col in scene_cols:
+        parts.append(df[col].astype('string').fillna('NA').str.strip())
+    df['Scene_ID'] = parts[0]
+    for part in parts[1:]:
+        df['Scene_ID'] = df['Scene_ID'] + '|' + part
+    return df
+
+
+def _select_primary_scene(df):
+    """只保留一个真实场景，防止同一 Frame_ID 下混入其他路段车辆。"""
+    if 'Scene_ID' not in df.columns:
+        return df, 'ALL'
+
+    target_df = df[df['Lane_ID'].isin(TARGET_LANES)]
+    if len(target_df) == 0:
+        log.warning("目标车道没有数据，暂不进行单场景过滤")
+        return df, 'ALL'
+
+    if PRIMARY_SCENE_ID is not None:
+        selected_scene = PRIMARY_SCENE_ID
+        if selected_scene not in set(df['Scene_ID'].astype(str)):
+            log.warning(f"指定 PRIMARY_SCENE_ID={selected_scene} 不在数据中，将改用自动选择")
+        else:
+            filtered = df[df['Scene_ID'] == selected_scene].copy()
+            log.info(f"使用指定场景: {selected_scene}, 行数={len(filtered)}")
+            return filtered, selected_scene
+
+    scene_counts = target_df.groupby('Scene_ID').size().sort_values(ascending=False)
+    selected_scene = scene_counts.index[0]
+    filtered = df[df['Scene_ID'] == selected_scene].copy()
+
+    log.info("检测到混合 NGSIM 数据，按目标车道样本数选择单一场景:")
+    for scene_id, count in scene_counts.head(5).items():
+        log.info(f"  Scene_ID={scene_id}: 目标车道样本 {count}")
+    log.info(f"  最终使用 Scene_ID={selected_scene}, 过滤后行数={len(filtered)}")
+    return filtered, selected_scene
+
+
+def _actual_col(lower_to_actual, col_name):
+    return lower_to_actual.get(col_name.lower())
+
+
+def _to_numeric(series):
+    """兼容 CSV 中偶发的千位逗号，例如 '1,156'。"""
+    return pd.to_numeric(
+        series.astype('string').str.replace(',', '', regex=False).str.strip(),
+        errors='coerce',
+    )
+
+
+def _detect_primary_scene_from_csv(csv_path, lower_to_actual):
+    """第一遍分块扫描，只统计目标车道最多的场景，不加载完整 CSV。"""
+    if PRIMARY_SCENE_ID is not None:
+        return PRIMARY_SCENE_ID
+
+    lane_col = _actual_col(lower_to_actual, 'Lane_ID')
+    if lane_col is None:
+        log.warning("CSV 中没有 Lane_ID，无法自动选择场景")
+        return 'ALL'
+
+    scan_cols = [lane_col]
+    for col in ['Location', 'Section_ID', 'Direction']:
+        actual_col = _actual_col(lower_to_actual, col)
+        if actual_col is not None:
+            scan_cols.append(actual_col)
+
+    scene_counts = {}
+    total_rows = 0
+    for chunk in pd.read_csv(csv_path, usecols=scan_cols, chunksize=CSV_CHUNK_SIZE, low_memory=False):
+        chunk.columns = chunk.columns.str.strip()
+        total_rows += len(chunk)
+        chunk['Lane_ID'] = pd.to_numeric(chunk[lane_col.strip()], errors='coerce')
+        chunk.dropna(subset=['Lane_ID'], inplace=True)
+        if len(chunk) == 0:
+            continue
+
+        chunk = _make_scene_id(chunk)
+        target_chunk = chunk[chunk['Lane_ID'].isin(TARGET_LANES)]
+        counts = target_chunk['Scene_ID'].value_counts()
+        for scene_id, count in counts.items():
+            scene_counts[scene_id] = scene_counts.get(scene_id, 0) + int(count)
+
+    if not scene_counts:
+        log.warning("分块扫描没有发现目标车道数据，将使用 ALL")
+        return 'ALL'
+
+    selected_scene = max(scene_counts.items(), key=lambda item: item[1])[0]
+    log.info(f"分块扫描完成: 共扫描 {total_rows} 行")
+    log.info("目标车道样本最多的前5个场景:")
+    for scene_id, count in sorted(scene_counts.items(), key=lambda item: item[1], reverse=True)[:5]:
+        log.info(f"  Scene_ID={scene_id}: 目标车道样本 {count}")
+    log.info(f"自动选择主场景: {selected_scene}")
+    return selected_scene
+
+
 def load_ngsim_csv(csv_path):
     """
     加载 NGSIM CSV 文件并执行单位转换。
@@ -267,24 +376,96 @@ def load_ngsim_csv(csv_path):
         log.error(f"下载后将 CSV 文件放到: {os.path.dirname(csv_path)}")
         sys.exit(1)
 
-    usecols = [
+    required_cols = [
         'Vehicle_ID', 'Frame_ID', 'Total_Frames', 'Global_Time',
-        'Local_X', 'Local_Y', 'Global_X','Global_Y',
-        'v_Length', 'v_Width',
+        'Local_X', 'Local_Y', 'v_Length', 'v_Width',
         'v_Class', 'v_Vel', 'v_Acc', 'Lane_ID',
-        'O_Zone','D_Zone','Int_ID','Section_ID','Direction','Movement',
-        'Preceding', 'Following', 'Space_Headway',
-        'Time_Headway','Location'
+        'Section_ID', 'Direction', 'Preceding', 'Following',
+        'Space_Headway', 'Time_Headway', 'Location'
     ]
 
-    try:
-        df = pd.read_csv(csv_path, usecols=usecols)
-    except ValueError:
-        log.warning("部分列名不存在，尝试加载全部列...")
-        df = pd.read_csv(csv_path)
-        log.info(f"CSV 文件中的所有列名: {list(df.columns)}")
-        # 尝试对列名做 strip
-        df.columns = df.columns.str.strip()
+    # 先只读表头，兼容 v_Length/v_length 等列名差异；避免列名不匹配时退回全量读取。
+    header = pd.read_csv(csv_path, nrows=0)
+    actual_columns = [str(col).strip() for col in header.columns]
+    lower_to_actual = {col.lower(): col for col in actual_columns}
+    log.info(f"CSV 文件中的所有列名: {actual_columns}")
+
+    usecols = []
+    missing_cols = []
+    for col in required_cols:
+        actual_col = lower_to_actual.get(col.lower())
+        if actual_col is None:
+            missing_cols.append(col)
+        else:
+            usecols.append(actual_col)
+
+    if missing_cols:
+        log.warning(f"以下可选列不存在，将跳过: {missing_cols}")
+
+    # 第二遍读取先按字符串分块读入，后续统一清洗千位逗号并转数值。
+    dtype_map = {col: 'string' for col in usecols}
+
+    selected_scene = 'ALL'
+    if AUTO_SELECT_PRIMARY_SCENE:
+        selected_scene = _detect_primary_scene_from_csv(csv_path, lower_to_actual)
+
+    log.info(f"按必要列分块读取 CSV: {usecols}")
+    chunks = []
+    total_rows = 0
+    kept_rows = 0
+    for chunk in pd.read_csv(
+        csv_path,
+        usecols=usecols,
+        dtype=dtype_map,
+        low_memory=False,
+        chunksize=CSV_CHUNK_SIZE,
+    ):
+        total_rows += len(chunk)
+        chunk.columns = chunk.columns.str.strip()
+        if 'v_length' in chunk.columns and 'v_Length' not in chunk.columns:
+            chunk.rename(columns={'v_length': 'v_Length'}, inplace=True)
+        chunk = _make_scene_id(chunk)
+
+        if AUTO_SELECT_PRIMARY_SCENE and selected_scene != 'ALL':
+            chunk = chunk[chunk['Scene_ID'] == selected_scene]
+        if 'Lane_ID' in chunk.columns:
+            chunk['Lane_ID'] = _to_numeric(chunk['Lane_ID'])
+            chunk = chunk[chunk['Lane_ID'].isin(TARGET_LANES)]
+        if len(chunk) == 0:
+            continue
+
+        numeric_cols_in_chunk = [
+            'Vehicle_ID', 'Frame_ID', 'Total_Frames', 'Global_Time',
+            'Local_X', 'Local_Y', 'v_Length', 'v_Width', 'v_Vel', 'v_Acc',
+            'Space_Headway', 'Time_Headway', 'Lane_ID', 'Section_ID', 'Direction',
+            'Preceding', 'Following', 'v_Class'
+        ]
+        for col in numeric_cols_in_chunk:
+            if col in chunk.columns and not pd.api.types.is_numeric_dtype(chunk[col]):
+                chunk[col] = _to_numeric(chunk[col])
+
+        chunk.dropna(subset=['Local_X', 'Local_Y', 'v_Vel', 'Lane_ID'], inplace=True)
+        chunk.drop(columns=['Location', 'Section_ID', 'Direction'], errors='ignore', inplace=True)
+        if len(chunk) == 0:
+            continue
+
+        if 0 < MAX_DATA_ROWS < kept_rows + len(chunk):
+            chunk = chunk.iloc[:MAX_DATA_ROWS - kept_rows].copy()
+
+        kept_rows += len(chunk)
+        chunks.append(chunk)
+
+        if 0 < MAX_DATA_ROWS <= kept_rows:
+            log.info(f"已达到最大加载行数 {MAX_DATA_ROWS}，停止继续读取 CSV")
+            break
+
+    if not chunks:
+        log.error(f"分块读取后没有保留任何数据，请检查场景过滤: {selected_scene}")
+        sys.exit(1)
+
+    df = pd.concat(chunks, ignore_index=True)
+    df.attrs['selected_scene'] = selected_scene
+    log.info(f"分块读取完成: 扫描 {total_rows} 行, 保留 {kept_rows} 行")
 
     log.info(f"原始数据: {len(df)} 行, {len(df.columns)} 列")
     log.info(f"CSV 列名: {list(df.columns)}")
@@ -297,10 +478,16 @@ def load_ngsim_csv(csv_path):
     # 2. 解决根本原因：强制将关键列转换为数值类型 (float)
     # errors='coerce' 的作用是：遇到像空格、字母等无法转换的脏字符时，直接将其变成 NaN（缺失值），而不是报错崩溃
     # 强制将所有需要计算的列转换为数值类型 (float)，遇到脏字符(如空格)强制转为 NaN
-    numeric_cols = ['Local_X', 'Local_Y', 'v_Length', 'v_Width', 'v_Vel', 'v_Acc', 'Space_Headway', 'Lane_ID']
+    numeric_cols = [
+        'Vehicle_ID', 'Frame_ID', 'Total_Frames', 'Global_Time',
+        'Local_X', 'Local_Y', 'v_Length', 'v_Width', 'v_Vel', 'v_Acc',
+        'Space_Headway', 'Time_Headway', 'Lane_ID', 'Section_ID', 'Direction',
+        'Preceding', 'Following', 'v_Class'
+    ]
     for col in numeric_cols:
         if col in df.columns:
-            df[col] = pd.to_numeric(df[col], errors='coerce')
+            if not pd.api.types.is_numeric_dtype(df[col]):
+                df[col] = _to_numeric(df[col])
             
     # 3. 剔除无效数据：把那些因为脏数据被转换成 NaN 的行删掉，防止后续计算（如乘法、求导）报错
     before_drop = len(df)
@@ -309,7 +496,6 @@ def load_ngsim_csv(csv_path):
     if before_drop != after_drop:
         log.warning(f"已剔除 {before_drop - after_drop} 行包含脏数据/缺失值的无效记录")
     # ==================================================================
-
 
     # ---------- 单位转换 ----------
     # 距离: ft → m
@@ -332,13 +518,19 @@ def load_ngsim_csv(csv_path):
     if 'Global_Time' in df.columns:
         df['Global_Time'] = df['Global_Time'] / 1000.0
 
-    df = df.sort_values(by=['Vehicle_ID', 'Frame_ID']).reset_index(drop=True)
+    sort_cols = ['Scene_ID', 'Vehicle_ID', 'Frame_ID']
+    if 'Global_Time' in df.columns:
+        sort_cols.append('Global_Time')
+    df = df.sort_values(by=sort_cols).reset_index(drop=True)
 
-    # === 新增代码：区分相同 Vehicle_ID 但不同时间段的轨迹 ===
-    # 如果同一辆车的 Frame_ID 差值不等于 1，说明是新的一段轨迹（或者是另一辆同 ID 的车）
-    df['Trajectory_ID'] = (df.groupby('Vehicle_ID')['Frame_ID'].diff() != 1).cumsum()
+    # 区分相同 Vehicle_ID 在不同场景或不同连续片段中的轨迹。
+    group_cols = ['Scene_ID', 'Vehicle_ID']
+    frame_diff = df.groupby(group_cols)['Frame_ID'].diff()
+    new_segment = frame_diff.isna() | (frame_diff != 1)
+    df['Trajectory_ID'] = new_segment.cumsum().astype('int64')
     
     log.info(f"单位转换完成: 距离(m), 速度(m/s), 加速度(m/s²), 时间(s)")
+    log.info(f"当前评估场景: {selected_scene}")
     log.info(f"提取出独立的连续轨迹数量: {df['Trajectory_ID'].nunique()}")
     log.info(f"Lane_ID 分布: {dict(df['Lane_ID'].value_counts().sort_index())}")
     
@@ -347,78 +539,80 @@ def load_ngsim_csv(csv_path):
 
     return df
 
-
 def compute_derived_fields(df):
     """
     计算 NGSIM 数据中不直接提供但模型需要的字段：航向角 (yaw) 和转向角 (steer)。
-
-    航向角 yaw：
-      NGSIM 不提供航向角，需要从相邻两帧的位置差分计算：
-      yaw = arctan2(dy/dt, dx/dt)
-      其中 dx = Local_Y 的变化 (纵向), dy = Local_X 的变化 (横向)
-
-    转向角 steer：
-      根据自行车运动学模型从航向变化率反推：
-      steer ≈ arctan(wheelbase × d_yaw / (v × dt))
-
-    注意：原始 NGSIM 数据存在噪声，计算前先用 Savitzky-Golay 滤波器平滑位置数据。
+    使用纯 NumPy 向量化操作，极低内存占用，几秒钟内处理 150 万条轨迹。
     """
-    log.info("正在计算航向角(yaw)和转向角(steer)...")
+    log.info("正在计算航向角(yaw)和转向角(steer) (已启用纯 NumPy 加速)...")
 
+    # 提取需要的列为 numpy 数组，加速计算
+    x_raw = df['Local_Y'].values
+    y_raw = df['Local_X'].values
+    v_raw = df['v_Vel'].values
+    tids = df['Trajectory_ID'].values
+
+    # 初始化结果数组
     yaw_all = np.full(len(df), np.nan)
     steer_all = np.full(len(df), np.nan)
 
-    # vehicle_ids = df['Vehicle_ID'].unique()
-    trajectory_ids = df['Trajectory_ID'].unique()
+    # 找到每条轨迹的起始和结束索引
+    # tids 是递增的，所以变化的地方就是新轨迹的起点
+    change_indices = np.where(tids[:-1] != tids[1:])[0] + 1
+    start_indices = np.concatenate(([0], change_indices))
+    end_indices = np.concatenate((change_indices, [len(df)]))
+
     processed = 0
+    valid_count = 0
 
-    # for vid in vehicle_ids:
-        # mask = df['Vehicle_ID'] == vid
-    for tid in trajectory_ids:
-        mask = df['Trajectory_ID'] == tid
-        idx = df.index[mask]
-
-        if len(idx) < 5:
+    # 遍历每条轨迹的索引范围（只传递索引，不复制数据，内存极小）
+    for start_idx, end_idx in zip(start_indices, end_indices):
+        length = end_idx - start_idx
+        if length < 5:
             continue
 
-        # 模型坐标: x = Local_Y(纵向), y = Local_X(横向)
-        x_raw = df.loc[idx, 'Local_Y'].values
-        y_raw = df.loc[idx, 'Local_X'].values
-        v_raw = df.loc[idx, 'v_Vel'].values
+        # 提取当前轨迹的切片（视图，不占内存）
+        x_traj = x_raw[start_idx:end_idx]
+        y_traj = y_raw[start_idx:end_idx]
+        v_traj = v_raw[start_idx:end_idx]
 
-        # Savitzky-Golay 平滑（减少摄像头提取的位置噪声）
-        win = min(SMOOTHING_WINDOW, len(x_raw))
+        # Savitzky-Golay 平滑
+        win = min(SMOOTHING_WINDOW, length)
         if win % 2 == 0:
             win -= 1
         if win >= SMOOTHING_POLY + 2:
-            x_smooth = savgol_filter(x_raw, win, SMOOTHING_POLY)
-            y_smooth = savgol_filter(y_raw, win, SMOOTHING_POLY)
+            x_smooth = savgol_filter(x_traj, win, SMOOTHING_POLY)
+            y_smooth = savgol_filter(y_traj, win, SMOOTHING_POLY)
         else:
-            x_smooth = x_raw
-            y_smooth = y_raw
+            x_smooth = x_traj
+            y_smooth = y_traj
 
+        # 计算 yaw
         dx = np.gradient(x_smooth, NGSIM_DT)
         dy = np.gradient(y_smooth, NGSIM_DT)
         yaw = np.arctan2(dy, dx)
 
+        # 计算 steer
         dyaw = np.gradient(yaw, NGSIM_DT)
         dyaw = (dyaw + np.pi / NGSIM_DT) % (2 * np.pi / NGSIM_DT) - np.pi / NGSIM_DT
-        # 对 dyaw 再做一次限幅以减少噪声
         dyaw = np.clip(dyaw, -2.0 / NGSIM_DT, 2.0 / NGSIM_DT)
 
-        v_safe = np.maximum(np.abs(v_raw), 0.5)
+        v_safe = np.maximum(np.abs(v_traj), 0.5)
         steer = np.arctan(WHEELBASE * dyaw / v_safe)
         steer = np.clip(steer, -0.5, 0.5)
 
-        yaw_all[idx] = yaw
-        steer_all[idx] = steer
+        # 赋值回结果数组
+        yaw_all[start_idx:end_idx] = yaw
+        steer_all[start_idx:end_idx] = steer
+        
         processed += 1
+        valid_count += length
 
+    # 将结果写回 DataFrame
     df['yaw'] = yaw_all
     df['steer'] = steer_all
 
-    valid_count = np.sum(~np.isnan(yaw_all))
-    log.info(f"航向角/转向角计算完成: 处理 {processed} 辆车, {valid_count}/{len(df)} 行有效")
+    log.info(f"航向角/转向角计算完成: 处理 {processed} 条有效轨迹, {valid_count}/{len(df)} 行有效")
 
     return df
 
@@ -588,6 +782,172 @@ def build_model_input(ego_row, same_frame_others, goal_x, goal_y,
     return np.array(states, dtype=np.float32)
 
 
+def _score_efficiency(mean_pred_v, mean_ref_v):
+    """效率分：以同一 NGSIM 片段真实交通流速度为参考，满分 30。"""
+    efficiency_score = 30.0
+    if mean_pred_v < mean_ref_v * 0.8:
+        efficiency_score -= (mean_ref_v - mean_pred_v) * 2.0
+    elif mean_pred_v > mean_ref_v * 1.2:
+        efficiency_score -= (mean_pred_v - mean_ref_v) * 2.0
+    return float(np.clip(efficiency_score, 0.0, 30.0))
+
+
+def _score_comfort(acc_seq, steer_seq):
+    """
+    舒适分：从“动作幅值硬扣分”改为以 jerk / steer-rate 为主。
+    NGSIM 是 0.5s 短时开环评估，动作变化率比单步最大值更能反映舒适性。
+    """
+    acc_seq = np.asarray(acc_seq, dtype=float)
+    steer_seq = np.asarray(steer_seq, dtype=float)
+
+    comfort_score = 20.0
+    max_abs_acc = float(np.max(np.abs(acc_seq))) if len(acc_seq) else 0.0
+    max_abs_steer = float(np.max(np.abs(steer_seq))) if len(steer_seq) else 0.0
+
+    if len(acc_seq) > 1:
+        mean_jerk = float(np.mean(np.abs(np.diff(acc_seq))) / NGSIM_DT)
+        mean_steer_rate = float(np.mean(np.abs(np.diff(steer_seq))) / NGSIM_DT)
+    else:
+        mean_jerk = 0.0
+        mean_steer_rate = 0.0
+
+    if max_abs_acc > 4.0:
+        comfort_score -= min(3.0, (max_abs_acc - 4.0) * 0.8)
+    if max_abs_steer > 0.12:
+        comfort_score -= min(2.0, (max_abs_steer - 0.12) * 20.0)
+    if mean_jerk > 4.0:
+        comfort_score -= min(5.0, (mean_jerk - 4.0) * 0.6)
+    if mean_steer_rate > 0.25:
+        comfort_score -= min(4.0, (mean_steer_rate - 0.25) * 8.0)
+
+    return float(np.clip(comfort_score, 0.0, 20.0)), mean_jerk, mean_steer_rate
+
+
+def _safety_risk_for_path(path_x, path_y, speed_seq, ego_row, close_others, lane1, lane4):
+    """
+    计算短时轨迹风险。这里使用道路坐标下的近似矩形占用，而不是单纯欧氏距离。
+    返回的风险会同时用于 Expert 和 Agent，Agent 只对相对 Expert 的新增风险重扣。
+    """
+    path_x = np.asarray(path_x, dtype=float)
+    path_y = np.asarray(path_y, dtype=float)
+    speed_seq = np.asarray(speed_seq, dtype=float)
+
+    out_of_lane = bool(np.any(path_y > lane1) or np.any(path_y < lane4))
+    hard_collision = False
+    min_gap = float("inf")
+    min_ttc = float("inf")
+
+    ego_len = float(ego_row['v_Length']) if not np.isnan(ego_row['v_Length']) else 4.8
+    ego_width = float(ego_row['v_Width']) if not np.isnan(ego_row['v_Width']) else 1.8
+
+    for other in close_others:
+        other_len = float(other['v_Length']) if not np.isnan(other['v_Length']) else 4.8
+        other_width = float(other['v_Width']) if not np.isnan(other['v_Width']) else 1.8
+        half_len = 0.5 * (ego_len + other_len)
+        half_width = 0.5 * (ego_width + other_width)
+
+        other_x0 = float(other['Local_Y'])
+        other_y0 = float(other['Local_X'])
+        other_v = float(other['v_Vel'])
+        other_yaw = float(other['yaw']) if not np.isnan(other['yaw']) else 0.0
+
+        steps = np.arange(1, len(path_x) + 1)
+        other_x = other_x0 + other_v * np.cos(other_yaw) * NGSIM_DT * steps
+        other_y = other_y0 + other_v * np.sin(other_yaw) * NGSIM_DT * steps
+
+        lon_sep = np.abs(path_x - other_x)
+        lat_sep = np.abs(path_y - other_y)
+        signed_lon_gap = lon_sep - half_len
+        signed_lat_gap = lat_sep - half_width
+        rect_gap = np.maximum(signed_lon_gap, 0.0) + np.maximum(signed_lat_gap, 0.0)
+        min_gap = min(min_gap, float(np.min(rect_gap)))
+
+        # 允许少量 NGSIM 标注噪声/矩形近似误差，避免把密集跟车都判为碰撞。
+        if np.any((lon_sep < half_len * 0.70) & (lat_sep < half_width * 0.75)):
+            hard_collision = True
+
+        same_lane = lat_sep < max(2.2, half_width + 0.4)
+        ahead = other_x > path_x
+        rel_speed = speed_seq - other_v
+        valid_ttc = same_lane & ahead & (rel_speed > 0.1)
+        if np.any(valid_ttc):
+            ttc = (other_x[valid_ttc] - path_x[valid_ttc] - half_len) / rel_speed[valid_ttc]
+            ttc = ttc[ttc > 0]
+            if len(ttc):
+                min_ttc = min(min_ttc, float(np.min(ttc)))
+
+    return {
+        'out_of_lane': out_of_lane,
+        'hard_collision': hard_collision,
+        'min_gap': min_gap,
+        'min_ttc': min_ttc,
+    }
+
+
+def _score_safety(agent_risk, expert_risk):
+    """
+    安全分：满分 50。
+    - 越界最多扣 5 分；
+    - 碰撞只对 Agent 相比 Expert 的新增碰撞重扣；
+    - 近距和 TTC 作为软风险扣分。
+    """
+    safety_score = 50.0
+
+    if agent_risk['out_of_lane']:
+        safety_score -= 5.0
+
+    new_collision = agent_risk['hard_collision'] and not expert_risk['hard_collision']
+    inherited_collision = agent_risk['hard_collision'] and expert_risk['hard_collision']
+    if new_collision:
+        safety_score -= 15.0
+    elif inherited_collision:
+        safety_score -= 3.0
+
+    min_gap = agent_risk['min_gap']
+    expert_gap = expert_risk['min_gap']
+    if np.isfinite(min_gap):
+        # 只在 Agent 比 Expert 明显更近时扣重分；否则视为真实交通流密集带来的背景风险。
+        added_gap_risk = np.isfinite(expert_gap) and min_gap + 0.3 < expert_gap
+        if min_gap < 0.2 and added_gap_risk:
+            safety_score -= 6.0
+        elif min_gap < 0.6 and added_gap_risk:
+            safety_score -= 3.0
+        elif min_gap < 0.3:
+            safety_score -= 1.0
+
+    min_ttc = agent_risk['min_ttc']
+    expert_ttc = expert_risk['min_ttc']
+    if np.isfinite(min_ttc):
+        added_ttc_risk = (not np.isfinite(expert_ttc)) or (min_ttc + 0.5 < expert_ttc)
+        if min_ttc < 1.0 and added_ttc_risk:
+            safety_score -= 5.0
+        elif min_ttc < 2.0 and added_ttc_risk:
+            safety_score -= 3.0
+        elif min_ttc < 3.0:
+            safety_score -= 1.0
+
+    return float(np.clip(safety_score, 0.0, 50.0)), new_collision
+
+
+def _period_name(frame_id, frame_min, frame_max):
+    """按 Frame_ID 均匀切分生成论文式时段标签。"""
+    if frame_max <= frame_min:
+        return "时段1"
+    ratio = (frame_id - frame_min) / (frame_max - frame_min)
+    period_idx = min(int(ratio * NUM_EVAL_PERIODS), NUM_EVAL_PERIODS - 1)
+    return f"时段{period_idx + 1}"
+
+
+def _select_evenly(records, limit):
+    """从已按时间排序的候选样本中均匀取样，避免只取到某个时段开头。"""
+    if limit < 0 or len(records) <= limit:
+        return records
+    if limit <= 0:
+        return []
+    indices = np.linspace(0, len(records) - 1, limit, dtype=int)
+    return [records[int(i)] for i in indices]
+
+
 # ╔══════════════════════════════════════════════════════════════════╗
 # ║                    开环评估核心逻辑                             ║
 # ╚══════════════════════════════════════════════════════════════════╝
@@ -620,15 +980,17 @@ def run_openloop_evaluation(df, model, map_info, lane1, lane2, lane3, lane4):
     # 只保留目标车道上的车辆
     df_target = df[df['Lane_ID'].isin(TARGET_LANES)].copy()
     log.info(f"目标车道 {TARGET_LANES} 的数据量: {len(df_target)} 行")
+    frame_min = float(df_target['Frame_ID'].min())
+    frame_max = float(df_target['Frame_ID'].max())
 
     # 筛选轨迹足够长的车辆
     # veh_counts = df_target.groupby('Vehicle_ID').size()
     veh_counts = df_target.groupby('Trajectory_ID').size()
-    valid_vehicles = veh_counts[veh_counts >= MIN_TRAJECTORY_LENGTH].index.tolist()
-    log.info(f"轨迹长度 >= {MIN_TRAJECTORY_LENGTH} 帧的车辆: {len(valid_vehicles)} 辆")
+    valid_trajectories = veh_counts[veh_counts >= MIN_TRAJECTORY_LENGTH].index.tolist()
+    log.info(f"轨迹长度 >= {MIN_TRAJECTORY_LENGTH} 帧的轨迹: {len(valid_trajectories)} 条")
 
-    # 按帧分组，方便后续查找同一时刻的其他车辆
-    frame_groups = df_target.groupby('Frame_ID')
+    # 按场景+帧分组，避免不同路段/方向中相同 Frame_ID 的车辆互相污染。
+    frame_groups = df_target.groupby(['Scene_ID', 'Frame_ID'])
 
     all_ade = []
     all_fde = []
@@ -641,8 +1003,18 @@ def run_openloop_evaluation(df, model, map_info, lane1, lane2, lane3, lane4):
     all_safety_scores = []
     all_efficiency_scores = []
     all_comfort_scores = []
+    all_expert_safety_scores = []
+    all_expert_efficiency_scores = []
+    all_expert_comfort_scores = []
     collision_count = 0
+    expert_collision_count = 0
     out_of_lane_count = 0
+    expert_out_of_lane_count = 0
+    all_gt_step_dist = []
+    all_const_ade = []
+    all_same_frame_counts = []
+    all_collision_candidates = []
+    period_records = []
 
     sample_count = 0
     skip_nan = 0
@@ -651,15 +1023,85 @@ def run_openloop_evaluation(df, model, map_info, lane1, lane2, lane3, lane4):
 
     eval_start_time = time.time()
 
-    for vid_idx, vid in enumerate(valid_vehicles):
-        # veh_data = df_target[df_target['Vehicle_ID'] == vid].sort_values('Frame_ID')
+    periods = [f"时段{i + 1}" for i in range(NUM_EVAL_PERIODS)]
+    candidate_by_period = {period: [] for period in periods}
+
+    log.info("正在按时段预扫描有效候选样本，用于分层均匀采样...")
+    for tid in valid_trajectories:
+        veh_data = df_target[df_target['Trajectory_ID'] == tid].sort_values('Frame_ID')
+        if len(veh_data) < MIN_TRAJECTORY_LENGTH:
+            continue
+
+        for t_idx in range(0, len(veh_data) - PREDICTION_HORIZON, PREDICTION_HORIZON):
+            current_row = veh_data.iloc[t_idx]
+            if np.isnan(current_row['yaw']):
+                continue
+
+            current_frame = current_row['Frame_ID']
+            future_frames_needed = [current_frame + k for k in range(1, PREDICTION_HORIZON + 1)]
+            future_data = veh_data[veh_data['Frame_ID'].isin(future_frames_needed)]
+            if len(future_data) < PREDICTION_HORIZON:
+                continue
+            if not future_data['Lane_ID'].isin(TARGET_LANES).all():
+                continue
+            if np.any(np.isnan(future_data['steer'].values[:PREDICTION_HORIZON])):
+                continue
+
+            period = _period_name(current_frame, frame_min, frame_max)
+            candidate_by_period[period].append({
+                'tid': tid,
+                't_idx': t_idx,
+                'frame_id': float(current_frame),
+            })
+
+    selected_candidates = []
+    selected_keys = set()
+
+    if MAX_EVAL_SAMPLES < 0:
+        for period in periods:
+            group = sorted(candidate_by_period[period], key=lambda item: item['frame_id'])
+            selected_candidates.extend(group)
+    else:
+        base_quota = MAX_EVAL_SAMPLES // NUM_EVAL_PERIODS
+        remainder = MAX_EVAL_SAMPLES % NUM_EVAL_PERIODS
+
+        for idx, period in enumerate(periods):
+            quota = base_quota + (1 if idx < remainder else 0)
+            group = sorted(candidate_by_period[period], key=lambda item: item['frame_id'])
+            selected_candidates.extend(_select_evenly(group, quota))
+
+        # 如果某些时段候选不足，用其余时段的未选样本补足总样本数。
+        if len(selected_candidates) < MAX_EVAL_SAMPLES:
+            selected_keys = {(item['tid'], item['t_idx']) for item in selected_candidates}
+            all_candidates = []
+            for period in periods:
+                all_candidates.extend(candidate_by_period[period])
+            all_candidates = sorted(all_candidates, key=lambda item: item['frame_id'])
+            remaining = [
+                item for item in all_candidates
+                if (item['tid'], item['t_idx']) not in selected_keys
+            ]
+            need = MAX_EVAL_SAMPLES - len(selected_candidates)
+            selected_candidates.extend(_select_evenly(remaining, need))
+
+    selected_keys = {(item['tid'], item['t_idx']) for item in selected_candidates}
+    selected_counts = {period: 0 for period in periods}
+    for item in selected_candidates:
+        period = _period_name(item['frame_id'], frame_min, frame_max)
+        selected_counts[period] += 1
+
+    for period in periods:
+        log.info(
+            f"  {period}: 候选 {len(candidate_by_period[period])} 个, "
+            f"计划评估 {selected_counts[period]} 个"
+        )
+    log.info(f"  分层采样总候选: {sum(len(v) for v in candidate_by_period.values())}, 计划评估: {len(selected_candidates)}")
+
+    for tid in valid_trajectories:
         veh_data = df_target[df_target['Trajectory_ID'] == tid].sort_values('Frame_ID')
 
         if len(veh_data) < MIN_TRAJECTORY_LENGTH:
             continue
-
-        frames = veh_data['Frame_ID'].values
-        indices = veh_data.index.values
 
         # 目标点: 使用该车轨迹终点（模型坐标系）
         # goal_x = veh_data.iloc[-1]['Local_Y']
@@ -670,8 +1112,12 @@ def run_openloop_evaluation(df, model, map_info, lane1, lane2, lane3, lane4):
             if 0 < MAX_EVAL_SAMPLES <= sample_count:
                 break
 
+            if (tid, t_idx) not in selected_keys:
+                continue
+
             current_row = veh_data.iloc[t_idx]
             current_frame = current_row['Frame_ID']
+            current_scene = current_row['Scene_ID']
 
             # === 新增代码：动态构造目标点 ===
             # 1. 纵向目标点：始终保持在主车前方 500 米 (与 highway-env 的 GOAL_LOOKAHEAD 一致)
@@ -703,12 +1149,14 @@ def run_openloop_evaluation(df, model, map_info, lane1, lane2, lane3, lane4):
                 continue
 
             # 获取同帧的其他车辆（作为周围障碍车）
-            if current_frame in frame_groups.groups:
-                same_frame = frame_groups.get_group(current_frame)
-                # others = same_frame[same_frame['Vehicle_ID'] != vid]
+            frame_key = (current_scene, current_frame)
+            if frame_key in frame_groups.groups:
+                same_frame = frame_groups.get_group(frame_key)
                 others = same_frame[same_frame['Trajectory_ID'] != tid]
             else:
+                same_frame = pd.DataFrame()
                 others = pd.DataFrame()
+            all_same_frame_counts.append(len(same_frame))
 
             # ---------- 构造模型输入 ----------
             model_input = build_model_input(
@@ -738,6 +1186,7 @@ def run_openloop_evaluation(df, model, map_info, lane1, lane2, lane3, lane4):
             gt_steer = future_data['steer'].values[:PREDICTION_HORIZON]
             gt_x = future_data['Local_Y'].values[:PREDICTION_HORIZON]   # 真实纵向 (模型x)
             gt_y = future_data['Local_X'].values[:PREDICTION_HORIZON]   # 真实横向 (模型y)
+            gt_v = future_data['v_Vel'].values[:PREDICTION_HORIZON]
 
             if np.any(np.isnan(gt_steer)):
                 skip_nan += 1
@@ -751,6 +1200,7 @@ def run_openloop_evaluation(df, model, map_info, lane1, lane2, lane3, lane4):
 
             pred_xs = []
             pred_ys = []
+            pred_vs = []
             for step in range(PREDICTION_HORIZON):
                 cur_v = max(0.0, cur_v + pred_acc[step] * NGSIM_DT)
                 cur_yaw = cur_yaw + pred_steer[step] * NGSIM_DT
@@ -758,76 +1208,94 @@ def run_openloop_evaluation(df, model, map_info, lane1, lane2, lane3, lane4):
                 ego_y_pos = ego_y_pos + cur_v * np.sin(cur_yaw) * NGSIM_DT
                 pred_xs.append(ego_x)
                 pred_ys.append(ego_y_pos)
+                pred_vs.append(cur_v)
 
             pred_xs = np.array(pred_xs)
             pred_ys = np.array(pred_ys)
+            pred_vs = np.array(pred_vs)
 
-            # =================================================================
-            # 模拟 OnSite 评分体系 (安全性 50, 效率性 30, 舒适性 20)
-            # =================================================================
-            
-            # --- 1. 安全性 (Safety) 满分 50 ---
-            safety_score = 50.0
-            is_collision = False
-            is_out_of_lane = False
-            
-            # 检查是否越界 (车道宽度的一半约为 1.83m)
-            if np.any(pred_ys > lane1) or np.any(pred_ys < lane4):
-                safety_score -= 20.0  # 越界严重扣分
-                is_out_of_lane = True
-                out_of_lane_count += 1
-                
-            # 检查是否与周围车辆发生预测碰撞 (简化版：欧式距离 < 2.5m 视为碰撞)
+            # ---------- 评估诊断：常速基线和真实单步位移 ----------
+            step_dist = np.sqrt(np.diff(np.r_[current_row['Local_Y'], gt_x]) ** 2 +
+                                np.diff(np.r_[current_row['Local_X'], gt_y]) ** 2)
+            all_gt_step_dist.extend(step_dist.tolist())
+
+            base_xs = current_row['Local_Y'] + current_row['v_Vel'] * np.cos(current_row['yaw']) * NGSIM_DT * np.arange(1, PREDICTION_HORIZON + 1)
+            base_ys = current_row['Local_X'] + current_row['v_Vel'] * np.sin(current_row['yaw']) * NGSIM_DT * np.arange(1, PREDICTION_HORIZON + 1)
+            const_displacements = np.sqrt((base_xs - gt_x) ** 2 + (base_ys - gt_y) ** 2)
+            all_const_ade.append(float(np.mean(const_displacements)))
+
+            # ---------- 构造碰撞候选车辆 ----------
+            close_others = []
             for _, other in others.iterrows():
-                other_x = other['Local_Y']
-                other_y = other['Local_X']
-                # 假设周围车辆在未来0.5秒保持匀速直线运动
-                other_future_x = other_x + other['v_Vel'] * NGSIM_DT * np.arange(1, PREDICTION_HORIZON + 1)
-                dist_to_other = np.sqrt((pred_xs - other_future_x)**2 + (pred_ys - other_y)**2)
-                if np.any(dist_to_other < 2.5):
-                    safety_score -= 35.0  # 碰撞致命扣分
-                    is_collision = True
-                    collision_count += 1
-                    break
-            
-            safety_score = max(0.0, safety_score)
+                if abs(other['Local_X'] - current_row['Local_X']) > 6.0:
+                    continue
+                if abs(other['Local_Y'] - current_row['Local_Y']) > 80.0:
+                    continue
+                close_others.append(other)
+            all_collision_candidates.append(len(close_others))
 
-            # --- 2. 效率性 (Efficiency) 满分 30 ---
-            efficiency_score = 30.0
-            # 真实速度作为参考基准
-            mean_gt_v = np.mean(future_data['v_Vel'].values[:PREDICTION_HORIZON])
-            mean_pred_v = cur_v  # 最后一个预测步的速度
-            
-            # 如果预测速度比真实交通流慢 20% 以上，视为龟速，扣分
-            if mean_pred_v < mean_gt_v * 0.8:
-                efficiency_score -= (mean_gt_v - mean_pred_v) * 2.0
-            # 如果超速 20% 以上，也扣分
-            elif mean_pred_v > mean_gt_v * 1.2:
-                efficiency_score -= (mean_pred_v - mean_gt_v) * 2.0
-                
-            efficiency_score = np.clip(efficiency_score, 0.0, 30.0)
+            # =================================================================
+            # 论文式 Expert / Agent 同场景评分
+            # =================================================================
+            expert_risk = _safety_risk_for_path(gt_x, gt_y, gt_v, current_row, close_others, lane1, lane4)
+            agent_risk = _safety_risk_for_path(pred_xs, pred_ys, pred_vs, current_row, close_others, lane1, lane4)
 
-            # --- 3. 舒适性 (Comfort) 满分 20 ---
-            comfort_score = 20.0
-            # 惩罚大加速度 (急刹/猛踩油门)
-            max_abs_acc = np.max(np.abs(pred_acc))
-            if max_abs_acc > 3.0:  # 超过 3m/s^2 开始扣分
-                comfort_score -= (max_abs_acc - 3.0) * 2.0
-                
-            # 惩罚大转向角 (猛打方向)
-            max_abs_steer = np.max(np.abs(pred_steer))
-            if max_abs_steer > 0.1:  # 约 5.7 度
-                comfort_score -= (max_abs_steer - 0.1) * 50.0
-                
-            comfort_score = np.clip(comfort_score, 0.0, 20.0)
+            safety_score, is_new_collision = _score_safety(agent_risk, expert_risk)
+            expert_safety_score, _ = _score_safety(expert_risk, expert_risk)
+
+            if is_new_collision:
+                collision_count += 1
+            if expert_risk['hard_collision']:
+                expert_collision_count += 1
+            if agent_risk['out_of_lane']:
+                out_of_lane_count += 1
+            if expert_risk['out_of_lane']:
+                expert_out_of_lane_count += 1
+
+            mean_gt_v = np.mean(gt_v)
+            mean_pred_v = np.mean(pred_vs)
+            efficiency_score = _score_efficiency(mean_pred_v, mean_gt_v)
+            expert_efficiency_score = _score_efficiency(mean_gt_v, mean_gt_v)
+
+            comfort_score, agent_jerk, agent_steer_rate = _score_comfort(pred_acc, pred_steer)
+            expert_comfort_score, expert_jerk, expert_steer_rate = _score_comfort(gt_acc, gt_steer)
 
             all_safety_scores.append(safety_score)
             all_efficiency_scores.append(efficiency_score)
             all_comfort_scores.append(comfort_score)
+            all_expert_safety_scores.append(expert_safety_score)
+            all_expert_efficiency_scores.append(expert_efficiency_score)
+            all_expert_comfort_scores.append(expert_comfort_score)
+
+            period = _period_name(current_frame, frame_min, frame_max)
+            agent_displacements = np.sqrt((pred_xs - gt_x) ** 2 + (pred_ys - gt_y) ** 2)
+            goal_success = (
+                np.mean(agent_displacements) < 1.5 and
+                agent_displacements[-1] < 2.5 and
+                not agent_risk['out_of_lane'] and
+                not is_new_collision
+            )
+            period_records.append({
+                'period': period,
+                'expert_safety': expert_safety_score,
+                'expert_efficiency': expert_efficiency_score,
+                'expert_comfort': expert_comfort_score,
+                'expert_total': expert_safety_score + expert_efficiency_score + expert_comfort_score,
+                'expert_goal': not expert_risk['out_of_lane'],
+                'agent_safety': safety_score,
+                'agent_efficiency': efficiency_score,
+                'agent_comfort': comfort_score,
+                'agent_total': safety_score + efficiency_score + comfort_score,
+                'agent_goal': goal_success,
+                'agent_jerk': agent_jerk,
+                'agent_steer_rate': agent_steer_rate,
+                'expert_jerk': expert_jerk,
+                'expert_steer_rate': expert_steer_rate,
+            })
             # =================================================================
 
             # ---------- 计算指标 ----------
-            displacements = np.sqrt((pred_xs - gt_x) ** 2 + (pred_ys - gt_y) ** 2)
+            displacements = agent_displacements
             ade = np.mean(displacements)
             fde = displacements[-1]
             rmse_acc = np.sqrt(np.mean((pred_acc - gt_acc) ** 2))
@@ -870,6 +1338,44 @@ def run_openloop_evaluation(df, model, map_info, lane1, lane2, lane3, lane4):
         log.error("没有有效的评估样本！请检查数据和参数设置。")
         return None
 
+    if period_records:
+        period_df = pd.DataFrame(period_records)
+        period_summary = []
+        for period in [f"时段{i + 1}" for i in range(NUM_EVAL_PERIODS)]:
+            group = period_df[period_df['period'] == period]
+            if len(group) == 0:
+                continue
+            period_summary.append({
+                'period': period,
+                'count': int(len(group)),
+                'expert_safety': float(group['expert_safety'].mean()),
+                'expert_efficiency': float(group['expert_efficiency'].mean()),
+                'expert_comfort': float(group['expert_comfort'].mean()),
+                'expert_total': float(group['expert_total'].mean()),
+                'expert_goal_rate': float(group['expert_goal'].mean()),
+                'agent_safety': float(group['agent_safety'].mean()),
+                'agent_efficiency': float(group['agent_efficiency'].mean()),
+                'agent_comfort': float(group['agent_comfort'].mean()),
+                'agent_total': float(group['agent_total'].mean()),
+                'agent_goal_rate': float(group['agent_goal'].mean()),
+            })
+        period_summary.append({
+            'period': '总计',
+            'count': int(len(period_df)),
+            'expert_safety': float(period_df['expert_safety'].mean()),
+            'expert_efficiency': float(period_df['expert_efficiency'].mean()),
+            'expert_comfort': float(period_df['expert_comfort'].mean()),
+            'expert_total': float(period_df['expert_total'].mean()),
+            'expert_goal_rate': float(period_df['expert_goal'].mean()),
+            'agent_safety': float(period_df['agent_safety'].mean()),
+            'agent_efficiency': float(period_df['agent_efficiency'].mean()),
+            'agent_comfort': float(period_df['agent_comfort'].mean()),
+            'agent_total': float(period_df['agent_total'].mean()),
+            'agent_goal_rate': float(period_df['agent_goal'].mean()),
+        })
+    else:
+        period_summary = []
+
     results = {
         'sample_count': sample_count,
         'ADE': float(np.mean(all_ade)),
@@ -891,12 +1397,25 @@ def run_openloop_evaluation(df, model, map_info, lane1, lane2, lane3, lane4):
         'skip_nan': skip_nan,
         'skip_short': skip_short,
         'skip_lane_change': skip_lane_change,
+        'avg_expert_safety': float(np.mean(all_expert_safety_scores)),
+        'avg_expert_efficiency': float(np.mean(all_expert_efficiency_scores)),
+        'avg_expert_comfort': float(np.mean(all_expert_comfort_scores)),
+        'avg_expert_total_score': float(np.mean(all_expert_safety_scores) + np.mean(all_expert_efficiency_scores) + np.mean(all_expert_comfort_scores)),
         'avg_safety': float(np.mean(all_safety_scores)),
         'avg_efficiency': float(np.mean(all_efficiency_scores)),
         'avg_comfort': float(np.mean(all_comfort_scores)),
         'avg_total_score': float(np.mean(all_safety_scores) + np.mean(all_efficiency_scores) + np.mean(all_comfort_scores)),
         'collision_rate': float(collision_count / sample_count * 100) if sample_count > 0 else 0.0,
+        'expert_collision_rate': float(expert_collision_count / sample_count * 100) if sample_count > 0 else 0.0,
         'out_of_lane_rate': float(out_of_lane_count / sample_count * 100) if sample_count > 0 else 0.0,
+        'expert_out_of_lane_rate': float(expert_out_of_lane_count / sample_count * 100) if sample_count > 0 else 0.0,
+        'period_summary': period_summary,
+        'selected_scene': df.attrs.get('selected_scene', 'UNKNOWN'),
+        'mean_gt_step_dist': float(np.mean(all_gt_step_dist)) if all_gt_step_dist else 0.0,
+        'p95_gt_step_dist': float(np.percentile(all_gt_step_dist, 95)) if all_gt_step_dist else 0.0,
+        'const_velocity_ADE': float(np.mean(all_const_ade)) if all_const_ade else 0.0,
+        'avg_same_frame_count': float(np.mean(all_same_frame_counts)) if all_same_frame_counts else 0.0,
+        'avg_collision_candidates': float(np.mean(all_collision_candidates)) if all_collision_candidates else 0.0,
     }
 
     return results
@@ -919,10 +1438,13 @@ def save_results(results):
         f.write(f"  模型文件:       {MODEL_PATH}\n")
         f.write(f"  NGSIM 数据文件: {NGSIM_CSV_PATH}\n")
         f.write(f"  设备:           {DEVICE}\n")
+        f.write(f"  使用场景:       {results['selected_scene']}\n")
         f.write(f"  目标车道:       Lane {TARGET_LANES}\n")
         f.write(f"  车道宽度:       {LANE_WIDTH} m\n")
         f.write(f"  预测步长:       {PREDICTION_HORIZON} 步 × {NGSIM_DT}s = {PREDICTION_HORIZON * NGSIM_DT}s\n")
         f.write(f"  最大样本数:     {MAX_EVAL_SAMPLES}\n")
+        f.write(f"  分时段数量:     {NUM_EVAL_PERIODS}\n")
+        f.write(f"  最大加载行数:   {MAX_DATA_ROWS}\n")
         f.write(f"  平滑窗口:       {SMOOTHING_WINDOW} (Savitzky-Golay)\n\n")
 
         f.write("【模型参数】\n")
@@ -936,6 +1458,13 @@ def save_results(results):
         f.write(f"  跳过(帧不足):   {results['skip_short']}\n")
         f.write(f"  跳过(换道中):   {results['skip_lane_change']}\n")
         f.write(f"  总评估耗时:     {results['total_time_s']:.1f} s\n\n")
+
+        f.write("【对齐诊断】\n")
+        f.write(f"  真实单步位移均值:     {results['mean_gt_step_dist']:.4f} m / 0.1s\n")
+        f.write(f"  真实单步位移P95:      {results['p95_gt_step_dist']:.4f} m / 0.1s\n")
+        f.write(f"  常速基线ADE:          {results['const_velocity_ADE']:.4f} m\n")
+        f.write(f"  平均同帧车辆数:       {results['avg_same_frame_count']:.2f}\n")
+        f.write(f"  平均碰撞候选车辆数:   {results['avg_collision_candidates']:.2f}\n\n")
 
         f.write("┌────────────────────────────────────────────────────┐\n")
         f.write("│                  核心指标                          │\n")
@@ -961,14 +1490,39 @@ def save_results(results):
         f.write("  RMSE_lon: 纵向(行驶方向)位置误差的均方根，反映速度控制能力\n")
 
         f.write("【综合评分评估 (对标 OnSite 体系)】\n")
-        f.write(f"  平均总分:       {results['avg_total_score']:.2f} / 100\n")
-        f.write(f"  平均安全分:     {results['avg_safety']:.2f} / 50\n")
-        f.write(f"  平均效率分:     {results['avg_efficiency']:.2f} / 30\n")
-        f.write(f"  平均舒适分:     {results['avg_comfort']:.2f} / 20\n\n")
+        f.write(f"  Expert 平均总分: {results['avg_expert_total_score']:.2f} / 100\n")
+        f.write(f"  Expert 安全分:   {results['avg_expert_safety']:.2f} / 50\n")
+        f.write(f"  Expert 效率分:   {results['avg_expert_efficiency']:.2f} / 30\n")
+        f.write(f"  Expert 舒适分:   {results['avg_expert_comfort']:.2f} / 20\n")
+        f.write(f"  Agent  平均总分: {results['avg_total_score']:.2f} / 100\n")
+        f.write(f"  Agent  安全分:   {results['avg_safety']:.2f} / 50\n")
+        f.write(f"  Agent  效率分:   {results['avg_efficiency']:.2f} / 30\n")
+        f.write(f"  Agent  舒适分:   {results['avg_comfort']:.2f} / 20\n\n")
+
+        f.write("【分时段 Expert / Agent 对照表】\n")
+        f.write("时段    场景数   Expert安全  Expert效率  Expert舒适  Expert总分  Expert达成率   Agent安全  Agent效率  Agent舒适  Agent总分  Agent达成率\n")
+        for row in results['period_summary']:
+            f.write(
+                f"{row['period']:<6}"
+                f"{row['count']:>7d}"
+                f"{row['expert_safety']:>11.2f}"
+                f"{row['expert_efficiency']:>11.2f}"
+                f"{row['expert_comfort']:>11.2f}"
+                f"{row['expert_total']:>11.2f}"
+                f"{row['expert_goal_rate']:>13.4f}"
+                f"{row['agent_safety']:>11.2f}"
+                f"{row['agent_efficiency']:>11.2f}"
+                f"{row['agent_comfort']:>11.2f}"
+                f"{row['agent_total']:>11.2f}"
+                f"{row['agent_goal_rate']:>12.4f}\n"
+            )
+        f.write("\n")
         
         f.write("【安全违规统计】\n")
-        f.write(f"  预测碰撞率:     {results['collision_rate']:.2f} %\n")
-        f.write(f"  预测越界率:     {results['out_of_lane_rate']:.2f} %\n\n")
+        f.write(f"  Expert 背景近距/重叠率: {results['expert_collision_rate']:.2f} %\n")
+        f.write(f"  Agent 新增碰撞风险率:   {results['collision_rate']:.2f} %\n")
+        f.write(f"  Expert 越界率:          {results['expert_out_of_lane_rate']:.2f} %\n")
+        f.write(f"  Agent 预测越界率:       {results['out_of_lane_rate']:.2f} %\n\n")
 
     log.info(f"报告已保存: {RESULT_FILE}")
 
@@ -1038,7 +1592,47 @@ def plot_results(results):
 # ║                          主函数                                 ║
 # ╚══════════════════════════════════════════════════════════════════╝
 
+def parse_args():
+    parser = argparse.ArgumentParser(description="NGSIM Transformer 开环评估")
+    parser.add_argument(
+        "--max-samples",
+        type=int,
+        default=None,
+        help="覆盖 MAX_EVAL_SAMPLES；小样本诊断建议 50 或 100",
+    )
+    parser.add_argument(
+        "--quick",
+        action="store_true",
+        help="快速诊断模式，等价于 --max-samples 100",
+    )
+    parser.add_argument(
+        "--scene-id",
+        type=str,
+        default=None,
+        help="固定使用某个 Scene_ID；不传则自动选择目标车道样本最多的场景",
+    )
+    parser.add_argument(
+        "--max-data-rows",
+        type=int,
+        default=None,
+        help="覆盖 CSV 读取后最多保留的数据行数；低内存环境建议 100000~800000",
+    )
+    return parser.parse_args()
+
+
 def main():
+    global MAX_EVAL_SAMPLES, PRIMARY_SCENE_ID, MAX_DATA_ROWS
+    args = parse_args()
+    if args.quick:
+        MAX_EVAL_SAMPLES = 100
+        MAX_DATA_ROWS = 100_000
+    if args.max_samples is not None:
+        MAX_EVAL_SAMPLES = args.max_samples
+    if args.scene_id is not None:
+        PRIMARY_SCENE_ID = args.scene_id
+    if args.max_data_rows is not None:
+        MAX_DATA_ROWS = args.max_data_rows
+
     log.info("=" * 70)
     log.info("   NGSIM 公开数据集 Transformer BC 模型 开环测试")
     log.info("=" * 70)
@@ -1048,6 +1642,8 @@ def main():
     log.info(f"NGSIM 数据: {NGSIM_CSV_PATH}")
     log.info(f"目标车道: {TARGET_LANES}")
     log.info(f"最大评估样本: {MAX_EVAL_SAMPLES}")
+    log.info(f"最大加载行数: {MAX_DATA_ROWS}")
+    log.info(f"场景选择: {'自动选择' if PRIMARY_SCENE_ID is None else PRIMARY_SCENE_ID}")
     log.info("")
 
     # ---- 1. 加载模型 ----
@@ -1109,6 +1705,9 @@ def main():
     log.info(f"  RMSE 转向角:        {results['RMSE_steer']:.6f} rad")
     log.info(f"  RMSE 横向位置:      {results['RMSE_lat']:.4f} m")
     log.info(f"  RMSE 纵向位置:      {results['RMSE_lon']:.4f} m")
+    log.info(f"  常速基线ADE:        {results['const_velocity_ADE']:.4f} m")
+    log.info(f"  真实单步位移均值:   {results['mean_gt_step_dist']:.4f} m")
+    log.info(f"  平均同帧车辆数:     {results['avg_same_frame_count']:.2f}")
     log.info(f"  平均推理耗时:       {results['avg_inference_ms']:.3f} ms")
     log.info(f"  P95 推理耗时:       {results['p95_inference_ms']:.3f} ms")
 
